@@ -7,6 +7,12 @@ module.exports = function (sequelize, DataTypes) {
     lastName: { type: Sequelize.STRING, allowNull: false },
     email: { type: Sequelize.STRING, allowNull: false },
     password: { type: Sequelize.STRING, allowNull: false },
+    createdAt: {
+      type: Sequelize.STRING,
+      defaultValue: '0'
+    }
+  }, {
+    timestamps: false
 
   });
 

@@ -2,113 +2,104 @@ const models = require("../models");
 
 module.exports = {
   //BASE ROUTES
-  users: function (req, res) {
-    models.User.findAll({}).then(function (results) {
+  users: function(req, res) {
+    models.User.findAll({}).then(function(results) {
       res.json(results);
-    })
+    });
   },
-  deals: function (req, res) {
-    models.Deal.findAll({}).then(function (results) {
+  deals: function(req, res) {
+    models.Deal.findAll({}).then(function(results) {
       res.json(results);
-    })
+    });
   },
-  contacts: function (req, res) {
-    models.Contact.findAll({}).then(function (results) {
+  contacts: function(req, res) {
+    models.Contact.findAll({}).then(function(results) {
       res.json(results);
-    })
+    });
   },
-  companies: function (req, res) {
-    models.Company.findAll({}).then(function (results) {
+  companies: function(req, res) {
+    models.Company.findAll({}).then(function(results) {
       res.json(results);
-    })
+    });
   },
 
   //USER ROUTES
-  userDeals: function (req, res) {
+  userDeals: function(req, res) {
     models.User.findOne({
       where: {
         id: req.params.id
-      }, include: [models.Deal]
-    }).then(function (results) {
+      },
+      include: [models.Deal]
+    }).then(function(results) {
       res.json(results);
-    })
+    });
   },
-  userContacts: function (req, res) {
+  userContacts: function(req, res) {
     models.User.findOne({
       where: {
         id: req.params.id
-      }, include: [models.Contact]
-    }).then(function (results) {
+      },
+      include: [models.Contact]
+    }).then(function(results) {
       res.json(results);
-    })
+    });
   },
-  userCompanies: function (req, res) {
+  userCompanies: function(req, res) {
     models.Contact.findOne({
       where: {
         UserId: req.params.id
-      }, include: [models.Company]
-    }).then(function (results) {
+      },
+      include: [models.Company]
+    }).then(function(results) {
       res.json(results);
-    })
+    });
   },
 
   //DEAL ROUTES
-  dealContacts: function (req, res) {
+  dealContacts: function(req, res) {
     models.Deal.findOne({
       where: {
         id: req.params.id
-      }, include: [models.Contact]
-    }).then(function (results) {
-      res.json(results)
-    })
+      },
+      include: [models.Contact]
+    }).then(function(results) {
+      res.json(results);
+    });
   },
 
   //CONTACT ROUTES
-  contactsDeals: function (req, res) {
+  contactsDeals: function(req, res) {
     models.Contact.findOne({
       where: {
         id: req.params.id
-      }, include: [models.Deal]
-    }).then(function (results) {
-      res.json(results)
-    })
+      },
+      include: [models.Deal]
+    }).then(function(results) {
+      res.json(results);
+    });
   },
 
   //COMPANY ROUTES
-  companyContacts: function (req, res) {
+  companyContacts: function(req, res) {
     models.Company.findOne({
       where: {
         id: req.params.id
-      }, include: [models.Contact]
-    }).then(function (results) {
-      res.json(results)
-    })
+      },
+      include: [models.Contact]
+    }).then(function(results) {
+      res.json(results);
+    });
   },
-  companyDeals: function (req, res) {
-    var rez
-    models.Company.findOne({
-      where: {
-        id: req.params.id
-      }, include: [models.Contact]
-    }).then(function (company) {
-      return models.Contact.findAll({
-        where: {
-          CompanyId: company.dataValues.id
-        }, include: [models.Deal, models.Company]
-      })
-    }).then(function (results) {
-      if (results == null) {
-        res.json({ "error": "no rez" })
-      }
-      var rez = {}
-      rez.Company = results[0].Company
-      rez.Deals = []
-      results.forEach(element => {
-        element.Deals.forEach(deal => {
-          rez.Deals.push(deal)
-        })
+  companyDeals: function(req, res) {
+    models.Contact.findAll({
+      where: { CompanyId: req.params.id },
+      include: [models.Deal]
+    }).then(function(contacts) {
+      var deals = [];
+      contacts.forEach(function(contact) {
+        deals.push(contact.Deals);
       });
-      res.json(rez)
-    })
+      res.json(contacts);
+    });
   }
-}
+};

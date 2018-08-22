@@ -12,6 +12,12 @@ module.exports = function (sequelize, DataTypes) {
     Zip: { type: Sequelize.TEXT, allowNull: true },
     Phone: { type: Sequelize.TEXT, allowNull: true },
     fax: { type: Sequelize.TEXT, allowNull: true },
+    createdAt: {
+      type: Sequelize.STRING,
+      defaultValue: '0'
+    }
+  }, {
+    timestamps: false
 
   });
 
