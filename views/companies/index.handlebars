@@ -7,11 +7,11 @@
         <th scope="col">Phone</th>
         <th scope="col">Email</th>
     </tr>
-    {{#each contacts}}
+    {{#each companies}}
     <tr>
-        <td scope="row"><a href="/contacts/{{id}}"> {{firstName}} {{lastName}}</a></td>
+        <td scope="row"><a href="/companies/{{id}}"> {{name}}</a></td>
         <td>{{phone}}</td>
-        <td> {{email}}</td>
+        <td> </td>
     </tr>
     {{/each}}
 </table>

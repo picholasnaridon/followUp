@@ -1,5 +1,17 @@
-<ul class="people_list">
+<h1>Your Deals</h1>
+
+
+<table class="table">
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Status</th>
+        <th scope="col">Amount</th>
+    </tr>
     {{#each deals}}
-    <li><a href="/deals/{{this.id}}"> {{this.name}}</a></li>
+    <tr>
+        <td scope="row"><a href="/deals/{{id}}"> {{name}}</a></td>
+        <td>$ {{amount}}</td>
+        <td> {{status}}</td>
+    </tr>
     {{/each}}
-</ul>
+</table>

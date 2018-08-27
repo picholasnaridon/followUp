@@ -10,15 +10,17 @@ module.exports = function(app, passport) {
   //Users
   app.get("/user", isLoggedIn, userController.showUser);
   //Contacts
-  app.get("/contacts", isLoggedIn, contactController.showContacts);
-  app.get("/contacts/:id", isLoggedIn, contactController.showContact);
+  app.get("/contacts", isLoggedIn, contactController.index);
+  app.get("/contacts/:id", isLoggedIn, contactController.show);
   //Companies
+  app.get("/companies", isLoggedIn, companyController.index);
+  app.get("/companies/:id", isLoggedIn, companyController.show);
 
   //Deals
-  app.get("/deals", isLoggedIn, dealController.showDeals);
+  app.get("/deals", isLoggedIn, dealController.index);
   app.get("/deals/newdeal", isLoggedIn, dealController.newdeal);
-  app.get("/deals/:id", isLoggedIn, dealController.showDeal);
-  app.post("/deals/createDeal", isLoggedIn, dealController.createDeal);
+  app.get("/deals/:id", isLoggedIn, dealController.show);
+  app.post("/deals/createDeal", isLoggedIn, dealController.create);
   app.post("/deals/:id/addContact", isLoggedIn, dealController.addContact);
 
   function isLoggedIn(req, res, next) {

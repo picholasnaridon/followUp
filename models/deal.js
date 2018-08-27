@@ -23,6 +23,7 @@ module.exports = function(sequelize, DataTypes) {
     models.Deal.belongsToMany(models.Contact, {
       through: models.DealContact
     });
+    models.Deal.belongsTo(models.Company);
   };
 
   return Deal;

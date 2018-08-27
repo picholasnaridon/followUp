@@ -21,6 +21,7 @@ module.exports = function(sequelize, DataTypes) {
 
   Company.associate = function(models) {
     models.Company.hasMany(models.Contact);
+    models.Company.hasMany(models.Deal);
   };
 
   return Company;

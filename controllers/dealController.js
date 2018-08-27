@@ -2,103 +2,80 @@ const models = require("../models");
 
 module.exports = {
   // SHOW DEALS
-  showDeals: function(req, res) {
+  index: function(req, res) {
     models.Deal.findAll({
       where: {
-        id: req.user.id
-      }
+        UserId: req.user.id
+      },
+      include: [models.Contact, models.Company]
     }).then(function(results) {
+      console.log(results);
       res.render("deals/index", { deals: results });
     });
   },
-
-  // SHOW DEAL
-  showDeal: function(req, res) {
+  show: function(req, res) {
     models.Deal.findOne({
       where: {
         id: req.params.id
       },
-      include: [models.Contact]
+      include: [models.Contact, models.Company]
     }).then(function(results) {
       res.render("deals/show", { deal: results });
     });
   },
-
-  // ADD DEAL
   newdeal: function(req, res) {
     res.render("deals/create");
   },
-
-  // ADD CONTACT TO DEAL
   addContact: function(req, res) {
     models.Deal.findOne({
       where: {
         id: req.params.id
       }
-    })
-      .then(function(deal) {
-        return models.Contact.create({
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          UserId: 1
-        }).then(function(contact) {
-          return deal.addContacts([contact]);
-        });
+    }).then(function(deal) {
+      return models.Company.create({
+        name: req.body.company
       })
-      .then(function() {
-        res.redirect(`/deals/${req.params.id}`);
-      });
+        .then(function(company) {
+          return models.Contact.create({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            UserId: req.user.id,
+            CompanyId: company.id
+          }).then(function(contact) {
+            company.addDeals([deal]);
+            return deal.addContacts([contact]);
+          });
+        })
+        .then(function() {
+          res.redirect(`/deals/${req.params.id}`);
+        });
+    });
   },
-
-  // GET DEAL
-  deal: function(req, res) {
+  getOne: function(req, res) {
     models.Deal.findOne({
       where: {
         id: req.params.id
-      }
+      },
+      include: [models.Company, models.Contact]
     }).then(function(results) {
       res.json(results);
     });
   },
-
-  // GET DEALS
-  deals: function(req, res) {
-    models.Deal.findAll({}).then(function(results) {
-      res.json(results);
-    });
-  },
-
-  // CREATE DEAL
-  createDeal: function(req, res) {
-    models.Deal.create(
-      {
-        name: req.body.name,
-        UserId: 1,
-        contacts: [
-          { firstName: req.body.firstName, lastName: req.body.lastName }
-        ]
-      },
-      {
-        include: [
-          {
-            model: models.Contact,
-            association: models.ContactDeals
-          }
-        ]
+  getAll: function(req, res) {
+    models.Deal.findAll({ include: [models.Contact, models.Company] }).then(
+      function(results) {
+        res.json(results);
       }
     );
-    res.redirect("/deals");
   },
-
-  //GET DEAL CONTACTS
-  dealContacts: function(req, res) {
-    models.Deal.findOne({
-      where: {
-        id: req.params.id
-      },
-      include: [models.Contact]
-    }).then(function(results) {
-      res.json(results);
+  create: function(req, res) {
+    models.Deal.create({
+      name: req.body.name,
+      UserId: req.user.id,
+      amount: req.body.amount,
+      status: req.body.status
+    }).then(function(deal) {
+      res.redirect(`/deals/${deal.id}`);
     });
   }
 };

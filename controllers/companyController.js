@@ -1,46 +1,36 @@
 const models = require("../models");
 
 module.exports = {
-  // GET COMPANY
-  company: function(req, res) {
-    models.Company.findOne({
-      where: {
-        id: req.params.id
-      }
-    }).then(function(results) {
-      res.json(results);
-    });
-  },
-  // GET ALL COMPANIES
-  companies: function(req, res) {
+  index: function(req, res) {
     models.Company.findAll({}).then(function(results) {
-      res.json(results);
+      res.render("companies/index", { companies: results });
     });
   },
-
-  // GET COMPANY CONTACTS
-  companyContacts: function(req, res) {
+  show: function(req, res) {
     models.Company.findOne({
       where: {
         id: req.params.id
       },
-      include: [models.Contact]
+      include: [models.Contact, models.Deal]
+    }).then(function(results) {
+      res.render("companies/show", { company: results });
+    });
+  },
+  getOne: function(req, res) {
+    models.Company.findOne({
+      where: {
+        id: req.params.id
+      },
+      include: [models.Deal, models.Contact]
     }).then(function(results) {
       res.json(results);
     });
   },
-
-  // GET COMPANY DEALS
-  companyDeals: function(req, res) {
-    models.Contact.findAll({
-      where: { CompanyId: req.params.id },
-      include: [models.Deal]
-    }).then(function(contacts) {
-      var deals = [];
-      contacts.forEach(function(contact) {
-        deals.push(contact.Deals);
-      });
-      res.json(contacts);
+  getAll: function(req, res) {
+    models.Company.findAll({
+      include: [models.Deal, models.Contact]
+    }).then(function(results) {
+      res.json(results);
     });
   }
 };

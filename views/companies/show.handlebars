@@ -1,0 +1,13 @@
+<h1>{{company.name}}</h1>
+<h3>Contacts</h3>
+<ul class="people_list">
+    {{#each company.Contacts}}
+    <li><a href="/contacts/{{this.id}}">{{this.firstName}} {{this.lastName}}</a></li>
+    {{/each}}
+</ul>
+<h3>Deals</h3>
+<ul class="people_list">
+    {{#each company.Deals}}
+    <li><a href="/deals/{{this.id}}">{{this.name}}</a></li>
+    {{/each}}
+</ul>

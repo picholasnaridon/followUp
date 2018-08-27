@@ -11,16 +11,12 @@ module.exports = function(app, passport) {
   app.get("/api/users/:id/contacts", userController.userContacts);
   app.get("/api/users/:id/companies", userController.userCompanies);
   //Contacts
-  app.get("/api/contacts", contactController.contacts);
-  app.get("/api/contacts/:id", contactController.contact);
-  app.get("/api/contacts/:id/deals", contactController.contactsDeals);
-  //Companies
-  app.get("/api/companies", companyController.companies);
-  app.get("/api/companies/:id", companyController.company);
-  app.get("/api/companies/:id/contacts", companyController.companyContacts);
-  app.get("/api/companies/:id/deals", companyController.companyDeals);
+  app.get("/api/contacts", contactController.getAll);
+  app.get("/api/contacts/:id", contactController.getOne);
+  //CompaniesgetOne
+  app.get("/api/companies", companyController.getAll);
+  app.get("/api/companies/:id", companyController.getOne);
   //Deals
-  app.get("/api/deals", dealController.deals);
-  app.get("/api/deals/:id", dealController.deal);
-  app.get("/api/deals/:id/contacts", dealController.dealContacts);
+  app.get("/api/deals", dealController.getAll);
+  app.get("/api/deals/:id", dealController.getOne);
 };
