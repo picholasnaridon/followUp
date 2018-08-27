@@ -1,18 +1,44 @@
 var Sequelize = require("sequelize");
 
 module.exports = function(sequelize, DataTypes) {
-  var User = sequelize.define(
-    "User",
-    {
-      firstName: { type: Sequelize.STRING, allowNull: true },
-      lastName: { type: Sequelize.STRING, allowNull: true },
-      email: { type: Sequelize.STRING, allowNull: true },
-      password: { type: Sequelize.STRING, allowNull: true }
+  var User = sequelize.define("User", {
+    id: {
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER
     },
-    {
-      timestamps: false
+    firstname: {
+      type: Sequelize.STRING,
+      notEmpty: true
+    },
+    lastname: {
+      type: Sequelize.STRING,
+      notEmpty: true
+    },
+    username: {
+      type: Sequelize.TEXT
+    },
+    email: {
+      type: Sequelize.STRING,
+      validate: {
+        isEmail: true
+      }
+    },
+    phone: {
+      type: Sequelize.STRING
+    },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    lastLogin: {
+      type: Sequelize.DATE
+    },
+    status: {
+      type: Sequelize.ENUM("active", "inactive"),
+      defaultValue: "active"
     }
-  );
+  });
 
   User.associate = function(models) {
     models.User.hasMany(models.Deal);

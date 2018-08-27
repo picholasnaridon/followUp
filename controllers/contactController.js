@@ -3,18 +3,24 @@ const models = require("../models");
 module.exports = {
   // SHOW CONTACTS
   showContacts: function(req, res) {
-    models.Contact.findAll({}).then(function(results) {
-      res.render("contacts", { contacts: results });
+    models.Contact.findAll({
+      where: {
+        id: req.user.id
+      }
+    }).then(function(results) {
+      res.render("contacts/index", { contacts: results });
     });
   },
 
   // SHOW CONTACT
   showContact: function(req, res) {
+    console.log(req.user);
+
     models.Contact.findOne({
       where: { id: req.params.id },
       include: [models.Deal]
     }).then(function(results) {
-      res.render("contact", { contact: results, deals: results.Deals });
+      res.render("contacts/show", { contact: results });
     });
   },
 

@@ -3,8 +3,12 @@ const models = require("../models");
 module.exports = {
   // SHOW DEALS
   showDeals: function(req, res) {
-    models.Deal.findAll({}).then(function(results) {
-      res.render("deals", { deals: results });
+    models.Deal.findAll({
+      where: {
+        id: req.user.id
+      }
+    }).then(function(results) {
+      res.render("deals/index", { deals: results });
     });
   },
 
@@ -16,13 +20,13 @@ module.exports = {
       },
       include: [models.Contact]
     }).then(function(results) {
-      res.render("deal", { deal: results });
+      res.render("deals/show", { deal: results });
     });
   },
 
   // ADD DEAL
-  addDeal: function(req, res) {
-    res.render("addDeal");
+  newdeal: function(req, res) {
+    res.render("deals/create");
   },
 
   // ADD CONTACT TO DEAL

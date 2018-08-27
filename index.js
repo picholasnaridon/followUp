@@ -4,6 +4,8 @@ var db = require("./models");
 var path = require("path");
 var sequelize = require("sequelize");
 var exphbs = require("express-handlebars");
+var passport = require("passport");
+var session = require("express-session");
 
 var app = express();
 var PORT = process.env.PORT || 8080;
@@ -20,8 +22,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(express.static("public"));
 
-require("./routes/api-routes")(app);
-require("./routes/html-routes")(app);
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: true,
+    saveUninitialized: true
+  })
+); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+require("./config/passport/passport.js")(passport, db.User);
+
+require("./routes/api-routes")(app, passport);
+require("./routes/html-routes")(app, passport);
+require("./routes/auth-routes.js")(app, passport);
 
 app.set("view engine", "handlebars");
 app.set("views", "./views");

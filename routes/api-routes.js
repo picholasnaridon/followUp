@@ -3,7 +3,7 @@ var companyController = require("../controllers/companyController");
 var contactController = require("../controllers/contactController");
 var userController = require("../controllers/userController");
 
-module.exports = function(app) {
+module.exports = function(app, passport) {
   //Users
   app.get("/api/users", userController.users);
   app.get("/api/users/:id", userController.user);

@@ -4,9 +4,7 @@ module.exports = {
   // INDEX
   indexPage: function(req, res) {
     res.render("index", {
-      user: {
-        id: 1
-      }
+      user: {}
     });
   }
 };

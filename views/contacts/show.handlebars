@@ -10,7 +10,7 @@
 <h2>Deals</h2>
 
 <ul class="people_list">
-    {{#each deals}}
+    {{#each contact.Deals}}
     <li><a href="/deals/{{this.id}}"> {{this.name}} - ${{this.amount}}</a></li>
     {{/each}}
 </ul>
