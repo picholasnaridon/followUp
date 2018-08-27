@@ -5,7 +5,7 @@ module.exports = {
   index: function(req, res) {
     models.Contact.findAll({
       where: {
-        id: req.user.id
+        UserId: req.user.id
       }
     }).then(function(results) {
       res.render("contacts/index", { contacts: results });

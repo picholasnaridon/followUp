@@ -2,7 +2,9 @@ const models = require("../models");
 
 module.exports = {
   index: function(req, res) {
-    models.Company.findAll({}).then(function(results) {
+    models.Company.findAll({ where: { UserId: req.user.id } }).then(function(
+      results
+    ) {
       res.render("companies/index", { companies: results });
     });
   },

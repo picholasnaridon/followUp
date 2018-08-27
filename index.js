@@ -20,8 +20,6 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.use(express.static("public"));
-
 app.use(
   session({
     secret: "keyboard cat",

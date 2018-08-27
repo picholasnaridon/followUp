@@ -20,11 +20,23 @@ module.exports = {
       },
       include: [models.Contact, models.Company]
     }).then(function(results) {
+      var scripts = [{ script: "../public/js/deal.js" }];
+
       res.render("deals/show", { deal: results });
     });
   },
-  newdeal: function(req, res) {
+  new: function(req, res) {
     res.render("deals/create");
+  },
+  create: function(req, res) {
+    models.Deal.create({
+      name: req.body.name,
+      UserId: req.user.id,
+      amount: req.body.amount,
+      status: req.body.status
+    }).then(function(deal) {
+      res.redirect(`/deals/${deal.id}`);
+    });
   },
   addContact: function(req, res) {
     models.Deal.findOne({
@@ -33,7 +45,8 @@ module.exports = {
       }
     }).then(function(deal) {
       return models.Company.create({
-        name: req.body.company
+        name: req.body.company,
+        UserId: req.user.id
       })
         .then(function(company) {
           return models.Contact.create({
@@ -67,15 +80,5 @@ module.exports = {
         res.json(results);
       }
     );
-  },
-  create: function(req, res) {
-    models.Deal.create({
-      name: req.body.name,
-      UserId: req.user.id,
-      amount: req.body.amount,
-      status: req.body.status
-    }).then(function(deal) {
-      res.redirect(`/deals/${deal.id}`);
-    });
   }
 };

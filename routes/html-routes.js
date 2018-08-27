@@ -18,9 +18,9 @@ module.exports = function(app, passport) {
 
   //Deals
   app.get("/deals", isLoggedIn, dealController.index);
-  app.get("/deals/newdeal", isLoggedIn, dealController.newdeal);
+  app.get("/deals/new", isLoggedIn, dealController.new);
   app.get("/deals/:id", isLoggedIn, dealController.show);
-  app.post("/deals/createDeal", isLoggedIn, dealController.create);
+  app.post("/deals/create", isLoggedIn, dealController.create);
   app.post("/deals/:id/addContact", isLoggedIn, dealController.addContact);
 
   function isLoggedIn(req, res, next) {
