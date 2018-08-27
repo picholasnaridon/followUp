@@ -1,0 +1,16 @@
+<h1>{{contact.firstName}} {{contact.lastName}}</h1>
+
+<h4>address</h4>
+
+<h4>phone</h4>
+
+<h4>email</h4>
+
+
+<h2>Deals</h2>
+
+<ul class="people_list">
+    {{#each deals}}
+    <li><a href="/deals/{{this.id}}"> {{this.name}} - ${{this.amount}}</a></li>
+    {{/each}}
+</ul>

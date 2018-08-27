@@ -1,0 +1,15 @@
+<h1>{{deal.name}}</h1>
+
+<ul class="people_list">
+    {{#each deal.Contacts}}
+    <li><a href="/contacts/{{this.id}}"> {{this.firstName}}</a></li>
+    {{/each}}
+</ul>
+<h4>add Contacts</h4>
+
+<form action="/deals/{{deal.id}}/addContact" method="POST">
+    <input type="text" name="firstName" id="firstName" placeholder="first name"><br>
+    <input type="text" name="lastName" id="lastName" placeholder="last name"><br> {{!-- <input type="text" name="company"
+        id="company" placeholder="company"><br> --}}
+    <input type="submit">
+</form>

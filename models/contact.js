@@ -1,28 +1,26 @@
-var Sequelize = require('sequelize')
+var Sequelize = require("sequelize");
 
-
-module.exports = function (sequelize, DataTypes) {
-  var Contact = sequelize.define("Contact", {
-    firstName: { type: Sequelize.TEXT, allowNull: false },
-    lastName: { type: Sequelize.TEXT, allowNull: true },
-    email: { type: Sequelize.TEXT, allowNull: true },
-    address1: { type: Sequelize.TEXT, allowNull: true },
-    address2: { type: Sequelize.TEXT, allowNull: true },
-    City: { type: Sequelize.TEXT, allowNull: true },
-    State: { type: Sequelize.TEXT, allowNull: true },
-    Zip: { type: Sequelize.TEXT, allowNull: true },
-    Phone: { type: Sequelize.TEXT, allowNull: true },
-    Mobile: { type: Sequelize.TEXT, allowNull: true },
-    createdAt: {
-      type: Sequelize.STRING,
-      defaultValue: '0'
+module.exports = function(sequelize, DataTypes) {
+  var Contact = sequelize.define(
+    "Contact",
+    {
+      firstName: { type: Sequelize.TEXT, allowNull: true },
+      lastName: { type: Sequelize.TEXT, allowNull: true },
+      email: { type: Sequelize.TEXT, allowNull: true },
+      address1: { type: Sequelize.TEXT, allowNull: true },
+      address2: { type: Sequelize.TEXT, allowNull: true },
+      City: { type: Sequelize.TEXT, allowNull: true },
+      State: { type: Sequelize.TEXT, allowNull: true },
+      Zip: { type: Sequelize.TEXT, allowNull: true },
+      Phone: { type: Sequelize.TEXT, allowNull: true },
+      Mobile: { type: Sequelize.TEXT, allowNull: true }
+    },
+    {
+      timestamps: false
     }
-  }, {
-    timestamps: false
+  );
 
-  });
-
-  Contact.associate = function (models) {
+  Contact.associate = function(models) {
     models.Contact.belongsTo(models.User, {
       onDelete: "CASCADE",
       foreignKey: {
@@ -35,12 +33,10 @@ module.exports = function (sequelize, DataTypes) {
         allowNull: false
       }
     });
-    models.Contact.belongsToMany(models.Deal, { through: models.ContactDeal });
+    models.Contact.belongsToMany(models.Deal, {
+      through: models.DealContact
+    });
   };
-
 
   return Contact;
 };
-
-
-

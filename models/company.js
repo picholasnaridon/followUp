@@ -1,32 +1,27 @@
-var Sequelize = require('sequelize')
+var Sequelize = require("sequelize");
 
-
-module.exports = function (sequelize, DataTypes) {
-  var Company = sequelize.define("Company", {
-    name: { type: Sequelize.TEXT, allowNull: false },
-    email: { type: Sequelize.TEXT, allowNull: true },
-    address1: { type: Sequelize.TEXT, allowNull: true },
-    address2: { type: Sequelize.TEXT, allowNull: true },
-    City: { type: Sequelize.TEXT, allowNull: true },
-    State: { type: Sequelize.TEXT, allowNull: true },
-    Zip: { type: Sequelize.TEXT, allowNull: true },
-    Phone: { type: Sequelize.TEXT, allowNull: true },
-    fax: { type: Sequelize.TEXT, allowNull: true },
-    createdAt: {
-      type: Sequelize.STRING,
-      defaultValue: '0'
+module.exports = function(sequelize, DataTypes) {
+  var Company = sequelize.define(
+    "Company",
+    {
+      name: { type: Sequelize.TEXT, allowNull: false },
+      email: { type: Sequelize.TEXT, allowNull: true },
+      address1: { type: Sequelize.TEXT, allowNull: true },
+      address2: { type: Sequelize.TEXT, allowNull: true },
+      City: { type: Sequelize.TEXT, allowNull: true },
+      State: { type: Sequelize.TEXT, allowNull: true },
+      Zip: { type: Sequelize.TEXT, allowNull: true },
+      Phone: { type: Sequelize.TEXT, allowNull: true },
+      fax: { type: Sequelize.TEXT, allowNull: true }
+    },
+    {
+      timestamps: false
     }
-  }, {
-    timestamps: false
+  );
 
-  });
-
-  Company.associate = function (models) {
+  Company.associate = function(models) {
     models.Company.hasMany(models.Contact);
   };
 
   return Company;
 };
-
-
-
