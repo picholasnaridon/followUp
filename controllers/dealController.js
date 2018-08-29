@@ -42,24 +42,33 @@ module.exports = {
         id: req.params.id
       }
     }).then(function(deal) {
-      return models.Company.create({
-        name: req.body.company,
-        UserId: req.user.id
-      })
-        .then(function(company) {
-          return models.Contact.create({
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            UserId: req.user.id,
-            CompanyId: company.id
-          }).then(function(contact) {
-            company.addDeals([deal]);
-            return deal.addContacts([contact]);
-          });
+      models.sequelize.transaction(function(t) {
+        return models.Company.findOrCreate({
+          where: {
+            name: req.body.company,
+            UserId: req.user.id
+          },
+          defaults: {
+            name: req.body.company,
+            UserId: req.user.id
+          }
         })
-        .then(function() {
-          res.redirect(`/deals/${req.params.id}`);
-        });
+          .spread(function(company, created) {
+            console.log(created);
+            return models.Contact.create({
+              firstName: req.body.firstName,
+              lastName: req.body.lastName,
+              UserId: req.user.id,
+              CompanyId: company.id
+            }).then(function(contact) {
+              company.addDeals([deal]);
+              return deal.addContacts([contact]);
+            });
+          })
+          .then(function() {
+            res.redirect(`/deals/${req.params.id}`);
+          });
+      });
     });
   },
   getOne: function(req, res) {
