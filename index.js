@@ -2,23 +2,21 @@ var express = require("express");
 var bodyParser = require("body-parser");
 var db = require("./models");
 var path = require("path");
-var sequelize = require("sequelize");
 var exphbs = require("express-handlebars");
 var passport = require("passport");
 var session = require("express-session");
 
 var app = express();
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
-app.use(express.static("/public"));
-app.use(express.static(path.join(__dirname, "/public")));
 
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, "/public")));
+app.use("/scripts", express.static(__dirname + "/node_modules"));
 
 app.use(
   session({
@@ -29,6 +27,7 @@ app.use(
 ); // session secret
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+
 require("./config/passport/passport.js")(passport, db.User);
 
 require("./routes/api-routes")(app, passport);

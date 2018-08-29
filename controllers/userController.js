@@ -19,7 +19,6 @@ module.exports = {
       res.json(results);
     });
   },
-
   // GET USERS
   users: function(req, res) {
     models.User.findOne({
@@ -30,7 +29,6 @@ module.exports = {
       res.json(results);
     });
   },
-
   //GET USER DEALS
   userDeals: function(req, res) {
     models.User.findOne({
@@ -42,7 +40,6 @@ module.exports = {
       res.json(results);
     });
   },
-
   // GET USER CONTACTS
   userContacts: function(req, res) {
     models.User.findOne({
@@ -54,7 +51,6 @@ module.exports = {
       res.json(results);
     });
   },
-
   // GET USER COMPANIES
   userCompanies: function(req, res) {
     models.Contact.findOne({

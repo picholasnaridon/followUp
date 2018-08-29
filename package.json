@@ -12,6 +12,7 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
+    "chart.js": "^2.7.2",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
@@ -19,6 +20,7 @@
     "mysql2": "^1.6.1",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "requirejs": "^2.3.6",
     "sequelize": "^4.38.0"
   },
   "devDependencies": {

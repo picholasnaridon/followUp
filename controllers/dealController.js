@@ -20,8 +20,6 @@ module.exports = {
       },
       include: [models.Contact, models.Company]
     }).then(function(results) {
-      var scripts = [{ script: "../public/js/deal.js" }];
-
       res.render("deals/show", { deal: results });
     });
   },
