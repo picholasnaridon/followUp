@@ -1,40 +1,67 @@
 var authController = require("../controllers/authController");
 
-module.exports = function (app, passport) {
-  app.get("/api/signup", authController.signup);
+module.exports = function(app, passport) {
+    app.get("/api/signup", authController.signup);
 
-  app.get("/api/signin", authController.signin);
+    app.get("/api/signin", authController.signin);
 
-  app.post(
-    "/api/signup",
-    passport.authenticate("local-signup"),
-    (req, res) => {
-      console.log('logged in', req.user);
-      var userInfo = {
-        user: req.user
-      }
-      res.send(userInfo)
+    app.post('/api/signup', function(req, res) {
+        passport.authenticate('local-signup', function(err, user, info) {
+            if (err) {
+                res.status(500).send(JSON.stringify({
+                    'message': "Internal Server Error"
+                }));
+            }
+            if (!user) {
+                var data = {
+                    success: true,
+                    message: "That email is already in use!"
+                };
+                res.status(200).send(data);
+            }
+            if (user) {
+                var data = {
+                    success: true,
+                    message: "Thanks for registering!"
+                };
+                res.status(200).send(data);
+            }
+        })(req, res);
+    });
+
+    app.get("/dashboard", isLoggedIn, authController.dashboard);
+
+    app.get("/logout", authController.logout);
+
+    app.post('/api/signin', function(req, res) {
+        passport.authenticate('local-signin', function(err, user, info) {
+            if (err) {
+                res.status(500).send(JSON.stringify({
+                    'msg': "Internal Server Error"
+                }));
+            }
+            if (!user) {
+                var data = {
+                    success: true,
+                    message: "Invalid user or password!"
+                };
+                res.status(200).send(data);
+            }
+            if (user) {
+                var data = {
+                    success: true,
+                    message: "Welcome!"
+                }
+                res.status(200).send(data)
+            }
+        })(req, res);
+    });
+
+    function isLoggedIn(req, res, next) {
+        if (req.isAuthenticated()) {
+            return next();
+        }
+
+        res.redirect("/api/signin");
     }
-  );
-
-  app.get("/dashboard", isLoggedIn, authController.dashboard);
-
-  app.get("/logout", authController.logout);
-
-  app.post(
-    "/api/signin",
-    passport.authenticate("local-signin"),
-    (req, res) => {
-      console.log('logged in', req.user);
-      res.send(req.user)
-    }
-  );
-
-  function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-      return next();
-    }
-
-    res.redirect("/api/signin");
-  }
 };

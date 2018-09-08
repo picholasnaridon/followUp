@@ -61,7 +61,9 @@ module.exports = function (passport, user) {
           }
         });
       }
-    )
+    ), function () {
+      console.log("test")
+    }
   );
 
   //LOCAL SIGNIN

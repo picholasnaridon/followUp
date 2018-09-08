@@ -49,19 +49,19 @@ class Login extends Component {
       },
       credentials: 'include',
       body: JSON.stringify(payload)
-    }).then(res => {
-      console.log(res)
-      if (res.status == 200) {
-        this.setState({ isLoggedIn: true, error: '' })
-      } else {
-        this.setState({ error: "Invalid Username or Password" })
+    }).then((response) => {
+      if (response.ok) {
+        response.json().then(json => {
+          this.setState({ error: json.message });
+        });
       }
     })
-
   }
+
   render() {
     return (
       <div>
+        <h2>Login</h2>
         <div>{this.state.error}</div>
         <div>{this.greeting()}</div>
       </div>
