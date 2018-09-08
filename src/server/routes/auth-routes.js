@@ -31,7 +31,7 @@ module.exports = function(app, passport) {
 
     app.get("/dashboard", isLoggedIn, authController.dashboard);
 
-    app.get("/logout", authController.logout);
+    app.get("/api/logout", authController.logout);
 
     app.post('/api/signin', function(req, res) {
         passport.authenticate('local-signin', function(err, user, info) {

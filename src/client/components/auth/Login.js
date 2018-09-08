@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { Redirect } from 'react-router'
+import Main from "../main/Main"
 class Login extends Component {
   constructor(props) {
     super(props)
@@ -12,7 +13,7 @@ class Login extends Component {
     this.login = this.login.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
     this.handleEmailChange = this.handleEmailChange.bind(this)
-    this.greeting = this.greeting.bind(this)
+    // this.greeting = this.greeting.bind(this)
   }
   handleEmailChange(event) {
     this.setState({ email: event.target.value })
@@ -21,19 +22,7 @@ class Login extends Component {
     this.setState({ password: event.target.value })
   }
 
-  greeting() {
-    if (this.state.isLoggedIn) {
-      return (<div>Welcome</div>)
-    } else {
-      return (
-        <div>
-          <input type="text" className="email" value={this.state.email} onChange={this.handleEmailChange.bind(this)}></input>
-          <input type="password" className="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)}></input>
-          <button onClick={(event) => this.login(event)}>Submit</button>
-        </div>
-      )
-    }
-  }
+
 
   login(e) {
     e.preventDefault()
@@ -52,18 +41,28 @@ class Login extends Component {
     }).then((response) => {
       if (response.ok) {
         response.json().then(json => {
-          this.setState({ error: json.message });
+          this.setState({ loggedIn: true })
+          this.props.handleAuth(true);
         });
       }
     })
   }
 
   render() {
+    if (this.state.loggedIn) {
+      return (
+        <Redirect to="/" />
+      )
+    }
     return (
       <div>
         <h2>Login</h2>
         <div>{this.state.error}</div>
-        <div>{this.greeting()}</div>
+        <div>
+          <input type="text" className="email" value={this.state.email} onChange={this.handleEmailChange.bind(this)}></input>
+          <input type="password" className="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)}></input>
+          <button onClick={(event) => this.login(event)}>Submit</button>
+        </div>
       </div>
     );
   }

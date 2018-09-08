@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-
-class Login extends Component {
+import Redirect from 'react-router-dom'
+class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -16,7 +16,6 @@ class Login extends Component {
     this.handleEmailChange = this.handleEmailChange.bind(this)
     this.handleLastNameChange = this.handleLastNameChange.bind(this)
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this)
-    this.greeting = this.greeting.bind(this)
   }
 
   handleEmailChange(event) {
@@ -32,21 +31,6 @@ class Login extends Component {
     this.setState({ firstName: event.target.value })
   }
 
-  greeting() {
-    if (this.state.isLoggedIn) {
-      return (<div>Welcome</div>)
-    } else {
-      return (
-        <div>
-          <input type="text" placeholder="First Name" className="firstName" value={this.state.firstName} onChange={this.handleFirstNameChange.bind(this)}></input>
-          <input type="text" placeholder="Last Name" className="lastName" value={this.state.lastName} onChange={this.handleLastNameChange.bind(this)}></input>
-          <input type="text" placeholder="email" className="email" value={this.state.email} onChange={this.handleEmailChange.bind(this)}></input>
-          <input type="password" placeholder="password" className="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)}></input>
-          <button onClick={(event) => this.register(event)}>Submit</button>
-        </div>
-      )
-    }
-  }
 
   register(e) {
     e.preventDefault()
@@ -67,21 +51,32 @@ class Login extends Component {
     }).then((response) => {
       if (response.ok) {
         response.json().then(json => {
-          this.setState({ error: json.message });
+          this.setState({ loggedIn: true })
+          this.props.handleAuth(true);
         });
       }
     })
   }
 
   render() {
+    if (this.state.loggedIn) {
+      return (
+        <Redirect to="/" />
+      )
+    }
     return (
       <div>
-        <h2>Register</h2>
-        <div>{this.state.error}</div>
-        <div>{this.greeting()}</div>
+        <input type="text" placeholder="First Name" className="firstName" value={this.state.firstName} onChange={this.handleFirstNameChange.bind(this)}></input>
+        <input type="text" placeholder="Last Name" className="lastName" value={this.state.lastName} onChange={this.handleLastNameChange.bind(this)}></input>
+        <input type="text" placeholder="email" className="email" value={this.state.email} onChange={this.handleEmailChange.bind(this)}></input>
+        <input type="password" placeholder="password" className="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)}></input>
+        <button onClick={(event) => this.register(event)}>Submit</button>
       </div>
-    );
+    )
+
   }
 }
 
-export default Login;
+export default Register;
+
+
