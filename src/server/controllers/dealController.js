@@ -66,7 +66,7 @@ module.exports = {
             });
           })
           .then(function () {
-            res.redirect(`/deals/${req.params.id}`);
+            res.json(contact)
           });
       });
     });
