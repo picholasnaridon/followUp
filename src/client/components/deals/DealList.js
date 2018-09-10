@@ -38,7 +38,7 @@ class DealList extends React.Component {
         <h1>Deals</h1>
         <main>
           <Modal show={this.state.show} handleClose={this.hideModal} >
-            <AddDeal />
+            <AddDeal closeModal={this.hideModal} />
           </Modal>
           <button type='button' onClick={this.showModal}>+ Deal</button>
         </main>

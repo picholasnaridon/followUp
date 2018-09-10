@@ -29,8 +29,8 @@ class AddDeal extends Component {
     }).then((response) => {
       if (response.ok) {
         response.json().then(json => {
-          this.setState({ loggedIn: true })
-          this.props.handleAuth(true);
+          // REDIRECT HERE INSTEAD TO NEW DEAL
+          this.props.closeModal()
         });
       }
     })
