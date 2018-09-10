@@ -5,7 +5,23 @@ import {
   Link
 } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
+import ReactTable from 'react-table'
 
+const columns = [{
+  Header: 'Name',
+  accessor: 'name',
+  Cell: props => <span className=''>
+    <a href={"#/companies/" + props.original.id}>
+      {props.original.name}
+    </a>
+  </span>
+}, {
+  Header: 'Address',
+  accessor: 'address1',
+}, {
+  Header: 'Phone', // Required because our accessor is not a string
+  accessor: 'phone',
+}]
 class CompanyList extends React.Component {
   constructor(props) {
     super(props);
@@ -23,26 +39,7 @@ class CompanyList extends React.Component {
       <div>
         <h1>Companies</h1>
         <div>
-          <Table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>phone</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.companies.map(function (company) {
-                return (
-                  <tr key={company.id} >
-                    <td><Link to={`/companies/${company.id}`}>{company.name}</Link></td>
-                    <td>{company.address1}</td>
-                    <td>{company.phone}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </Table>
+          <ReactTable data={this.state.companies} columns={columns} />
         </div>
       </div>
     );

@@ -80,6 +80,7 @@ class MyFunnel extends Component {
             }} options={funnelOptions} />
           </Col>
           <Col md={6} >
+            <h1 style={{ textAlign: "center" }}>Close Ratio</h1>
             <Doughnut data={{
               datasets: [{
                 data: [this.state.stages["Closed Lost"], this.state.stages["Closed Won"]],

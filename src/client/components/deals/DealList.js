@@ -7,7 +7,56 @@ import {
   Link
 } from 'react-router-dom'
 import AddDeal from './AddDeal'
-import { Table } from 'react-bootstrap'
+import ReactTable from 'react-table'
+
+const stageMap = {
+  "Closed Lost": 0,
+  "Discovery": 16.6,
+  "Initial Meeting": 33.3,
+  "Proposal Sent": 49.8,
+  "Contract Signed": 66.4,
+  "Final Review": 83.1,
+  "Closed Won": 100
+}
+
+const columns = [{
+  Header: 'Name',
+  accessor: 'name',
+  Cell: props => <a href={"#/deals/" + props.original.id}>{props.value}</a> // String-based value accessors!,
+}, {
+  Header: 'stage',
+  accessor: 'status'
+
+}, {
+  Header: 'status',
+  accessor: 'status',
+  Cell: row => (
+    <div
+      style={{
+        width: '100%',
+        height: '100%',
+        backgroundColor: '#dadada',
+        borderRadius: '2px'
+      }}
+    >
+      <div
+        style={{
+          width: `${stageMap[row.value]}%`,
+          height: '100%',
+          backgroundColor:
+            stageMap[row.value]
+              > 66 ? '#85cc00' : stageMap[row.value]
+                > 33 ? '#ffbf00' : '#ff2e00',
+          borderRadius: '2px',
+          transition: 'all .2s ease-out'
+        }}
+      />
+    </div>
+  )
+}, {
+  Header: 'amount', // Required because our accessor is not a string
+  accessor: 'amount',
+}]
 
 class DealList extends React.Component {
   constructor(props) {
@@ -44,28 +93,7 @@ class DealList extends React.Component {
           <button type='button' onClick={this.showModal}>+ Deal</button>
         </main>
         <div>
-          <Table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Status</th>
-                <th>Stage</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.deals.map(function (deal) {
-                return (
-                  <tr key={deal.id} >
-                    <td><Link to={`/deals/${deal.id}`}>{deal.name}</Link></td>
-                    <td>{deal.amount}</td>
-                    <td>{deal.status}</td>
-                    <td>{deal.status}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </Table>
+          <ReactTable data={this.state.deals} columns={columns}></ReactTable>
         </div>
       </div>
     );

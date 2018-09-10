@@ -36,6 +36,11 @@ module.exports = {
       res.json(deal)
     });
   },
+  update: function (req, res) {
+    models.Deal.update({
+
+    })
+  },
   addContact: function (req, res) {
     models.Deal.findOne({
       where: {

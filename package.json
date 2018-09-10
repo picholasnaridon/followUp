@@ -29,6 +29,7 @@
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.3.1",
     "react-router-dom": "^4.3.1",
+    "react-table": "^6.8.6",
     "requirejs": "^2.3.6",
     "sequelize": "^4.38.0"
   },

@@ -6,6 +6,16 @@ import {
   Switch
 } from 'react-router-dom'
 import { Table } from 'react-bootstrap'
+import ReactTable from 'react-table'
+
+const columns = [{
+  Header: 'Full Name',
+  accessor: 'firstName',
+  Cell: props => <span className=''><a href={"#/contacts/" + props.original.id}>{props.original.firstName} {props.original.lastName}</a></span>
+}, {
+  Header: 'Phone', // Required because our accessor is not a string
+  accessor: 'phone',
+}]
 
 class ContactList extends React.Component {
   constructor(props) {
@@ -24,26 +34,7 @@ class ContactList extends React.Component {
       <div>
         <h1>Contacts</h1>
         <div>
-          <Table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.contacts.map(function (contact) {
-                return (
-                  <tr key={contact.id} >
-                    <td><Link to={`/contacts/${contact.id}`}>{contact.firstName} {contact.lastName}</Link></td>
-                    <td>{contact.email}</td>
-                    <td>{contact.phone}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </Table>
+          <ReactTable columns={columns} data={this.state.contacts}></ReactTable>
         </div>
       </div>
     );
