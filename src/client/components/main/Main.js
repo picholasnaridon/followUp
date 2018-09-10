@@ -75,11 +75,11 @@ class Main extends Component {
                 </Nav>
                 <Nav className="pull-right" pullRight>
                   <NavDropdown pullRight eventKey={3} title="Profile" id="basic-nav-dropdown">
-                    <MenuItem eventKey={3.1}><a href="#" onClick={this.logout}>Logout</a></MenuItem>
+                    <MenuItem eventKey={3.1}><div onClick={this.logout}>Logout</div></MenuItem>
                     <MenuItem eventKey={3.2}><Link to="/profile">Profile</Link></MenuItem>
                   </NavDropdown>
                 </Nav>
-              </Navbar>;
+              </Navbar>
               <Route exact path="/" render={() => <MyFunnel />} />
 
               <Route exact path="/companies" render={() => <CompanyList />} />
@@ -100,7 +100,7 @@ class Main extends Component {
           <Navbar>
             <Navbar.Header>
               <Navbar.Brand>
-                <a href="#home">React-Bootstrap</a>
+                <Link to="/">My Funnel</Link>
               </Navbar.Brand>
             </Navbar.Header>
             <Nav>
@@ -114,7 +114,7 @@ class Main extends Component {
                 <Link to="/register">Register</Link>
               </NavItem>
             </Nav>
-          </Navbar>;
+          </Navbar>
           <Route exact path="/" Component={Main} />
           <Route path="/login" render={() => <Login loggedIn={this.state.loggedIn} handleAuth={this.handleAuth} />} />
           <Route path="/register" render={() => <Register loggedIn={this.state.loggedIn} handleAuth={this.handleAuth} />} />

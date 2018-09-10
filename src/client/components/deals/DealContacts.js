@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Modal from '../shared/Modal'
+import { Table } from 'react-bootstrap'
 
 class DealContacts extends Component {
   constructor(props) {
@@ -46,7 +47,7 @@ class DealContacts extends Component {
     return (
       <div>
         <h4>Contacts</h4>
-        <table>
+        <Table>
           <tbody>
             {this.props.contacts.map(function (contact) {
               return (
@@ -56,7 +57,7 @@ class DealContacts extends Component {
               )
             })}
           </tbody>
-        </table>
+        </Table>
         <main>
           <h1>Add Contact</h1>
           <Modal show={this.state.show} handleClose={this.hideModal} >

@@ -7,6 +7,7 @@ import {
   Link
 } from 'react-router-dom'
 import AddDeal from './AddDeal'
+import { Table } from 'react-bootstrap'
 
 class DealList extends React.Component {
   constructor(props) {
@@ -43,12 +44,13 @@ class DealList extends React.Component {
           <button type='button' onClick={this.showModal}>+ Deal</button>
         </main>
         <div>
-          <table>
+          <Table>
             <thead>
               <tr>
                 <th>Name</th>
                 <th>Amount</th>
                 <th>Status</th>
+                <th>Stage</th>
               </tr>
             </thead>
             <tbody>
@@ -58,11 +60,12 @@ class DealList extends React.Component {
                     <td><Link to={`/deals/${deal.id}`}>{deal.name}</Link></td>
                     <td>{deal.amount}</td>
                     <td>{deal.status}</td>
+                    <td>{deal.status}</td>
                   </tr>
                 )
               })}
             </tbody>
-          </table>
+          </Table>
         </div>
       </div>
     );

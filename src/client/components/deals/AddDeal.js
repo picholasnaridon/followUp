@@ -37,8 +37,9 @@ class AddDeal extends Component {
     }).then((response) => {
       if (response.ok) {
         response.json().then(json => {
-          // REDIRECT HERE INSTEAD TO NEW DEAL
+          console.log(json)
           this.props.closeModal()
+          location.href = `#/deals/${json.id}`
         });
       }
     })

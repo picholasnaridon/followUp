@@ -4,6 +4,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+import { Table } from 'react-bootstrap'
 
 class CompanyList extends React.Component {
   constructor(props) {
@@ -22,7 +23,7 @@ class CompanyList extends React.Component {
       <div>
         <h1>Companies</h1>
         <div>
-          <table>
+          <Table>
             <thead>
               <tr>
                 <th>Name</th>
@@ -41,7 +42,7 @@ class CompanyList extends React.Component {
                 )
               })}
             </tbody>
-          </table>
+          </Table>
         </div>
       </div>
     );

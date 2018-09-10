@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Doughnut, Bar } from 'react-chartjs-2'
-
-const pendingData = {
-
-}
+import { Grid, Row, Col } from 'react-bootstrap'
+import RecentActivity from './RecentActivity'
 const funnelOptions = {
   onClick: function (event, bar) {
     console.log(bar[0]._model.label)
@@ -17,8 +15,6 @@ const funnelOptions = {
     }]
   }
 }
-
-
 
 class MyFunnel extends Component {
   constructor(props) {
@@ -53,47 +49,60 @@ class MyFunnel extends Component {
 
   render() {
     return (
-      <div>
-        <Bar data={{
-          datasets: [{
-            data: [
-              this.state.stages["Discovery"],
-              this.state.stages["Initial Meeting"],
-              this.state.stages["Proposal Sent"],
-              this.state.stages["Contract Signed"],
-              this.state.stages["Final Review"]
-            ],
-            backgroundColor: [
-              '#f4d83a',
-              '#1ee861',
-              "#1abfe0",
-              "#3b50ed",
-              '#dc34e5',
-            ],
-            label: "My Funnel"
-          }],
-          labels: [
-            "Discovery",
-            "Initial Meeting",
-            "Proposal Sent",
-            "Contract Signed",
-            "Final Review",
-          ]
-        }} options={funnelOptions} />
-        <Doughnut data={{
-          datasets: [{
-            data: [this.state.stages["Closed Lost"], this.state.stages["Closed Won"]],
-            backgroundColor: [
-              "#f4443a",
-              "#1be246"
-            ],
-          }],
-          labels: [
-            "Lost",
-            "Won"
-          ]
-        }} />
-      </div>
+      <Grid>
+        <Row>
+          <Col md={6}  >
+            <Bar height={500} width={700} data={{
+              datasets: [{
+                data: [
+                  this.state.stages["Discovery"],
+                  this.state.stages["Initial Meeting"],
+                  this.state.stages["Proposal Sent"],
+                  this.state.stages["Contract Signed"],
+                  this.state.stages["Final Review"]
+                ],
+                backgroundColor: [
+                  '#f4d83a',
+                  '#1ee861',
+                  "#1abfe0",
+                  "#3b50ed",
+                  '#dc34e5',
+                ],
+                label: "My Funnel"
+              }],
+              labels: [
+                "Discovery",
+                "Initial Meeting",
+                "Proposal Sent",
+                "Contract Signed",
+                "Final Review",
+              ]
+            }} options={funnelOptions} />
+          </Col>
+          <Col md={6} >
+            <Doughnut data={{
+              datasets: [{
+                data: [this.state.stages["Closed Lost"], this.state.stages["Closed Won"]],
+                backgroundColor: [
+                  "#f4443a",
+                  "#1be246"
+                ],
+              }],
+              labels: [
+                "Lost",
+                "Won"
+              ]
+            }}
+            />
+            <h1 style={{ textAlign: "center" }}>{(this.state.stages["Closed Won"] / this.state.stages["Closed Lost"]) * 100}%</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6} mdPush={4} >
+            <RecentActivity />
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }

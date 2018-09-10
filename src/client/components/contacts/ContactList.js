@@ -5,6 +5,7 @@ import {
   Link,
   Switch
 } from 'react-router-dom'
+import { Table } from 'react-bootstrap'
 
 class ContactList extends React.Component {
   constructor(props) {
@@ -23,7 +24,7 @@ class ContactList extends React.Component {
       <div>
         <h1>Contacts</h1>
         <div>
-          <table>
+          <Table>
             <thead>
               <tr>
                 <th>Name</th>
@@ -42,7 +43,7 @@ class ContactList extends React.Component {
                 )
               })}
             </tbody>
-          </table>
+          </Table>
         </div>
       </div>
     );
