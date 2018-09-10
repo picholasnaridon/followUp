@@ -25,6 +25,7 @@
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
     "react": "^16.3.1",
+    "react-bootstrap": "^0.32.4",
     "react-chartjs-2": "^2.7.4",
     "react-dom": "^16.3.1",
     "react-router-dom": "^4.3.1",

@@ -13,6 +13,7 @@ import Contact from '../contacts/Contact'
 import Deal from '../deals/Deal'
 import Company from '../companies/Company'
 import MyFunnel from './MyFunnel';
+import { Navbar, NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap'
 
 class Main extends Component {
   constructor(props) {
@@ -53,15 +54,32 @@ class Main extends Component {
         <div>
           <Router>
             <div>
-              <ul>
-                <li><Link to="/">Home</Link></li>
-                <li><a href="#" onClick={this.logout}>Logout</a></li>
-                <li><Link to="/profile">Profile</Link></li>
-                <li><Link to="/companies">Companies</Link></li>
-                <li><Link to="/deals">Deals</Link></li>
-                <li><Link to="/contacts">Contacts</Link></li>
-              </ul>
-
+              <Navbar>
+                <Navbar.Header>
+                  <Navbar.Brand>
+                    <Link to="/">My Funnel</Link>
+                  </Navbar.Brand>
+                </Navbar.Header>
+                <Nav>
+                  <NavItem eventKey={1} href="#">
+                  </NavItem>
+                  <NavItem>
+                    <Link to="/companies">Companies</Link>
+                  </NavItem>
+                  <NavItem>
+                    <Link to="/deals">Deals</Link>
+                  </NavItem>
+                  <NavItem>
+                    <Link to="/contacts">Contacts</Link>
+                  </NavItem>
+                </Nav>
+                <Nav className="pull-right" pullRight>
+                  <NavDropdown pullRight eventKey={3} title="Profile" id="basic-nav-dropdown">
+                    <MenuItem eventKey={3.1}><a href="#" onClick={this.logout}>Logout</a></MenuItem>
+                    <MenuItem eventKey={3.2}><Link to="/profile">Profile</Link></MenuItem>
+                  </NavDropdown>
+                </Nav>
+              </Navbar>;
               <Route exact path="/" render={() => <MyFunnel />} />
 
               <Route exact path="/companies" render={() => <CompanyList />} />
@@ -75,17 +93,28 @@ class Main extends Component {
             </div>
           </Router>
         </div>
-
       )
     return (
       <Router>
         <div>
-          <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/login">Login</Link></li>
-            <li><Link to="/register">Register</Link></li>
-          </ul>
-          <hr />
+          <Navbar>
+            <Navbar.Header>
+              <Navbar.Brand>
+                <a href="#home">React-Bootstrap</a>
+              </Navbar.Brand>
+            </Navbar.Header>
+            <Nav>
+              <NavItem eventKey={1} href="#">
+                <Link to="/">Home</Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/login">Login</Link>
+              </NavItem>
+              <NavItem>
+                <Link to="/register">Register</Link>
+              </NavItem>
+            </Nav>
+          </Navbar>;
           <Route exact path="/" Component={Main} />
           <Route path="/login" render={() => <Login loggedIn={this.state.loggedIn} handleAuth={this.handleAuth} />} />
           <Route path="/register" render={() => <Register loggedIn={this.state.loggedIn} handleAuth={this.handleAuth} />} />
