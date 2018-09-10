@@ -61,7 +61,7 @@ class Main extends Component {
                 <li><Link to="/deals">Deals</Link></li>
                 <li><Link to="/contacts">Contacts</Link></li>
               </ul>
-              <hr />
+
               <Route exact path="/" render={() => <MyFunnel />} />
 
               <Route exact path="/companies" render={() => <CompanyList />} />
