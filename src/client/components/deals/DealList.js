@@ -7,6 +7,7 @@ import {
   Link
 } from 'react-router-dom'
 import AddDeal from './AddDeal'
+import { Row, Grid, Col, Button } from 'react-bootstrap'
 import ReactTable from 'react-table'
 
 const stageMap = {
@@ -44,7 +45,7 @@ const columns = [{
           width: `${stageMap[row.value]}%`,
           height: '100%',
           backgroundColor:
-            stageMap[row.value]
+            stageMap[row.value] > 90 ? '#00ff11' : stageMap[row.value]
               > 66 ? '#85cc00' : stageMap[row.value]
                 > 33 ? '#ffbf00' : '#ff2e00',
           borderRadius: '2px',
@@ -56,6 +57,21 @@ const columns = [{
 }, {
   Header: 'amount', // Required because our accessor is not a string
   accessor: 'amount',
+  Footer: (data) => {
+    var total = 0
+    console.log(data)
+    data.data.forEach(function (deal) {
+      total += deal.amount
+    })
+    return (
+      <span>
+        <strong>Total ($): </strong>
+        {total}
+      </span>
+    )
+  }
+
+
 }]
 
 class DealList extends React.Component {
@@ -84,18 +100,28 @@ class DealList extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Deals</h1>
-        <main>
-          <Modal show={this.state.show} handleClose={this.hideModal} >
-            <AddDeal closeModal={this.hideModal} />
-          </Modal>
-          <button type='button' onClick={this.showModal}>+ Deal</button>
-        </main>
-        <div>
-          <ReactTable data={this.state.deals} columns={columns}></ReactTable>
-        </div>
-      </div>
+      <Grid>
+        <Row>
+          <Col md={6}>
+            <h1>Deals</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <main style={{ marginBottom: "3%" }}>
+              <Modal show={this.state.show} handleClose={this.hideModal} >
+                <AddDeal closeModal={this.hideModal} />
+              </Modal>
+              <Button bsStyle="success" onClick={this.showModal}>+ Deal</Button>
+            </main>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <ReactTable pageSize={10} data={this.state.deals} columns={columns} />
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }

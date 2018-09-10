@@ -64,10 +64,10 @@ class Main extends Component {
                   <NavItem eventKey={1} href="#">
                   </NavItem>
                   <NavItem>
-                    <Link to="/companies">Companies</Link>
+                    <Link to="/deals">Deals</Link>
                   </NavItem>
                   <NavItem>
-                    <Link to="/deals">Deals</Link>
+                    <Link to="/companies">Companies</Link>
                   </NavItem>
                   <NavItem>
                     <Link to="/contacts">Contacts</Link>

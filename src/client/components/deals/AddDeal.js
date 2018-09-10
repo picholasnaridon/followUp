@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 
 class AddDeal extends Component {
   constructor(props) {
@@ -46,20 +47,29 @@ class AddDeal extends Component {
   }
   render() {
     return (
-      <div>
-        <form onSubmit={this.submit}>
-          <input type="text" name="name" className="form-control" ref="name" id="name" placeholder="name"></input>
-          <select value={this.state.selectStage} onChange={this.handleChange}>
+      <form onSubmit={this.submit} >
+        <FormGroup>
+          <ControlLabel>Deal Name</ControlLabel>
+          <FormControl type="text" ref="name" placeholder="Deal Name" ></FormControl>
+        </FormGroup>
+        <FormGroup controlId="formControlsSelect">
+          <ControlLabel>Stage</ControlLabel>
+          <FormControl value={this.state.selectStage} componentClass="select" onChange={this.handleChange}>
             <option value="Discovery">Discovery</option>
             <option value="Initial Meeting">Initial Meeting</option>
             <option value="Proposal Sent">Proposal Sent</option>
             <option value="Contract Signed">Contract Signed</option>
             <option value="Final Review">Final Review</option>
-          </select>
-          <input type="text" name="amount" className="form-control" ref="amount" id="amount" placeholder="$"></input>
-          <input type="submit" className="form-control btn-primary"></input>
-        </form>
-      </div>
+          </FormControl>
+        </FormGroup>
+        <FormGroup>
+          <ControlLabel>Amount</ControlLabel>
+          <FormControl type="text" name="amount" ref="amount" id="amount" placeholder="$"></FormControl>
+        </FormGroup>
+        <FormGroup>
+          <FormControl type="submit" className="form-control btn-primary"></FormControl>
+        </FormGroup>
+      </form>
     );
   }
 }

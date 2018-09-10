@@ -4,7 +4,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-import { Table } from 'react-bootstrap'
+import { Grid, Row, Col } from 'react-bootstrap'
 import ReactTable from 'react-table'
 
 const columns = [{
@@ -36,12 +36,18 @@ class CompanyList extends React.Component {
   }
   render() {
     return (
-      <div>
-        <h1>Companies</h1>
-        <div>
-          <ReactTable data={this.state.companies} columns={columns} />
-        </div>
-      </div>
+      <Grid>
+        <Row>
+          <Col md={6}>
+            <h1>Companies</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <ReactTable data={this.state.companies} columns={columns} />
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }
