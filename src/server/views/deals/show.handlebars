@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/css/bootstrap.min.css">
+
+    <title>FollowUp</title>
+</head>
+
+<body>
+
+    <h1>{{deal.name}}</h1>
+
+    <h3>Status: {{deal.status}}</h3>
+    <h3>amount: {{deal.amount}}</h3>
+
+    <h3>Contacts:</h3>
+    <ul class="people_list">
+        {{#each deal.Contacts}}
+        <li>
+            <a href="/contacts/{{this.id}}"> {{this.firstName}}</a>
+        </li>
+        {{/each}}
+    </ul>
+
+
+
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+        + Contact
+    </button>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Add Contact</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form action="/deals/{{deal.id}}/addContact" method="POST">
+                    <div class="modal-body">
+                        <input type="text" name="firstName" id="firstName" placeholder="First Name"><br>
+                        <input type="text" name="lastName" id="lastName" placeholder="Last Name"><br>
+                        <input type="text" name="company" id="company" placeholder="Company"><br>
+                        <input type="text" name="addressOne" id="addressOne" placeholder="Address 1"><br>
+                        <input type="text" name="addressTwo" id="addressTwo" placeholder="Address 2"><br>
+                        <input type="text" name="city" id="city" placeholder="City"><br>
+                        <input type="text" name="state" id="tate" placeholder="State"><br>
+                        <input type="text" name="zip" id="zip" placeholder="Zip"><br>
+                        <input type="tel" name="phone" id="phone" placeholder="Mobile"><br>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn-primary">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <a href="/deals" role="button" class="btn btn-primary">Deals</a>
+    <a href="/contacts" role="button" class="btn btn-primary"> Contacts</a>
+    <a href="/companies" role="button" class="btn btn-primary"> Companies</a>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.js"></script>
+</body>
+
+</html>
