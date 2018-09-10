@@ -2,88 +2,88 @@ const models = require("../models");
 
 module.exports = {
   // SHOW DEALS
-  index: function(req, res) {
+  index: function (req, res) {
     models.Deal.findAll({
       where: {
         UserId: req.user.id
       },
       include: [models.Contact, models.Company]
-    }).then(function(results) {
+    }).then(function (results) {
       console.log(results);
-      res.render("deals/index", { deals: results });
+      res.json(results)
     });
   },
-  show: function(req, res) {
+  show: function (req, res) {
     models.Deal.findOne({
       where: {
         id: req.params.id
       },
       include: [models.Contact, models.Company]
-    }).then(function(results) {
-      res.render("deals/show", { deal: results });
+    }).then(function (results) {
+      res.json(results)
     });
   },
-  new: function(req, res) {
-    res.render("deals/create");
+  new: function (req, res) {
+    res.json(results)
   },
-  create: function(req, res) {
+  create: function (req, res) {
     models.Deal.create({
       name: req.body.name,
-      UserId: req.user.id,
+      UserId: req.body.UserId,
       amount: req.body.amount,
       status: req.body.status
-    }).then(function(deal) {
-      res.redirect(`/deals/${deal.id}`);
+    }).then(function (deal) {
+      res.json(deal)
     });
   },
-  addContact: function(req, res) {
+  addContact: function (req, res) {
     models.Deal.findOne({
       where: {
         id: req.params.id
       }
-    }).then(function(deal) {
-      models.sequelize.transaction(function(t) {
+    }).then(function (deal) {
+      models.sequelize.transaction(function (t) {
         return models.Company.findOrCreate({
           where: {
             name: req.body.company,
-            UserId: req.user.id
+            UserId: req.body.userId
           },
           defaults: {
             name: req.body.company,
-            UserId: req.user.id
+            UserId: req.body.userId
           }
         })
-          .spread(function(company, created) {
+          .spread(function (company, created) {
             console.log(created);
             return models.Contact.create({
               firstName: req.body.firstName,
               lastName: req.body.lastName,
-              UserId: req.user.id,
+              UserId: req.body.userId,
               CompanyId: company.id
-            }).then(function(contact) {
+            }).then(function (contact) {
               company.addDeals([deal]);
               return deal.addContacts([contact]);
             });
           })
-          .then(function() {
+          .then(function () {
             res.redirect(`/deals/${req.params.id}`);
           });
       });
     });
   },
-  getOne: function(req, res) {
+  getOne: function (req, res) {
     models.Deal.findOne({
       where: {
         id: req.params.id
       },
       include: [models.Company, models.Contact]
-    }).then(function(results) {
+    }).then(function (results) {
       res.json(results);
     });
   },
-  getAll: function(req, res) {
+  getAll: function (req, res) {
     models.Deal.findAll({ include: [models.Contact, models.Company] }).then(
-      function(results) {
+      function (results) {
         res.json(results);
       }
     );

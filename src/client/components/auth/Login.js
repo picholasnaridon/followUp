@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router'
-import Main from "../main/Main"
+
 class Login extends Component {
   constructor(props) {
     super(props)
@@ -13,7 +13,6 @@ class Login extends Component {
     this.login = this.login.bind(this)
     this.handlePasswordChange = this.handlePasswordChange.bind(this)
     this.handleEmailChange = this.handleEmailChange.bind(this)
-    // this.greeting = this.greeting.bind(this)
   }
   handleEmailChange(event) {
     this.setState({ email: event.target.value })
@@ -21,8 +20,6 @@ class Login extends Component {
   handlePasswordChange(event) {
     this.setState({ password: event.target.value })
   }
-
-
 
   login(e) {
     e.preventDefault()
@@ -42,7 +39,7 @@ class Login extends Component {
       if (response.ok) {
         response.json().then(json => {
           this.setState({ loggedIn: true })
-          this.props.handleAuth(true);
+          this.props.handleAuth(true, json.user);
         });
       }
     })

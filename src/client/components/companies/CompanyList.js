@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import {
+  HashRouter as Router,
+  Route,
+  Link
+} from 'react-router-dom'
 
 class CompanyList extends React.Component {
   constructor(props) {
@@ -16,13 +21,28 @@ class CompanyList extends React.Component {
     return (
       <div>
         <h1>Companies</h1>
-        {this.state.companies.map(function (company) {
-          return (
-            <div key={company.id}>
-              <a href={`/companies/${company.id}`}>{company.name}</a>
-            </div>
-          )
-        })}
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>phone</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.companies.map(function (company) {
+                return (
+                  <tr key={company.id} >
+                    <td><Link to={`/companies/${company.id}`}>{company.name}</Link></td>
+                    <td>{company.address1}</td>
+                    <td>{company.phone}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }

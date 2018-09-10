@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Redirect from 'react-router-dom'
+import { Redirect } from 'react-router'
+
 class Register extends Component {
   constructor(props) {
     super(props)
@@ -52,7 +53,7 @@ class Register extends Component {
       if (response.ok) {
         response.json().then(json => {
           this.setState({ loggedIn: true })
-          this.props.handleAuth(true);
+          this.props.handleAuth(true, json.user);
         });
       }
     })

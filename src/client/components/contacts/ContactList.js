@@ -1,4 +1,10 @@
 import React, { Component } from 'react';
+import {
+  HashRouter as Router,
+  Route,
+  Link,
+  Switch
+} from 'react-router-dom'
 
 class ContactList extends React.Component {
   constructor(props) {
@@ -16,13 +22,28 @@ class ContactList extends React.Component {
     return (
       <div>
         <h1>Contacts</h1>
-        {this.state.contacts.map(function (contact) {
-          return (
-            <div key={contact.id}>
-              <a href={`/contacts/${contact.id}`}>{contact.firstName} {contact.lastName}</a>
-            </div>
-          )
-        })}
+        <div>
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.contacts.map(function (contact) {
+                return (
+                  <tr key={contact.id} >
+                    <td><Link to={`/contacts/${contact.id}`}>{contact.firstName} {contact.lastName}</Link></td>
+                    <td>{contact.email}</td>
+                    <td>{contact.phone}</td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
   }
