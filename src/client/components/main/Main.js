@@ -12,6 +12,7 @@ import ContactList from '../contacts/ContactList'
 import Contact from '../contacts/Contact'
 import Deal from '../deals/Deal'
 import Company from '../companies/Company'
+import MyFunnel from './MyFunnel';
 
 class Main extends Component {
   constructor(props) {
@@ -49,28 +50,32 @@ class Main extends Component {
   render() {
     if (this.state.loggedIn)
       return (
-        <Router>
-          <div>
-            <ul>
-              <li><Link to="/">Home</Link></li>
-              <li><a href="#" onClick={this.logout}>Logout</a></li>
-              <li><Link to="/profile">Profile</Link></li>
-              <li><Link to="/companies">Companies</Link></li>
-              <li><Link to="/deals">Deals</Link></li>
-              <li><Link to="/contacts">Contacts</Link></li>
-            </ul>
-            <hr />
-            <Route path="/companies" render={() => <CompanyList />} />
-            <Route path="/companies/:id" render={(props) => <Company {...props} />} />
+        <div>
+          <Router>
+            <div>
+              <ul>
+                <li><Link to="/">Home</Link></li>
+                <li><a href="#" onClick={this.logout}>Logout</a></li>
+                <li><Link to="/profile">Profile</Link></li>
+                <li><Link to="/companies">Companies</Link></li>
+                <li><Link to="/deals">Deals</Link></li>
+                <li><Link to="/contacts">Contacts</Link></li>
+              </ul>
+              <hr />
+              <Route exact path="/" render={() => <MyFunnel />} />
 
-            <Route path="/deals" render={() => <DealList />} />
-            <Route path="/deals/:id" render={(props) => <Deal {...props} />} />
+              <Route exact path="/companies" render={() => <CompanyList />} />
+              <Route exact path="/companies/:id" render={(props) => <Company {...props} />} />
 
-            <Route path="/contacts" render={() => <ContactList />} />
-            <Route path="/contacts/:id" render={(props) => <Contact {...props} />} />
-            <Route exact path="/" Component={Main} />
-          </div>
-        </Router>
+              <Route exact path="/deals" render={() => <DealList />} />
+              <Route exact path="/deals/:id" render={(props) => <Deal {...props} />} />
+
+              <Route exact path="/contacts" render={() => <ContactList />} />
+              <Route exact path="/contacts/:id" render={(props) => <Contact {...props} />} />
+            </div>
+          </Router>
+        </div>
+
       )
     return (
       <Router>
