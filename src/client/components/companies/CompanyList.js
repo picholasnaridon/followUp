@@ -7,21 +7,18 @@ import {
 import { Grid, Row, Col } from 'react-bootstrap'
 import ReactTable from 'react-table'
 
-const columns = [{
-  Header: 'Name',
-  accessor: 'name',
-  Cell: props => <span className=''>
-    <a href={"#/companies/" + props.original.id}>
-      {props.original.name}
-    </a>
-  </span>
-}, {
-  Header: 'Address',
-  accessor: 'address1',
-}, {
-  Header: 'Phone', // Required because our accessor is not a string
-  accessor: 'phone',
-}]
+const
+  columns = [
+    {
+      Header: 'Name',
+      accessor: 'name',
+      Cell: props => <span className=''>
+        <a href={"#/companies/" + props.original.id}>
+          {props.original.name}
+        </a>
+      </span>
+    }
+  ]
 class CompanyList extends React.Component {
   constructor(props) {
     super(props);
