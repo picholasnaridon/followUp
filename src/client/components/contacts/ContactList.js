@@ -43,7 +43,13 @@ class ContactList extends React.Component {
         </Row>
         <Row>
           <Col md={12}>
-            <ReactTable data={this.state.contacts} columns={columns} />
+            <ReactTable
+              data={this.state.contacts}
+              columns={columns}
+              filterable
+              defaultFilterMethod={(filter, row) =>
+                String(row[filter.id]) === filter.value}
+            />
           </Col>
         </Row>
       </Grid>

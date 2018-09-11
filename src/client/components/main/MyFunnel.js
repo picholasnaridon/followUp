@@ -9,9 +9,17 @@ const funnelOptions = {
     location.href = "/#/deals"
   },
   scales: {
+    xAxes: [{
+      gridLines: {
+        drawOnChartArea: false
+      }
+    }],
     yAxes: [{
       ticks: {
         beginAtZero: true
+      },
+      gridLines: {
+        drawOnChartArea: false,
       }
     }]
   }
@@ -91,7 +99,7 @@ class MyFunnel extends Component {
                 "Final Review",
               ]
             }} options={funnelOptions} />
-            <h1 style={{ textAlign: "center" }}>Total Sales Open ($): <span style={{ color: "#1ee861" }}>{this.getTotalSales()}</span></h1>
+            <h1 style={{ textAlign: "center" }}>Sales in Funnel ($): <span style={{ color: "#1ee861" }}>{this.getTotalSales()}</span></h1>
           </Col>
           <Col md={6} >
             <h1 style={{ textAlign: "center" }}>Close Ratio</h1>

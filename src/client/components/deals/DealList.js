@@ -25,8 +25,7 @@ const columns = [{
   Cell: props => <a href={"#/deals/" + props.original.id}>{props.value}</a> // String-based value accessors!,
 }, {
   Header: 'stage',
-  accessor: 'status'
-
+  accessor: 'status',
 }, {
   Header: 'status',
   accessor: 'status',
@@ -115,7 +114,14 @@ class DealList extends React.Component {
         </Row>
         <Row>
           <Col md={12}>
-            <ReactTable pageSize={10} data={this.state.deals} columns={columns} />
+            <ReactTable
+              filterable
+              defaultFilterMethod={(filter, row) =>
+                String(row[filter.id]) === filter.value}
+              pageSize={10}
+              data={this.state.deals}
+              columns={columns}
+            />
           </Col>
         </Row>
       </Grid>

@@ -44,7 +44,13 @@ class CompanyList extends React.Component {
         </Row>
         <Row>
           <Col md={12}>
-            <ReactTable data={this.state.companies} columns={columns} />
+            <ReactTable
+              data={this.state.companies}
+              columns={columns}
+              filterable
+              defaultFilterMethod={(filter, row) =>
+                String(row[filter.id]) === filter.value}
+            />
           </Col>
         </Row>
       </Grid>
