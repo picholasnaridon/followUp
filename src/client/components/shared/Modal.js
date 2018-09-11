@@ -7,17 +7,15 @@ const Modal = ({ handleClose, show, children }) => {
 
   return (
     <div className={showHideClassName}>
-
       <Grid className="modal-main">
-        <Row style={{ marginTop: "3%" }}>
-          <Col md={12}>
-            {children}
+        <Row style={{ marginTop: "2%", marginBottom: "1%" }}>
+          <Col lg={1} lgPush={11} md={1} mdPush={10} sm={1} smPush={9} xs={1} xsPush={8}>
+            <Button bsStyle="danger" onClick={handleClose} > Close</Button>
           </Col>
         </Row>
-        <br></br>
-        <Row style={{ marginBottom: "3%" }}>
-          <Col md={2} >
-            <Button bsStyle="danger" onClick={handleClose}> Close</Button>
+        <Row >
+          <Col md={12}>
+            {children}
           </Col>
         </Row>
       </Grid>

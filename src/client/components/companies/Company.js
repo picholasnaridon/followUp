@@ -20,7 +20,6 @@ class Company extends Component {
     })
   }
 
-
   render() {
     if (this.state.company) {
       return (

@@ -99,7 +99,7 @@ class MyFunnel extends Component {
                 "Final Review",
               ]
             }} options={funnelOptions} />
-            <h1 style={{ textAlign: "center" }}>Sales in Funnel ($): <span style={{ color: "#1ee861" }}>{this.getTotalSales()}</span></h1>
+            <h1 style={{ textAlign: "center" }}>Sales in Funnel: <span style={{ color: "#1ee861" }}>${(this.getTotalSales()).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</span></h1>
           </Col>
           <Col md={6} >
             <h1 style={{ textAlign: "center" }}>Close Ratio</h1>

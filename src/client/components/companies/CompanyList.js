@@ -17,6 +17,28 @@ const
           {props.original.name}
         </a>
       </span>
+    },
+    {
+      Header: 'Deal Count',
+      accessor: 'Deals',
+      Cell: function (props) {
+        var total = 0
+        props.original.Deals.forEach(function (deal) {
+          total += 1
+        })
+        return (<span>{total}</span>)
+      }
+    },
+    {
+      Header: 'Contact Count',
+      accessor: 'Contacts',
+      Cell: function (props) {
+        var total = 0
+        props.original.Contacts.forEach(function (deal) {
+          total += 1
+        })
+        return (<span>{total}</span>)
+      }
     }
   ]
 class CompanyList extends React.Component {

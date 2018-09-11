@@ -19,63 +19,14 @@ const stageMap = {
   "Closed Won": 100
 }
 
-const columns = [{
-  Header: 'Name',
-  accessor: 'name',
-  Cell: props => <a href={"#/deals/" + props.original.id}>{props.value}</a> // String-based value accessors!,
-}, {
-  Header: 'stage',
-  accessor: 'status',
-}, {
-  Header: 'status',
-  accessor: 'status',
-  Cell: row => (
-    <div
-      style={{
-        width: '100%',
-        height: '100%',
-        backgroundColor: '#dadada',
-        borderRadius: '2px'
-      }}
-    >
-      <div
-        style={{
-          width: `${stageMap[row.value]}%`,
-          height: '100%',
-          backgroundColor:
-            stageMap[row.value] > 90 ? '#00ff11' : stageMap[row.value]
-              > 66 ? '#85cc00' : stageMap[row.value]
-                > 33 ? '#ffbf00' : '#ff2e00',
-          borderRadius: '2px',
-          transition: 'all .2s ease-out'
-        }}
-      />
-    </div>
-  )
-}, {
-  Header: 'amount', // Required because our accessor is not a string
-  accessor: 'amount',
-  Footer: (data) => {
-    var total = 0
-    console.log(data)
-    data.data.forEach(function (deal) {
-      total += deal.amount
-    })
-    return (
-      <span>
-        <strong>Total ($): </strong>
-        {total}
-      </span>
-    )
-  }
-}]
 
 class DealList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       deals: [{ name: "Test", id: 1 }],
-      show: false
+      show: false,
+      filterValue: 'Discovery'
     }
     this.showModal = this.showModal.bind(this)
     this.hideModal = this.hideModal.bind(this)
@@ -117,10 +68,62 @@ class DealList extends React.Component {
             <ReactTable
               filterable
               defaultFilterMethod={(filter, row) =>
-                String(row[filter.id]) === filter.value}
+                String(row[filter.id]) === filter.value
+              }
+
               pageSize={10}
               data={this.state.deals}
-              columns={columns}
+              columns={[{
+                Header: 'Name',
+                accessor: 'name',
+                Cell: props => <a href={"#/deals/" + props.original.id}>{props.value}</a>,
+              }, {
+                Header: 'stage',
+                accessor: 'status',
+
+              }, {
+                Header: 'status',
+                accessor: 'status',
+                Cell: row => (
+                  <div
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      backgroundColor: '#dadada',
+                      borderRadius: '2px'
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: `${stageMap[row.value]}%`,
+                        height: '100%',
+                        backgroundColor:
+                          stageMap[row.value] > 90 ? '#00ff11' : stageMap[row.value]
+                            > 66 ? '#85cc00' : stageMap[row.value]
+                              > 33 ? '#ffbf00' : '#ff2e00',
+                        borderRadius: '2px',
+                        transition: 'all .2s ease-out'
+                      }}
+                    />
+                  </div>
+                )
+              }, {
+                Header: 'amount', // Required because our accessor is not a string
+                accessor: 'amount',
+                Footer: (data) => {
+                  var total = 0
+                  console.log(data)
+                  data.data.forEach(function (deal) {
+                    total += deal.amount
+                  })
+                  return (
+                    <span>
+                      <strong>Total: </strong>
+                      <span style={{ color: "#1ee861" }}>${(total).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</span>
+                    </span>
+                  )
+                }
+              }]}
             />
           </Col>
         </Row>

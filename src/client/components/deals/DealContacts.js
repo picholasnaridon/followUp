@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Modal from '../shared/Modal'
-import { Table } from 'react-bootstrap'
+import { Table, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
 
 class DealContacts extends Component {
   constructor(props) {
@@ -58,21 +58,59 @@ class DealContacts extends Component {
             })}
           </tbody>
         </Table>
-        <main>
-          <h1>Add Contact</h1>
-          <Modal show={this.state.show} handleClose={this.hideModal} >
-            <form onSubmit={this.addContact}>
-              <input type="text" name="firstName" className="form-control" ref="firstName" id="firstName" placeholder="First Name"></input>
-              <input type="text" name="lastName" className="form-control" ref="lastName" id="lastName" placeholder="Last Name"></input>
-              <input type="text" name="company" className="form-control" ref="company" id="company" placeholder="company"></input>
-              <input type="submit" className="form-control btn-primary"></input>
-            </form>
-          </Modal>
-          <button type='button' onClick={this.showModal}>Open</button>
-        </main>
+        <h1>Add Contact</h1>
+        <Modal show={this.state.show} handleClose={this.hideModal} style={{ margin: "3%" }}>
+          <form onSubmit={this.addContact} >
+            <FormGroup>
+              <ControlLabel>First Name</ControlLabel>
+              <FormControl type="text" ref="firstName" placeholder="First Name" ></FormControl>
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Last Name</ControlLabel>
+              <FormControl type="text" ref="lastName" placeholder="Last Name" ></FormControl>
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Email</ControlLabel>
+              <FormControl type="text" ref="email" placeholder="Email" ></FormControl>
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Addres 1</ControlLabel>
+              <FormControl type="text" ref="address1" placeholder="Address 1" ></FormControl>
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Addres 2</ControlLabel>
+              <FormControl type="text" ref="address2" placeholder="Address 2" ></FormControl>
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>City</ControlLabel>
+              <FormControl type="text" ref="city" placeholder="City" ></FormControl>
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>State</ControlLabel>
+              <FormControl type="text" ref="state" placeholder="State" ></FormControl>
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Zip</ControlLabel>
+              <FormControl type="text" ref="zip" placeholder="Zip" ></FormControl>
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Phone</ControlLabel>
+              <FormControl type="phone" ref="phone" placeholder="phone" ></FormControl>
+            </FormGroup>
+            <FormGroup>
+              <ControlLabel>Mobile</ControlLabel>
+              <FormControl type="text" ref="mobile" placeholder="Mobile" ></FormControl>
+            </FormGroup>
+            <FormGroup>
+              <FormControl type="submit" className="form-control btn-primary"></FormControl>
+            </FormGroup>
+          </form>
+        </Modal>
+        <button type='button' onClick={this.showModal}>Open</button>
       </div >
     );
   }
 }
 
 export default DealContacts;
+

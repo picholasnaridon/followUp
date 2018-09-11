@@ -8,56 +8,69 @@ import {
 import { Row, Grid, Col } from 'react-bootstrap'
 import ReactTable from 'react-table'
 
-const columns = [{
-  Header: 'Full Name',
-  id: 'fullName',
-  Cell: props => <span className=''>
-    <a href={"#/contacts/" + props.original.id}>
-      {props.original.firstName} {props.original.lastName}
-    </a>
-  </span>
-},
-{
-  Header: 'first Name',
-  accessor: 'firstName'
-},
-{
-  Header: 'Last Name',
-  accessor: 'lastName'
-},
-{
-  Header: 'Email',
-  accessor: 'email'
-},
-{
-  Header: 'Address1',
-  accessor: 'address1'
-},
-{
-  Header: 'Address 2',
-  accessor: 'address2'
-},
-{
-  Header: 'City',
-  accessor: 'City'
-},
-{
-  Header: 'State',
-  accessor: 'State'
-},
-{
-  Header: 'Zip',
-  accessor: 'Zip'
-},
-{
-  Header: 'Phone',
-  accessor: 'Phone'
-},
-{
-  Header: 'Mobile',
-  accessor: 'Mobile'
-}
-]
+const columns =
+  [
+    {
+      Header: 'Full Name',
+      id: 'fullName',
+      Cell: props => <span className=''>
+        <a href={"#/contacts/" + props.original.id}>
+          {props.original.firstName} {props.original.lastName}
+        </a>
+      </span>
+    },
+    {
+      Header: 'first Name',
+      accessor: 'firstName'
+    },
+    {
+      Header: 'Last Name',
+      accessor: 'lastName'
+    },
+    {
+      Header: 'Email',
+      accessor: 'email'
+    },
+    {
+      Header: 'Address1',
+      accessor: 'address1'
+    },
+    {
+      Header: 'Address 2',
+      accessor: 'address2'
+    },
+    {
+      Header: 'City',
+      accessor: 'City'
+    },
+    {
+      Header: 'State',
+      accessor: 'State'
+    },
+    {
+      Header: 'Zip',
+      accessor: 'Zip'
+    },
+    {
+      Header: 'Phone',
+      accessor: 'Phone'
+    },
+    {
+      Header: 'Mobile',
+      accessor: 'Mobile'
+    },
+    {
+      Header: 'Deal Count',
+      accessor: 'Deals',
+      Cell: function (props) {
+        var total = 0
+        props.original.Deals.forEach(function (deal) {
+          total += 1
+        })
+        return (<span>{total}</span>)
+      }
+    }
+  ]
 
 class ContactList extends React.Component {
   constructor(props) {
