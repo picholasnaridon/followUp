@@ -80,12 +80,31 @@ class DealList extends React.Component {
                 accessor: 'name',
                 Cell: props => <a href={"#/deals/" + props.original.id}>{props.value}</a>,
               }, {
-                Header: 'stage',
+                Header: 'Status',
                 accessor: 'status',
+                Cell: row => (
+                  <span>
+                    <span style={{
+                      color: row.value === 'In Danger' ? '#ff2e00'
+                        : row.value === 'Follow Up' ? '#ffbf00'
+                          : '#57d500',
+                      transition: 'all .3s ease'
+                    }}>
+                      &#x25cf;
+                    </span> {
+                      row.value === 'In Danger' ? 'Danger'
+                        : row.value === 'Follow Up' ? `Follow Up`
+                          : 'Good'
+                    }
+                  </span>
+                )
+              }, {
+                Header: 'Stage',
+                accessor: 'stage',
 
               }, {
-                Header: 'status',
-                accessor: 'status',
+                Header: 'Progress',
+                accessor: 'stage',
                 Cell: row => (
                   <div
                     style={{

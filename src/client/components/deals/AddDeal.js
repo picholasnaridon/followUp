@@ -6,28 +6,36 @@ class AddDeal extends Component {
     super(props)
     this.state = {
       user_id: JSON.parse(localStorage.getItem('user_id')),
-      selectStage: 'Discovery'
+      selectStage: 'Discovery',
+      selectStatus: 'Good'
     }
 
     this.submit = this.submit.bind(this)
-    this.handleChange = this.handleChange.bind(this)
+    this.handleStageChange = this.handleStageChange.bind(this)
+    this.hanldeStatusChange = this.handleStatusChange.bind(this)
 
   }
 
-  handleChange(e) {
+  handleStageChange(e) {
     console.log(e.target.value)
     this.setState({ selectStage: e.target.value });
+  }
+  handleStatusChange(e) {
+    console.log(e.target.value)
+    this.setState({ selectStatus: e.target.value });
 
   }
   submit(e) {
     e.preventDefault()
 
     var payload = {
-      name: this.refs.name.value,
-      amount: this.refs.amount.value,
-      status: this.state.selectStage,
+      name: this.inputName.value,
+      amount: this.inputAmount.value,
+      stage: this.state.selectStage,
+      status: this.state.selectStatus,
       UserId: this.state.user_id
     }
+    console.log(payload)
     fetch("/api/deals/create", {
       method: 'POST',
       headers: {
@@ -50,11 +58,12 @@ class AddDeal extends Component {
       <form onSubmit={this.submit} >
         <FormGroup>
           <ControlLabel>Deal Name</ControlLabel>
-          <FormControl type="text" ref="name" placeholder="Deal Name" ></FormControl>
+          <FormControl type="text" inputRef={(input) => this.inputName = input}
+            placeholder="Deal Name" ></FormControl>
         </FormGroup>
         <FormGroup controlId="formControlsSelect">
           <ControlLabel>Stage</ControlLabel>
-          <FormControl value={this.state.selectStage} componentClass="select" onChange={this.handleChange}>
+          <FormControl value={this.state.selectStage} componentClass="select" onChange={this.handleStageChange}>
             <option value="Discovery">Discovery</option>
             <option value="Initial Meeting">Initial Meeting</option>
             <option value="Proposal Sent">Proposal Sent</option>
@@ -62,9 +71,17 @@ class AddDeal extends Component {
             <option value="Final Review">Final Review</option>
           </FormControl>
         </FormGroup>
+        <FormGroup controlId="formControlsSelect">
+          <ControlLabel>Status</ControlLabel>
+          <FormControl value={this.state.selectStatus} componentClass="select" onChange={this.handleStatusChange}>
+            <option value="In Danger">In Danger</option>
+            <option value="Follow Up">Follow Up</option>
+            <option value="Good">Good</option>
+          </FormControl>
+        </FormGroup>
         <FormGroup>
           <ControlLabel>Amount</ControlLabel>
-          <FormControl type="text" name="amount" ref="amount" id="amount" placeholder="$"></FormControl>
+          <FormControl type="text" name="amount" inputRef={(input) => this.inputAmount = input} id="amount" placeholder="$"></FormControl>
         </FormGroup>
         <FormGroup>
           <FormControl type="submit" className="form-control btn-primary"></FormControl>

@@ -1,6 +1,6 @@
 var Sequelize = require("sequelize");
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Contact = sequelize.define(
     "Contact",
     {
@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   );
 
-  Contact.associate = function(models) {
+  Contact.associate = function (models) {
     models.Contact.belongsTo(models.User, {
       onDelete: "CASCADE",
       foreignKey: {
@@ -35,6 +35,9 @@ module.exports = function(sequelize, DataTypes) {
     });
     models.Contact.belongsToMany(models.Deal, {
       through: models.DealContact
+    });
+    models.Contact.belongsToMany(models.Comment, {
+      through: models.ContactComment
     });
   };
 

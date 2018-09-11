@@ -51,7 +51,7 @@ class MyFunnel extends Component {
       return response.json()
     }).then((json) => {
       json.Deals.forEach(function (deal) {
-        stages[deal.status] = (stages[deal.status] + 1) || 1;
+        stages[deal.stage] = (stages[deal.stage] + 1) || 1;
       })
       this.setState({ deals: json.Deals, stages: stages })
     })

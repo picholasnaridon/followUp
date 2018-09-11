@@ -1,6 +1,6 @@
 var Sequelize = require("sequelize");
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Company = sequelize.define(
     "Company",
     {
@@ -19,7 +19,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   );
 
-  Company.associate = function(models) {
+  Company.associate = function (models) {
     models.Company.hasMany(models.Contact);
     models.Company.hasMany(models.Deal);
     models.Company.belongsTo(models.User);

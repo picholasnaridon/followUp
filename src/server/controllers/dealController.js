@@ -31,6 +31,7 @@ module.exports = {
       name: req.body.name,
       UserId: req.body.UserId,
       amount: req.body.amount,
+      stage: req.body.stage,
       status: req.body.status
     }).then(function (deal) {
       res.json(deal)
