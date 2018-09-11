@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Doughnut, Bar } from 'react-chartjs-2'
 import { Grid, Row, Col } from 'react-bootstrap'
 import RecentActivity from './RecentActivity'
+
 const funnelOptions = {
   onClick: function (event, bar) {
     console.log(bar[0]._model.label)
@@ -21,8 +22,9 @@ class MyFunnel extends Component {
     super(props)
     this.state = {
       deals: [],
-      stages: {}
+      stages: {},
     }
+    this.getTotalSales = this.getTotalSales.bind(this)
   }
   componentDidMount() {
     var userId = JSON.parse(localStorage.getItem('user_id'))
@@ -47,11 +49,22 @@ class MyFunnel extends Component {
     })
   }
 
+  getTotalSales() {
+    var total = 0
+    this.state.deals.forEach(function (deal) {
+      if (deal.stage !== 'Closed Won' || deal.stage !== 'Closed Lost') {
+        total += deal.amount
+      }
+    })
+    return total
+  }
+
   render() {
     return (
       <Grid>
         <Row>
-          <Col md={6}  >
+          <Col md={6} >
+            <h1 style={{ textAlign: "center" }}>Open Deals</h1>
             <Bar height={500} width={700} data={{
               datasets: [{
                 data: [
@@ -78,6 +91,7 @@ class MyFunnel extends Component {
                 "Final Review",
               ]
             }} options={funnelOptions} />
+            <h1 style={{ textAlign: "center" }}>Total Sales Open ($): <span style={{ color: "#1ee861" }}>{this.getTotalSales()}</span></h1>
           </Col>
           <Col md={6} >
             <h1 style={{ textAlign: "center" }}>Close Ratio</h1>
@@ -98,6 +112,7 @@ class MyFunnel extends Component {
             <h1 style={{ textAlign: "center" }}>{(this.state.stages["Closed Won"] / this.state.stages["Closed Lost"]) * 100}%</h1>
           </Col>
         </Row>
+        <hr></hr>
         <Row>
           <Col md={6} mdPush={4} >
             <RecentActivity />

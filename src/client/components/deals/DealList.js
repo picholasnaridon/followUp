@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Deal from './Deal'
 import Modal from '../shared/Modal'
 import {
   HashRouter as Router,
@@ -70,8 +69,6 @@ const columns = [{
       </span>
     )
   }
-
-
 }]
 
 class DealList extends React.Component {
