@@ -80,9 +80,11 @@ class ContactList extends React.Component {
     }
   }
   componentDidMount() {
-    fetch("/api/contacts")
+    var UserId = JSON.parse(localStorage.getItem('user_id'))
+
+    fetch(`/api/users/${UserId}/contacts`)
       .then(response => response.json())
-      .then(contacts => this.setState({ contacts }))
+      .then(data => this.setState({ contacts: data.Contacts }))
   }
   render() {
     return (

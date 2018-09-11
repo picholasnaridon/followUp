@@ -24,7 +24,7 @@ class DealList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      deals: [{ name: "Test", id: 1 }],
+      deals: [],
       show: false,
       filterValue: 'Discovery'
     }
@@ -32,9 +32,11 @@ class DealList extends React.Component {
     this.hideModal = this.hideModal.bind(this)
   }
   componentDidMount() {
-    fetch("/api/deals")
+    var UserId = JSON.parse(localStorage.getItem('user_id'))
+
+    fetch(`/api/users/${UserId}/deals`)
       .then(response => response.json())
-      .then(deals => this.setState({ deals }))
+      .then(data => this.setState({ deals: data.Deals }))
   }
 
   showModal = () => {
