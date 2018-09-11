@@ -41,23 +41,23 @@ const columns =
     },
     {
       Header: 'City',
-      accessor: 'City'
+      accessor: 'city'
     },
     {
       Header: 'State',
-      accessor: 'State'
+      accessor: 'state'
     },
     {
       Header: 'Zip',
-      accessor: 'Zip'
+      accessor: 'zip'
     },
     {
       Header: 'Phone',
-      accessor: 'Phone'
+      accessor: 'phone'
     },
     {
       Header: 'Mobile',
-      accessor: 'Mobile'
+      accessor: 'mobile'
     },
     {
       Header: 'Deal Count',
@@ -82,9 +82,9 @@ class ContactList extends React.Component {
   componentDidMount() {
     var UserId = JSON.parse(localStorage.getItem('user_id'))
 
-    fetch(`/api/users/${UserId}/contacts`)
+    fetch(`/api/contacts`)
       .then(response => response.json())
-      .then(data => this.setState({ contacts: data.Contacts }))
+      .then(data => this.setState({ contacts: data }))
   }
   render() {
     return (

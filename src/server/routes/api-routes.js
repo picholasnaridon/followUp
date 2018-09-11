@@ -19,7 +19,7 @@ module.exports = function (app, passport) {
   //Deals
   app.get("/api/deals", dealController.getAll);
   app.get("/api/deals/:id", dealController.getOne);
-  app.put("/api/deals/:id/update", dealController.update)
+  app.put("/api/deals/:id/changeStage", dealController.changeStage);
 
   app.post("/api/deals/create", dealController.create);
   app.post("/api/deals/:id/addContact", dealController.addContact);

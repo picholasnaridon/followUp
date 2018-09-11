@@ -129,7 +129,7 @@ class DealList extends React.Component {
                   </div>
                 )
               }, {
-                Header: 'amount', // Required because our accessor is not a string
+                Header: 'Amount', // Required because our accessor is not a string
                 accessor: 'amount',
                 Footer: (data) => {
                   var total = 0

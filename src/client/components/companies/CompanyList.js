@@ -51,9 +51,9 @@ class CompanyList extends React.Component {
   componentDidMount() {
     var UserId = JSON.parse(localStorage.getItem('user_id'))
 
-    fetch(`/api/users/${UserId}/companies`)
+    fetch(`/api/companies`)
       .then(response => response.json())
-      .then(data => this.setState({ companies: data.Companies }))
+      .then(data => this.setState({ companies: data }))
   }
   render() {
     return (

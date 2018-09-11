@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
+import { runInThisContext } from 'vm';
 
 class AddDeal extends Component {
   constructor(props) {
@@ -23,7 +24,6 @@ class AddDeal extends Component {
   handleStatusChange(e) {
     console.log(e.target.value)
     this.setState({ selectStatus: e.target.value });
-
   }
   submit(e) {
     e.preventDefault()
@@ -63,7 +63,7 @@ class AddDeal extends Component {
         </FormGroup>
         <FormGroup controlId="formControlsSelect">
           <ControlLabel>Stage</ControlLabel>
-          <FormControl value={this.state.selectStage} componentClass="select" onChange={this.handleStageChange}>
+          <FormControl value={this.state.selectStage} componentClass="select" onChange={this.handleStageChange.bind(this)}>
             <option value="Discovery">Discovery</option>
             <option value="Initial Meeting">Initial Meeting</option>
             <option value="Proposal Sent">Proposal Sent</option>
@@ -71,9 +71,9 @@ class AddDeal extends Component {
             <option value="Final Review">Final Review</option>
           </FormControl>
         </FormGroup>
-        <FormGroup controlId="formControlsSelect">
+        <FormGroup controlId="formControlsSelectTwo">
           <ControlLabel>Status</ControlLabel>
-          <FormControl value={this.state.selectStatus} componentClass="select" onChange={this.handleStatusChange}>
+          <FormControl value={this.state.selectStatus} componentClass="select" onChange={this.handleStatusChange.bind(runInThisContext)}>
             <option value="In Danger">In Danger</option>
             <option value="Follow Up">Follow Up</option>
             <option value="Good">Good</option>

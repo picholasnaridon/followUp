@@ -64,6 +64,14 @@ module.exports = {
             return models.Contact.create({
               firstName: req.body.firstName,
               lastName: req.body.lastName,
+              email: req.body.email,
+              address1: req.body.address1,
+              address2: req.body.address2,
+              city: req.body.city,
+              state: req.body.state,
+              zip: req.body.zip,
+              phone: req.body.phone,
+              mobile: req.body.mobile,
               UserId: req.body.userId,
               CompanyId: company.id
             }).then(function (contact) {
@@ -71,8 +79,8 @@ module.exports = {
               return deal.addContacts([contact]);
             });
           })
-          .then(function () {
-            res.json(contact)
+          .then(function (results) {
+            res.json(results)
           });
       });
     });
@@ -93,5 +101,17 @@ module.exports = {
         res.json(results);
       }
     );
+  },
+  changeStage: function (req, res) {
+    console.log(req.body)
+    models.Deal.update(
+      { stage: req.body.stage },
+      {
+        where:
+          { id: req.params.id }
+      }
+    ).then(function (results) {
+      res.json(results)
+    })
   }
 };

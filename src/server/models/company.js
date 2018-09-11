@@ -8,10 +8,10 @@ module.exports = function (sequelize, DataTypes) {
       email: { type: Sequelize.TEXT, allowNull: true },
       address1: { type: Sequelize.TEXT, allowNull: true },
       address2: { type: Sequelize.TEXT, allowNull: true },
-      City: { type: Sequelize.TEXT, allowNull: true },
-      State: { type: Sequelize.TEXT, allowNull: true },
-      Zip: { type: Sequelize.TEXT, allowNull: true },
-      Phone: { type: Sequelize.TEXT, allowNull: true },
+      city: { type: Sequelize.TEXT, allowNull: true },
+      state: { type: Sequelize.TEXT, allowNull: true },
+      zip: { type: Sequelize.TEXT, allowNull: true },
+      phone: { type: Sequelize.TEXT, allowNull: true },
       fax: { type: Sequelize.TEXT, allowNull: true }
     },
     {
