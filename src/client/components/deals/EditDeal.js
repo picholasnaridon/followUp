@@ -1,29 +1,34 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap'
 
-class AddDeal extends Component {
+class EditDeal extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      user_id: JSON.parse(localStorage.getItem('user_id')),
-      selectStage: 'Discovery',
-      selectStatus: 'Good'
+      deal: this.props.deal,
+      selectStage: this.props.deal.stage,
+      selectStatus: this.props.deal.status
+
     }
 
     this.submit = this.submit.bind(this)
     this.handleStageChange = this.handleStageChange.bind(this)
     this.hanldeStatusChange = this.handleStatusChange.bind(this)
-
   }
+
+
 
   handleStageChange(e) {
     console.log(e.target.value)
     this.setState({ selectStage: e.target.value });
+
   }
   handleStatusChange(e) {
     console.log(e.target.value)
     this.setState({ selectStatus: e.target.value });
+
   }
+
   submit(e) {
     e.preventDefault()
 
@@ -31,12 +36,11 @@ class AddDeal extends Component {
       name: this.inputName.value,
       amount: this.inputAmount.value,
       stage: this.state.selectStage,
-      status: this.state.selectStatus,
-      UserId: this.state.user_id
+      status: this.state.selectStatus
     }
     console.log(payload)
-    fetch("/api/deals/create", {
-      method: 'POST',
+    fetch(`/api/deals/${this.state.deal.id}/edit`, {
+      method: 'PUT',
       headers: {
         "Content-Type": "application/json"
       },
@@ -47,7 +51,7 @@ class AddDeal extends Component {
         response.json().then(json => {
           console.log(json)
           this.props.closeModal()
-          location.href = `#/deals/${json.id}`
+          this.props.refresh()
         });
       }
     })
@@ -57,7 +61,7 @@ class AddDeal extends Component {
       <form onSubmit={this.submit} >
         <FormGroup>
           <ControlLabel>Deal Name</ControlLabel>
-          <FormControl type="text" inputRef={(input) => this.inputName = input}
+          <FormControl type="text" defaultValue={this.state.deal.name} inputRef={(input) => this.inputName = input}
             placeholder="Deal Name" ></FormControl>
         </FormGroup>
         <FormGroup controlId="formControlsSelect">
@@ -80,7 +84,7 @@ class AddDeal extends Component {
         </FormGroup>
         <FormGroup>
           <ControlLabel>Amount</ControlLabel>
-          <FormControl type="text" name="amount" inputRef={(input) => this.inputAmount = input} id="amount" placeholder="$"></FormControl>
+          <FormControl type="text" name="amount" defaultValue={this.state.deal.amount} inputRef={(input) => this.inputAmount = input} id="amount" placeholder="$"></FormControl>
         </FormGroup>
         <FormGroup>
           <FormControl type="submit" className="form-control btn-primary"></FormControl>
@@ -90,4 +94,4 @@ class AddDeal extends Component {
   }
 }
 
-export default AddDeal;
+export default EditDeal;

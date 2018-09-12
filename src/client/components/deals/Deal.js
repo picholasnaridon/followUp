@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Modal from '../shared/Modal'
 import DealContacts from './DealContacts'
 import { Button, FormControl, Grid, Row, Col } from 'react-bootstrap'
-
+import EditDeal from './EditDeal'
 
 class Deal extends Component {
   constructor(props) {
@@ -13,6 +13,9 @@ class Deal extends Component {
     }
     this.handleStageChange = this.handleStageChange.bind(this)
     this.renderStatus = this.renderStatus.bind(this)
+    this.showModal = this.showModal.bind(this)
+    this.hideModal = this.hideModal.bind(this)
+    this.refresh = this.refresh.bind(this)
   }
 
   handleStageChange(e) {
@@ -35,6 +38,15 @@ class Deal extends Component {
       })
   }
 
+  showModal = () => {
+    this.setState({ show: true });
+  }
+
+  hideModal = () => {
+    this.setState({ show: false });
+  }
+
+
   renderStatus() {
     return (
       <span>
@@ -45,7 +57,7 @@ class Deal extends Component {
           transition: 'all .3s ease'
         }}>
           &#x25cf;
-                    </span> {
+        </span> {
           this.state.deal.status === 'In Danger' ? 'Danger'
             : this.state.deal.status === 'Follow Up' ? `Follow Up`
               : 'Good'
@@ -65,10 +77,31 @@ class Deal extends Component {
     })
   }
 
+  refresh() {
+    fetch(`/api/deals/${this.props.match.params.id}`, {
+      method: "GET"
+    }).then((response) => {
+      return response.json()
+    }).then(json => {
+      console.log(json)
+      this.setState({ deal: json, stage: json.stage })
+    })
+  }
+
   render() {
     if (this.state.deal) {
       return (
         <Grid>
+          <Row>
+            <Col>
+              <main style={{ marginBottom: "3%" }}>
+                <Modal show={this.state.show} handleClose={this.hideModal} >
+                  <EditDeal closeModal={this.hideModal} deal={this.state.deal} refresh={this.refresh} />
+                </Modal>
+                <Button bsStyle="success" onClick={this.showModal}>Edit Deal</Button>
+              </main>
+            </Col>
+          </Row>
           <Row>
             <Col>
               <div>
@@ -89,6 +122,7 @@ class Deal extends Component {
               </div>
             </Col>
           </Row>
+
         </Grid>
 
       );
@@ -99,3 +133,4 @@ class Deal extends Component {
 }
 
 export default Deal;
+

@@ -20,6 +20,7 @@ module.exports = function (app, passport) {
   app.get("/api/deals", dealController.getAll);
   app.get("/api/deals/:id", dealController.getOne);
   app.put("/api/deals/:id/changeStage", dealController.changeStage);
+  app.put("/api/deals/:id/edit", dealController.edit);
 
   app.post("/api/deals/create", dealController.create);
   app.post("/api/deals/:id/addContact", dealController.addContact);

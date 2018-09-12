@@ -69,7 +69,7 @@ class DealContacts extends Component {
               })}
             </tbody>
           </Table>
-          <h1>Add Contact</h1>
+          <h3>Add Contact</h3>
           <Modal show={this.state.show} handleClose={this.hideModal} style={{ margin: "3%" }}>
             <form onSubmit={this.addContact}>
               <Grid>

@@ -30,13 +30,13 @@ class MyFunnel extends Component {
     super(props)
     this.state = {
       deals: [],
-      stages: {},
+      dealsByStage: {},
     }
     this.getTotalSales = this.getTotalSales.bind(this)
   }
   componentDidMount() {
     var userId = JSON.parse(localStorage.getItem('user_id'))
-    var stages = {
+    var dealsByStage = {
       "Closed Won": 0,
       "Closed Lost": 0,
       "Discovery": 0,
@@ -51,9 +51,9 @@ class MyFunnel extends Component {
       return response.json()
     }).then((json) => {
       json.Deals.forEach(function (deal) {
-        stages[deal.stage] = (stages[deal.stage] + 1) || 1;
+        dealsByStage[deal.stage] = (dealsByStage[deal.stage] + 1) || 1;
       })
-      this.setState({ deals: json.Deals, stages: stages })
+      this.setState({ deals: json.Deals, dealsByStage: dealsByStage })
     })
   }
 
@@ -72,15 +72,15 @@ class MyFunnel extends Component {
       <Grid>
         <Row>
           <Col md={6} >
-            <h1 style={{ textAlign: "center" }}>Open Deals</h1>
+            <h1 style={{ textAlign: "center" }}>My Deals</h1>
             <Bar height={500} width={700} data={{
               datasets: [{
                 data: [
-                  this.state.stages["Discovery"],
-                  this.state.stages["Initial Meeting"],
-                  this.state.stages["Proposal Sent"],
-                  this.state.stages["Contract Signed"],
-                  this.state.stages["Final Review"]
+                  this.state.dealsByStage["Discovery"],
+                  this.state.dealsByStage["Initial Meeting"],
+                  this.state.dealsByStage["Proposal Sent"],
+                  this.state.dealsByStage["Contract Signed"],
+                  this.state.dealsByStage["Final Review"]
                 ],
                 backgroundColor: [
                   '#f4d83a',
@@ -99,13 +99,13 @@ class MyFunnel extends Component {
                 "Final Review",
               ]
             }} options={funnelOptions} />
-            <h1 style={{ textAlign: "center" }}>Sales in Funnel: <span style={{ color: "#1ee861" }}>${(this.getTotalSales()).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</span></h1>
+            <h1 style={{ textAlign: "center" }}>Funnel total: <span style={{ color: "#1ee861" }}>${(this.getTotalSales()).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</span></h1>
           </Col>
           <Col md={6} >
             <h1 style={{ textAlign: "center" }}>Close Ratio</h1>
             <Doughnut data={{
               datasets: [{
-                data: [this.state.stages["Closed Lost"], this.state.stages["Closed Won"]],
+                data: [this.state.dealsByStage["Closed Lost"], this.state.dealsByStage["Closed Won"]],
                 backgroundColor: [
                   "#f4443a",
                   "#1be246"
@@ -117,7 +117,12 @@ class MyFunnel extends Component {
               ]
             }}
             />
-            <h1 style={{ textAlign: "center" }}>{(this.state.stages["Closed Won"] / this.state.stages["Closed Lost"]) * 100}%</h1>
+            <h1 style={{ textAlign: "center" }}>
+              {
+                (this.state.dealsByStage["Closed Won"] /
+                  (this.state.dealsByStage["Closed Lost"] + this.state.dealsByStage["Closed Lost"]))
+                * 100}%
+            </h1>
           </Col>
         </Row>
         <hr></hr>
@@ -132,4 +137,3 @@ class MyFunnel extends Component {
 }
 
 export default MyFunnel;
-

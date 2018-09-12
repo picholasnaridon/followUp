@@ -113,5 +113,22 @@ module.exports = {
     ).then(function (results) {
       res.json(results)
     })
+  },
+  edit: function (req, res) {
+    console.log(req.body)
+    models.Deal.update(
+      {
+        stage: req.body.stage,
+        name: req.body.name,
+        amount: req.body.amount,
+        status: req.body.status
+      },
+      {
+        where:
+          { id: req.params.id }
+      }
+    ).then(function (results) {
+      res.json(results)
+    })
   }
 };

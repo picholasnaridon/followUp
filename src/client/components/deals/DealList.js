@@ -131,6 +131,9 @@ class DealList extends React.Component {
               }, {
                 Header: 'Amount', // Required because our accessor is not a string
                 accessor: 'amount',
+                Cell: (row) => (
+                  <div>${(row.value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+                ),
                 Footer: (data) => {
                   var total = 0
                   console.log(data)
