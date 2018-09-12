@@ -70,6 +70,7 @@ module.exports = {
               city: req.body.city,
               state: req.body.state,
               zip: req.body.zip,
+              country: req.body.country,
               phone: req.body.phone,
               mobile: req.body.mobile,
               UserId: req.body.userId,

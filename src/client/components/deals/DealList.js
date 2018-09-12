@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Modal from '../shared/Modal'
+import MyModal from '../shared/MyModal'
 import {
   HashRouter as Router,
   Route,
@@ -58,9 +58,9 @@ class DealList extends React.Component {
         <Row>
           <Col md={6}>
             <main style={{ marginBottom: "3%" }}>
-              <Modal show={this.state.show} handleClose={this.hideModal} >
+              <MyModal show={this.state.show} title="Add Deal" close={this.hideModal} >
                 <AddDeal closeModal={this.hideModal} />
-              </Modal>
+              </MyModal>
               <Button bsStyle="success" onClick={this.showModal}>+ Deal</Button>
             </main>
           </Col>

@@ -25,6 +25,7 @@ class Company extends Component {
       return (
         <div>
           <h2>{this.state.company.name}</h2>
+
         </div>
       );
     } else {

@@ -13,6 +13,7 @@ module.exports = function (app, passport) {
   //Contacts
   app.get("/api/contacts", contactController.getAll);
   app.get("/api/contacts/:id", contactController.getOne);
+  app.put("/api/contacts/:id/edit", contactController.edit);
   //CompaniesgetOne
   app.get("/api/companies", companyController.getAll);
   app.get("/api/companies/:id", companyController.getOne);

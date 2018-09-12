@@ -8,7 +8,6 @@ class EditDeal extends Component {
       deal: this.props.deal,
       selectStage: this.props.deal.stage,
       selectStatus: this.props.deal.status
-
     }
 
     this.submit = this.submit.bind(this)
@@ -16,17 +15,14 @@ class EditDeal extends Component {
     this.hanldeStatusChange = this.handleStatusChange.bind(this)
   }
 
-
-
   handleStageChange(e) {
     console.log(e.target.value)
     this.setState({ selectStage: e.target.value });
-
   }
+
   handleStatusChange(e) {
     console.log(e.target.value)
     this.setState({ selectStatus: e.target.value });
-
   }
 
   submit(e) {
@@ -50,12 +46,13 @@ class EditDeal extends Component {
       if (response.ok) {
         response.json().then(json => {
           console.log(json)
-          this.props.closeModal()
+          this.props.close()
           this.props.refresh()
         });
       }
     })
   }
+
   render() {
     return (
       <form onSubmit={this.submit} >

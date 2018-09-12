@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import Modal from '../shared/Modal'
+import MyModal from '../shared/MyModal'
 import DealContacts from './DealContacts'
 import { Button, FormControl, Grid, Row, Col } from 'react-bootstrap'
 import EditDeal from './EditDeal'
+import NoteList from '../notes/NoteList'
 
 class Deal extends Component {
   constructor(props) {
@@ -11,16 +12,14 @@ class Deal extends Component {
       deal: null,
       stage: null
     }
-    this.handleStageChange = this.handleStageChange.bind(this)
     this.renderStatus = this.renderStatus.bind(this)
     this.showModal = this.showModal.bind(this)
     this.hideModal = this.hideModal.bind(this)
     this.refresh = this.refresh.bind(this)
+    this.markLostOrWon = this.markLostOrWon.bind(this)
   }
 
-  handleStageChange(e) {
-    console.log(e.target.value)
-    var stage = e.target.value
+  markLostOrWon(e, stage) {
     var payload = {
       stage: stage
     }
@@ -37,15 +36,13 @@ class Deal extends Component {
         this.setState({ stage: stage })
       })
   }
-
-  showModal = () => {
+  showModal() {
     this.setState({ show: true });
   }
 
-  hideModal = () => {
+  hideModal() {
     this.setState({ show: false });
   }
-
 
   renderStatus() {
     return (
@@ -93,38 +90,39 @@ class Deal extends Component {
       return (
         <Grid>
           <Row>
-            <Col>
-              <main style={{ marginBottom: "3%" }}>
-                <Modal show={this.state.show} handleClose={this.hideModal} >
-                  <EditDeal closeModal={this.hideModal} deal={this.state.deal} refresh={this.refresh} />
-                </Modal>
-                <Button bsStyle="success" onClick={this.showModal}>Edit Deal</Button>
-              </main>
+            <Col md={11}>
+              <h2>{this.state.deal.name}</h2>
+              <h4>{this.state.stage}</h4>
+              <Button bsStyle="success" onClick={(e) => this.markLostOrWon(e, "Closed Won")}>Won</Button>
+              <Button bsStyle="danger" onClick={(e) => this.markLostOrWon(e, "Closed Lost")}>Lost</Button>
+              <MyModal show={this.state.show} title="Edit Deal" close={this.hideModal} onHide={this.hideModal} >
+                <EditDeal close={this.hideModal} deal={this.state.deal} refresh={this.refresh} />
+              </MyModal>
+            </Col>
+            <Col md={1}>
+              <Button bsStyle="primary" onClick={this.showModal}>Edit Deal</Button>
             </Col>
           </Row>
+          <hr></hr>
           <Row>
             <Col>
               <div>
-                <h2>{this.state.deal.name}</h2>
-                <h4>{this.state.stage}</h4>
-                <FormControl value={this.state.stage} componentClass="select" placeholder="select stage" onChange={this.handleStageChange.bind(this)}>
-                  <option value="Closed Lost">Closed Lost</option>
-                  <option value="Discovery">Discovery</option>
-                  <option value="Initial Meeting">Initial Meeting</option>
-                  <option value="Proposal Sent">Proposal Sent</option>
-                  <option value="Contract Signed">Contract Signed</option>
-                  <option value="Final Review">Final Review</option>
-                  <option value="Closed Won">Closed Won</option>
-                </FormControl>
                 <h4>{this.renderStatus()}</h4>
                 <h4>$ {this.state.deal.amount}</h4>
-                <DealContacts contacts={this.state.deal.Contacts} dealId={this.props.match.params.id} />
               </div>
             </Col>
           </Row>
-
+          <hr></hr>
+          <Row>
+            <DealContacts contacts={this.state.deal.Contacts} refresh={this.refresh} dealId={this.props.match.params.id} />
+          </Row>
+          <hr></hr>
+          <Row>
+            <Col>
+              <NoteList />
+            </Col>
+          </Row>
         </Grid>
-
       );
     } else {
       return (<div></div>)
