@@ -73,11 +73,11 @@ class Contact extends Component {
                   <tbody>
                     <tr>
                       <td><strong>Phone</strong></td>
-                      <td>{this.state.contact.phone}</td>
-                      <td><strong>Email</strong></td>
-                      <td>{this.state.contact.email}</td>
+                      <td><a href={`tel:${this.state.contact.phone}`}>{this.state.contact.phone}</a></td>
                       <td><strong>Mobile</strong></td>
-                      <td>{this.state.contact.mobile}</td>
+                      <td><a href={`tel:${this.state.contact.mobile}`}>{this.state.contact.mobile}</a></td>
+                      <td><strong>Email</strong></td>
+                      <td><a href={`mailto:${this.state.contact.email}`}>{this.state.contact.email}</a></td>
                     </tr>
                     <tr>
                       <td><strong>Address 1</strong></td>

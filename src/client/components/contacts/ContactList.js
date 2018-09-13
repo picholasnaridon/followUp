@@ -11,65 +11,102 @@ import ReactTable from 'react-table'
 const columns =
   [
     {
-      Header: 'Full Name',
-      id: 'fullName',
-      Cell: props => <span className=''>
-        <a href={"#/contacts/" + props.original.id}>
-          {props.original.firstName} {props.original.lastName}
-        </a>
-      </span>
+      Header: 'Name',
+      columns: [
+        {
+          Header: 'Full Name',
+          id: 'fullName',
+          Cell: props => <span className=''>
+            <a href={"#/contacts/" + props.original.id}>
+              {props.original.firstName} {props.original.lastName}
+            </a>
+          </span>
+        },
+        {
+          Header: 'First Name',
+          accessor: 'firstName'
+        },
+        {
+          Header: 'Last Name',
+          accessor: 'lastName'
+        }
+      ]
+
     },
     {
-      Header: 'first Name',
-      accessor: 'firstName'
+      Header: 'Company',
+      columns: [
+        {
+          Header: 'Company',
+          id: 'company',
+          Cell: props => <span className=''>
+            <a href={"#/companies/" + props.original.Company.id}>
+              {props.original.Company.name}
+            </a>
+          </span>
+        },
+      ]
     },
     {
-      Header: 'Last Name',
-      accessor: 'lastName'
+      Header: "Address",
+      columns: [
+        {
+          Header: 'Address 1',
+          accessor: 'address1'
+        },
+        {
+          Header: 'Address 2',
+          accessor: 'address2'
+        },
+        {
+          Header: 'City',
+          accessor: 'city'
+        },
+        {
+          Header: 'State',
+          accessor: 'state'
+        },
+        {
+          Header: 'Zip',
+          accessor: 'zip'
+        },
+
+      ]
     },
     {
-      Header: 'Email',
-      accessor: 'email'
-    },
-    {
-      Header: 'Address1',
-      accessor: 'address1'
-    },
-    {
-      Header: 'Address 2',
-      accessor: 'address2'
-    },
-    {
-      Header: 'City',
-      accessor: 'city'
-    },
-    {
-      Header: 'State',
-      accessor: 'state'
-    },
-    {
-      Header: 'Zip',
-      accessor: 'zip'
-    },
-    {
-      Header: 'Phone',
-      accessor: 'phone'
-    },
-    {
-      Header: 'Mobile',
-      accessor: 'mobile'
+      Header: 'Contact',
+      columns: [
+        {
+          Header: 'Phone',
+          accessor: 'phone'
+        }, {
+          Header: 'Email',
+          accessor: 'email'
+        },
+
+        {
+          Header: 'Mobile',
+          accessor: 'mobile'
+        },
+      ]
     },
     {
       Header: 'Deal Count',
-      accessor: 'Deals',
-      Cell: function (props) {
-        var total = 0
-        props.original.Deals.forEach(function (deal) {
-          total += 1
-        })
-        return (<span>{total}</span>)
-      }
+      columns: [
+        {
+          Header: 'Deal Count',
+          accessor: 'Deals',
+          Cell: function (props) {
+            var total = 0
+            props.original.Deals.forEach(function (deal) {
+              total += 1
+            })
+            return (<span>{total}</span>)
+          }
+        }
+      ]
     }
+
   ]
 
 class ContactList extends React.Component {

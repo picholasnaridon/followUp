@@ -29,6 +29,7 @@ class DealContacts extends Component {
           <Table>
             <tbody>
               {this.props.contacts.map(function (contact) {
+                console.log(contact)
                 return (
                   <tr key={contact.id}>
                     <td><a href={`#/contacts/${contact.id}`}>{contact.firstName} {contact.lastName}</a></td>
