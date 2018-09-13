@@ -13,13 +13,16 @@ module.exports = function (app, passport) {
   //Contacts
   app.get("/api/contacts", contactController.getAll);
   app.get("/api/contacts/:id", contactController.getOne);
+  app.put("/api/contacts/:id/edit", contactController.edit);
   //CompaniesgetOne
   app.get("/api/companies", companyController.getAll);
   app.get("/api/companies/:id", companyController.getOne);
   //Deals
   app.get("/api/deals", dealController.getAll);
   app.get("/api/deals/:id", dealController.getOne);
+  app.put("/api/deals/:id/changeStage", dealController.changeStage);
+  app.put("/api/deals/:id/edit", dealController.edit);
+
   app.post("/api/deals/create", dealController.create);
   app.post("/api/deals/:id/addContact", dealController.addContact);
-
 };

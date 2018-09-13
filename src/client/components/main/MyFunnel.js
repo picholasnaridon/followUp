@@ -1,36 +1,42 @@
 import React, { Component } from 'react';
 import { Doughnut, Bar } from 'react-chartjs-2'
+import { Grid, Row, Col } from 'react-bootstrap'
+import RecentActivity from './RecentActivity'
 
-const pendingData = {
-
-}
 const funnelOptions = {
   onClick: function (event, bar) {
     console.log(bar[0]._model.label)
     location.href = "/#/deals"
   },
   scales: {
+    xAxes: [{
+      gridLines: {
+        drawOnChartArea: false
+      }
+    }],
     yAxes: [{
       ticks: {
         beginAtZero: true
+      },
+      gridLines: {
+        drawOnChartArea: false,
       }
     }]
   }
 }
-
-
 
 class MyFunnel extends Component {
   constructor(props) {
     super(props)
     this.state = {
       deals: [],
-      stages: {}
+      dealsByStage: {},
     }
+    this.getTotalSales = this.getTotalSales.bind(this)
   }
   componentDidMount() {
     var userId = JSON.parse(localStorage.getItem('user_id'))
-    var stages = {
+    var dealsByStage = {
       "Closed Won": 0,
       "Closed Lost": 0,
       "Discovery": 0,
@@ -45,58 +51,89 @@ class MyFunnel extends Component {
       return response.json()
     }).then((json) => {
       json.Deals.forEach(function (deal) {
-        stages[deal.status] = (stages[deal.status] + 1) || 1;
+        dealsByStage[deal.stage] = (dealsByStage[deal.stage] + 1) || 1;
       })
-      this.setState({ deals: json.Deals, stages: stages })
+      this.setState({ deals: json.Deals, dealsByStage: dealsByStage })
     })
+  }
+
+  getTotalSales() {
+    var total = 0
+    this.state.deals.forEach(function (deal) {
+      if (deal.stage !== 'Closed Won' || deal.stage !== 'Closed Lost') {
+        total += deal.amount
+      }
+    })
+    return total
   }
 
   render() {
     return (
-      <div>
-        <Bar data={{
-          datasets: [{
-            data: [
-              this.state.stages["Discovery"],
-              this.state.stages["Initial Meeting"],
-              this.state.stages["Proposal Sent"],
-              this.state.stages["Contract Signed"],
-              this.state.stages["Final Review"]
-            ],
-            backgroundColor: [
-              '#f4d83a',
-              '#1ee861',
-              "#1abfe0",
-              "#3b50ed",
-              '#dc34e5',
-            ],
-            label: "My Funnel"
-          }],
-          labels: [
-            "Discovery",
-            "Initial Meeting",
-            "Proposal Sent",
-            "Contract Signed",
-            "Final Review",
-          ]
-        }} options={funnelOptions} />
-        <Doughnut data={{
-          datasets: [{
-            data: [this.state.stages["Closed Lost"], this.state.stages["Closed Won"]],
-            backgroundColor: [
-              "#f4443a",
-              "#1be246"
-            ],
-          }],
-          labels: [
-            "Lost",
-            "Won"
-          ]
-        }} />
-      </div>
+      <Grid>
+        <Row>
+          <Col md={6} >
+            <h1 style={{ textAlign: "center" }}>My Deals</h1>
+            <Bar height={500} width={700} data={{
+              datasets: [{
+                data: [
+                  this.state.dealsByStage["Discovery"],
+                  this.state.dealsByStage["Initial Meeting"],
+                  this.state.dealsByStage["Proposal Sent"],
+                  this.state.dealsByStage["Contract Signed"],
+                  this.state.dealsByStage["Final Review"]
+                ],
+                backgroundColor: [
+                  '#f4d83a',
+                  '#1ee861',
+                  "#1abfe0",
+                  "#3b50ed",
+                  '#dc34e5',
+                ],
+                label: "My Funnel"
+              }],
+              labels: [
+                "Discovery",
+                "Initial Meeting",
+                "Proposal Sent",
+                "Contract Signed",
+                "Final Review",
+              ]
+            }} options={funnelOptions} />
+            <h1 style={{ textAlign: "center" }}>Funnel total: <span style={{ color: "#1ee861" }}>${(this.getTotalSales()).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</span></h1>
+          </Col>
+          <Col md={6} >
+            <h1 style={{ textAlign: "center" }}>Close Ratio</h1>
+            <Doughnut data={{
+              datasets: [{
+                data: [this.state.dealsByStage["Closed Lost"], this.state.dealsByStage["Closed Won"]],
+                backgroundColor: [
+                  "#f4443a",
+                  "#1be246"
+                ],
+              }],
+              labels: [
+                "Lost",
+                "Won"
+              ]
+            }}
+            />
+            <h1 style={{ textAlign: "center" }}>
+              {
+                (this.state.dealsByStage["Closed Won"] /
+                  (this.state.dealsByStage["Closed Lost"] + this.state.dealsByStage["Closed Lost"]))
+                * 100}%
+            </h1>
+          </Col>
+        </Row>
+        <hr></hr>
+        <Row>
+          <Col md={6} mdPush={4} >
+            <RecentActivity />
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }
 
 export default MyFunnel;
-

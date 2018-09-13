@@ -4,7 +4,43 @@ import {
   Route,
   Link
 } from 'react-router-dom'
+import { Grid, Row, Col } from 'react-bootstrap'
+import ReactTable from 'react-table'
 
+const
+  columns = [
+    {
+      Header: 'Name',
+      accessor: 'name',
+      Cell: props => <span className=''>
+        <a href={"#/companies/" + props.original.id}>
+          {props.original.name}
+        </a>
+      </span>
+    },
+    {
+      Header: 'Deal Count',
+      accessor: 'Deals',
+      Cell: function (props) {
+        var total = 0
+        props.original.Deals.forEach(function (deal) {
+          total += 1
+        })
+        return (<span>{total}</span>)
+      }
+    },
+    {
+      Header: 'Contact Count',
+      accessor: 'Contacts',
+      Cell: function (props) {
+        var total = 0
+        props.original.Contacts.forEach(function (deal) {
+          total += 1
+        })
+        return (<span>{total}</span>)
+      }
+    }
+  ]
 class CompanyList extends React.Component {
   constructor(props) {
     super(props);
@@ -13,37 +49,32 @@ class CompanyList extends React.Component {
     }
   }
   componentDidMount() {
-    fetch("/api/companies")
+    var UserId = JSON.parse(localStorage.getItem('user_id'))
+
+    fetch(`/api/companies`)
       .then(response => response.json())
-      .then(companies => this.setState({ companies }))
+      .then(data => this.setState({ companies: data }))
   }
   render() {
     return (
-      <div>
-        <h1>Companies</h1>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Address</th>
-                <th>phone</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.companies.map(function (company) {
-                return (
-                  <tr key={company.id} >
-                    <td><Link to={`/companies/${company.id}`}>{company.name}</Link></td>
-                    <td>{company.address1}</td>
-                    <td>{company.phone}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <Grid>
+        <Row>
+          <Col md={6}>
+            <h1>Companies</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <ReactTable
+              data={this.state.companies}
+              columns={columns}
+              filterable
+              defaultFilterMethod={(filter, row) =>
+                String(row[filter.id]) === filter.value}
+            />
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }

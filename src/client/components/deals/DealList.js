@@ -1,27 +1,42 @@
 import React, { Component } from 'react';
-import Deal from './Deal'
-import Modal from '../shared/Modal'
+import MyModal from '../shared/MyModal'
 import {
   HashRouter as Router,
   Route,
   Link
 } from 'react-router-dom'
 import AddDeal from './AddDeal'
+import { Row, Grid, Col, Button } from 'react-bootstrap'
+import ReactTable from 'react-table'
+
+const stageMap = {
+  "Closed Lost": 0,
+  "Discovery": 16.6,
+  "Initial Meeting": 33.3,
+  "Proposal Sent": 49.8,
+  "Contract Signed": 66.4,
+  "Final Review": 83.1,
+  "Closed Won": 100
+}
+
 
 class DealList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      deals: [{ name: "Test", id: 1 }],
-      show: false
+      deals: [],
+      show: false,
+      filterValue: 'Discovery'
     }
     this.showModal = this.showModal.bind(this)
     this.hideModal = this.hideModal.bind(this)
   }
   componentDidMount() {
-    fetch("/api/deals")
+    var UserId = JSON.parse(localStorage.getItem('user_id'))
+
+    fetch(`/api/users/${UserId}/deals`)
       .then(response => response.json())
-      .then(deals => this.setState({ deals }))
+      .then(data => this.setState({ deals: data.Deals }))
   }
 
   showModal = () => {
@@ -34,37 +49,109 @@ class DealList extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>Deals</h1>
-        <main>
-          <Modal show={this.state.show} handleClose={this.hideModal} >
-            <AddDeal closeModal={this.hideModal} />
-          </Modal>
-          <button type='button' onClick={this.showModal}>+ Deal</button>
-        </main>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Amount</th>
-                <th>Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.deals.map(function (deal) {
-                return (
-                  <tr key={deal.id} >
-                    <td><Link to={`/deals/${deal.id}`}>{deal.name}</Link></td>
-                    <td>{deal.amount}</td>
-                    <td>{deal.status}</td>
-                  </tr>
+      <Grid>
+        <Row>
+          <Col md={6}>
+            <h1>Deals</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={6}>
+            <main style={{ marginBottom: "3%" }}>
+              <MyModal show={this.state.show} title="Add Deal" close={this.hideModal} >
+                <AddDeal closeModal={this.hideModal} />
+              </MyModal>
+              <Button bsStyle="success" onClick={this.showModal}>+ Deal</Button>
+            </main>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <ReactTable
+              filterable
+              defaultFilterMethod={(filter, row) =>
+                String(row[filter.id]) === filter.value
+              }
+
+              pageSize={10}
+              data={this.state.deals}
+              columns={[{
+                Header: 'Name',
+                accessor: 'name',
+                Cell: props => <a href={"#/deals/" + props.original.id}>{props.value}</a>,
+              }, {
+                Header: 'Status',
+                accessor: 'status',
+                Cell: row => (
+                  <span>
+                    <span style={{
+                      color: row.value === 'In Danger' ? '#ff2e00'
+                        : row.value === 'Follow Up' ? '#ffbf00'
+                          : '#57d500',
+                      transition: 'all .3s ease'
+                    }}>
+                      &#x25cf;
+                    </span> {
+                      row.value === 'In Danger' ? 'Danger'
+                        : row.value === 'Follow Up' ? `Follow Up`
+                          : 'Good'
+                    }
+                  </span>
                 )
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+              }, {
+                Header: 'Stage',
+                accessor: 'stage',
+
+              }, {
+                Header: 'Progress',
+                accessor: 'stage',
+                Cell: row => (
+                  <div
+                    style={{
+                      width: '100%',
+                      height: '100%',
+                      backgroundColor: '#dadada',
+                      borderRadius: '2px'
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: `${stageMap[row.value]}%`,
+                        height: '100%',
+                        backgroundColor:
+                          stageMap[row.value] > 90 ? '#00ff11' : stageMap[row.value]
+                            > 66 ? '#85cc00' : stageMap[row.value]
+                              > 33 ? '#ffbf00' : '#ff2e00',
+                        borderRadius: '2px',
+                        transition: 'all .2s ease-out'
+                      }}
+                    />
+                  </div>
+                )
+              }, {
+                Header: 'Amount', // Required because our accessor is not a string
+                accessor: 'amount',
+                Cell: (row) => (
+                  <div>${(row.value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+                ),
+                Footer: (data) => {
+                  var total = 0
+                  console.log(data)
+                  data.data.forEach(function (deal) {
+                    total += deal.amount
+                  })
+                  return (
+                    <span>
+                      <strong>Total: </strong>
+                      <span style={{ color: "#1ee861" }}>${(total).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</span>
+                    </span>
+                  )
+                }
+              }]}
+            />
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }

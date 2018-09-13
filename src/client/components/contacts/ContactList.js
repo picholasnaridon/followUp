@@ -5,6 +5,109 @@ import {
   Link,
   Switch
 } from 'react-router-dom'
+import { Row, Grid, Col } from 'react-bootstrap'
+import ReactTable from 'react-table'
+
+const columns =
+  [
+    {
+      Header: 'Name',
+      columns: [
+        {
+          Header: 'Full Name',
+          id: 'fullName',
+          Cell: props => <span className=''>
+            <a href={"#/contacts/" + props.original.id}>
+              {props.original.firstName} {props.original.lastName}
+            </a>
+          </span>
+        },
+        {
+          Header: 'First Name',
+          accessor: 'firstName'
+        },
+        {
+          Header: 'Last Name',
+          accessor: 'lastName'
+        }
+      ]
+
+    },
+    {
+      Header: 'Company',
+      columns: [
+        {
+          Header: 'Company',
+          id: 'company',
+          Cell: props => <span className=''>
+            <a href={"#/companies/" + props.original.Company.id}>
+              {props.original.Company.name}
+            </a>
+          </span>
+        },
+      ]
+    },
+    {
+      Header: "Address",
+      columns: [
+        {
+          Header: 'Address 1',
+          accessor: 'address1'
+        },
+        {
+          Header: 'Address 2',
+          accessor: 'address2'
+        },
+        {
+          Header: 'City',
+          accessor: 'city'
+        },
+        {
+          Header: 'State',
+          accessor: 'state'
+        },
+        {
+          Header: 'Zip',
+          accessor: 'zip'
+        },
+
+      ]
+    },
+    {
+      Header: 'Contact',
+      columns: [
+        {
+          Header: 'Phone',
+          accessor: 'phone'
+        }, {
+          Header: 'Email',
+          accessor: 'email'
+        },
+
+        {
+          Header: 'Mobile',
+          accessor: 'mobile'
+        },
+      ]
+    },
+    {
+      Header: 'Deal Count',
+      columns: [
+        {
+          Header: 'Deal Count',
+          accessor: 'Deals',
+          Cell: function (props) {
+            var total = 0
+            props.original.Deals.forEach(function (deal) {
+              total += 1
+            })
+            return (<span>{total}</span>)
+          }
+        }
+      ]
+    }
+
+  ]
 
 class ContactList extends React.Component {
   constructor(props) {
@@ -14,37 +117,32 @@ class ContactList extends React.Component {
     }
   }
   componentDidMount() {
-    fetch("/api/contacts")
+    var UserId = JSON.parse(localStorage.getItem('user_id'))
+
+    fetch(`/api/contacts`)
       .then(response => response.json())
-      .then(contacts => this.setState({ contacts }))
+      .then(data => this.setState({ contacts: data }))
   }
   render() {
     return (
-      <div>
-        <h1>Contacts</h1>
-        <div>
-          <table>
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Phone</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.state.contacts.map(function (contact) {
-                return (
-                  <tr key={contact.id} >
-                    <td><Link to={`/contacts/${contact.id}`}>{contact.firstName} {contact.lastName}</Link></td>
-                    <td>{contact.email}</td>
-                    <td>{contact.phone}</td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <Grid>
+        <Row>
+          <Col md={6}>
+            <h1>Contacts</h1>
+          </Col>
+        </Row>
+        <Row>
+          <Col md={12}>
+            <ReactTable
+              data={this.state.contacts}
+              columns={columns}
+              filterable
+              defaultFilterMethod={(filter, row) =>
+                String(row[filter.id]) === filter.value}
+            />
+          </Col>
+        </Row>
+      </Grid>
     );
   }
 }

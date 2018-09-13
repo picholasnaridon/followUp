@@ -1,6 +1,6 @@
 var Sequelize = require("sequelize");
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var User = sequelize.define("User", {
     id: {
       autoIncrement: true,
@@ -40,8 +40,9 @@ module.exports = function(sequelize, DataTypes) {
     }
   });
 
-  User.associate = function(models) {
+  User.associate = function (models) {
     models.User.hasMany(models.Deal);
+    models.User.hasMany(models.Comment);
     models.User.hasMany(models.Contact);
     models.User.hasMany(models.Company);
   };

@@ -20,12 +20,12 @@ class Company extends Component {
     })
   }
 
-
   render() {
     if (this.state.company) {
       return (
         <div>
           <h2>{this.state.company.name}</h2>
+
         </div>
       );
     } else {

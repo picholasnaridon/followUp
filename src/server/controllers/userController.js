@@ -2,63 +2,63 @@ const models = require("../models");
 
 module.exports = {
   //SHOW USER
-  showUser: function(req, res) {
+  showUser: function (req, res) {
     models.User.findOne({
       where: { id: req.params.id }
-    }).then(function(result) {
+    }).then(function (result) {
       res.render("user", { user: result });
     });
   },
   //GET USER
-  user: function(req, res) {
+  user: function (req, res) {
     models.User.findOne({
       where: {
         id: req.params.id
       }
-    }).then(function(results) {
+    }).then(function (results) {
       res.json(results);
     });
   },
   // GET USERS
-  users: function(req, res) {
+  users: function (req, res) {
     models.User.findOne({
       where: {
         id: req.params.id
       }
-    }).then(function(results) {
+    }).then(function (results) {
       res.json(results);
     });
   },
   //GET USER DEALS
-  userDeals: function(req, res) {
+  userDeals: function (req, res) {
     models.User.findOne({
       where: {
         id: req.params.id
       },
       include: [models.Deal]
-    }).then(function(results) {
+    }).then(function (results) {
       res.json(results);
     });
   },
   // GET USER CONTACTS
-  userContacts: function(req, res) {
+  userContacts: function (req, res) {
     models.User.findOne({
       where: {
         id: req.params.id
       },
       include: [models.Contact]
-    }).then(function(results) {
+    }).then(function (results) {
       res.json(results);
     });
   },
   // GET USER COMPANIES
-  userCompanies: function(req, res) {
+  userCompanies: function (req, res) {
     models.Contact.findOne({
       where: {
         UserId: req.params.id
       },
       include: [models.Company]
-    }).then(function(results) {
+    }).then(function (results) {
       res.json(results);
     });
   }

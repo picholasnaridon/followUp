@@ -1,6 +1,6 @@
 var Sequelize = require("sequelize");
 
-module.exports = function(sequelize, DataTypes) {
+module.exports = function (sequelize, DataTypes) {
   var Contact = sequelize.define(
     "Contact",
     {
@@ -9,18 +9,19 @@ module.exports = function(sequelize, DataTypes) {
       email: { type: Sequelize.TEXT, allowNull: true },
       address1: { type: Sequelize.TEXT, allowNull: true },
       address2: { type: Sequelize.TEXT, allowNull: true },
-      City: { type: Sequelize.TEXT, allowNull: true },
-      State: { type: Sequelize.TEXT, allowNull: true },
-      Zip: { type: Sequelize.TEXT, allowNull: true },
-      Phone: { type: Sequelize.TEXT, allowNull: true },
-      Mobile: { type: Sequelize.TEXT, allowNull: true }
+      city: { type: Sequelize.TEXT, allowNull: true },
+      state: { type: Sequelize.TEXT, allowNull: true },
+      zip: { type: Sequelize.TEXT, allowNull: true },
+      country: { type: Sequelize.TEXT, allowNull: true },
+      phone: { type: Sequelize.TEXT, allowNull: true },
+      mobile: { type: Sequelize.TEXT, allowNull: true }
     },
     {
       timestamps: false
     }
   );
 
-  Contact.associate = function(models) {
+  Contact.associate = function (models) {
     models.Contact.belongsTo(models.User, {
       onDelete: "CASCADE",
       foreignKey: {
@@ -35,6 +36,9 @@ module.exports = function(sequelize, DataTypes) {
     });
     models.Contact.belongsToMany(models.Deal, {
       through: models.DealContact
+    });
+    models.Contact.belongsToMany(models.Comment, {
+      through: models.ContactComment
     });
   };
 
