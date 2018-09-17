@@ -32,7 +32,8 @@ class EditDeal extends Component {
       name: this.inputName.value,
       amount: this.inputAmount.value,
       stage: this.state.selectStage,
-      status: this.state.selectStatus
+      status: this.state.selectStatus,
+      prevStage: this.state.deal.stage
     }
     console.log(payload)
     fetch(`/api/deals/${this.state.deal.id}/edit`, {

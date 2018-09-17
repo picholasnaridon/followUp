@@ -8,6 +8,9 @@ import {
 import AddDeal from './AddDeal'
 import { Row, Grid, Col, Button } from 'react-bootstrap'
 import ReactTable from 'react-table'
+import DealStatus from './DealStatus'
+import DealProgress from './DealProgress';
+import DollarFormat from '../shared/DollarFormat'
 
 const stageMap = {
   "Closed Lost": 0,
@@ -83,56 +86,22 @@ class DealList extends React.Component {
                 Header: 'Status',
                 accessor: 'status',
                 Cell: row => (
-                  <span>
-                    <span style={{
-                      color: row.value === 'In Danger' ? '#ff2e00'
-                        : row.value === 'Follow Up' ? '#ffbf00'
-                          : '#57d500',
-                      transition: 'all .3s ease'
-                    }}>
-                      &#x25cf;
-                    </span> {
-                      row.value === 'In Danger' ? 'Danger'
-                        : row.value === 'Follow Up' ? `Follow Up`
-                          : 'Good'
-                    }
-                  </span>
+                  <DealStatus status={row.value} />
                 )
               }, {
                 Header: 'Stage',
                 accessor: 'stage',
-
               }, {
                 Header: 'Progress',
                 accessor: 'stage',
                 Cell: row => (
-                  <div
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      backgroundColor: '#dadada',
-                      borderRadius: '2px'
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: `${stageMap[row.value]}%`,
-                        height: '100%',
-                        backgroundColor:
-                          stageMap[row.value] > 90 ? '#00ff11' : stageMap[row.value]
-                            > 66 ? '#85cc00' : stageMap[row.value]
-                              > 33 ? '#ffbf00' : '#ff2e00',
-                        borderRadius: '2px',
-                        transition: 'all .2s ease-out'
-                      }}
-                    />
-                  </div>
+                  <DealProgress progress={stageMap[row.value]} />
                 )
               }, {
                 Header: 'Amount', // Required because our accessor is not a string
                 accessor: 'amount',
                 Cell: (row) => (
-                  <div>${(row.value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
+                  <DollarFormat value={row.value} />
                 ),
                 Footer: (data) => {
                   var total = 0
@@ -143,7 +112,7 @@ class DealList extends React.Component {
                   return (
                     <span>
                       <strong>Total: </strong>
-                      <span style={{ color: "#1ee861" }}>${(total).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</span>
+                      <DollarFormat color={true} value={total} />
                     </span>
                   )
                 }

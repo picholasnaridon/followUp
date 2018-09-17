@@ -48,7 +48,6 @@ class NoteList extends Component {
             </FormGroup>
           </Col>
         </Row>
-
         <hr></hr>
         <Row>
           <Col>
@@ -61,8 +60,6 @@ class NoteList extends Component {
           </Col>
         </Row>
       </Grid>
-
-
     );
   }
 }

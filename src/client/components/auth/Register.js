@@ -74,7 +74,6 @@ class Register extends Component {
         <button onClick={(event) => this.register(event)}>Submit</button>
       </div>
     )
-
   }
 }
 

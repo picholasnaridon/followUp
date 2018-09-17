@@ -104,7 +104,7 @@ module.exports = {
     );
   },
   changeStage: function (req, res) {
-    console.log(req.body)
+    console.log(req.body.prevStage)
     models.Deal.update(
       { stage: req.body.stage },
       {
@@ -116,7 +116,7 @@ module.exports = {
     })
   },
   edit: function (req, res) {
-    console.log(req.body)
+    console.log(req.body.prevStage)
     models.Deal.update(
       {
         stage: req.body.stage,

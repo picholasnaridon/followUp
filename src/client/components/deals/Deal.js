@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import MyModal from '../shared/MyModal'
 import DealContacts from './DealContacts'
-import { Button, FormControl, Grid, Row, Col } from 'react-bootstrap'
+import { Button, Grid, Row, Col } from 'react-bootstrap'
 import EditDeal from './EditDeal'
 import NoteList from '../notes/NoteList'
+import DealStatus from './DealStatus'
+import DollarFormat from '../shared/DollarFormat'
+import WarningBanner from '../shared/WarningBanner';
 
 class Deal extends Component {
   constructor(props) {
@@ -12,7 +15,6 @@ class Deal extends Component {
       deal: null,
       stage: null
     }
-    this.renderStatus = this.renderStatus.bind(this)
     this.showModal = this.showModal.bind(this)
     this.hideModal = this.hideModal.bind(this)
     this.refresh = this.refresh.bind(this)
@@ -21,7 +23,8 @@ class Deal extends Component {
 
   markLostOrWon(e, stage) {
     var payload = {
-      stage: stage
+      stage: stage,
+      prevStage: this.state.deal.stage
     }
     fetch(`/api/deals/${this.props.match.params.id}/changeStage`, {
       method: 'PUT',
@@ -34,6 +37,7 @@ class Deal extends Component {
       .then(response => response)
       .then((data) => {
         this.setState({ stage: stage })
+        this.refresh()
       })
   }
   showModal() {
@@ -44,24 +48,7 @@ class Deal extends Component {
     this.setState({ show: false });
   }
 
-  renderStatus() {
-    return (
-      <span>
-        <span style={{
-          color: this.state.deal.status === 'In Danger' ? '#ff2e00'
-            : this.state.deal.status === 'Follow Up' ? '#ffbf00'
-              : '#57d500',
-          transition: 'all .3s ease'
-        }}>
-          &#x25cf;
-        </span> {
-          this.state.deal.status === 'In Danger' ? 'Danger'
-            : this.state.deal.status === 'Follow Up' ? `Follow Up`
-              : 'Good'
-        }
-      </span >
-    )
-  }
+
 
   componentDidMount() {
     fetch(`/api/deals/${this.props.match.params.id}`, {
@@ -107,8 +94,8 @@ class Deal extends Component {
           <Row>
             <Col>
               <div>
-                <h4>{this.renderStatus()}</h4>
-                <h4>$ {this.state.deal.amount}</h4>
+                <h4><DealStatus status={this.state.deal.status} /></h4>
+                <h4><DollarFormat value={this.state.deal.amount} /></h4>
               </div>
             </Col>
           </Row>
@@ -125,7 +112,7 @@ class Deal extends Component {
         </Grid>
       );
     } else {
-      return (<div></div>)
+      return (<WarningBanner />)
     }
   }
 }

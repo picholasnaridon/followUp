@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MyModal from '../shared/MyModal'
 import { Table, Button } from 'react-bootstrap'
 import AddContact from '../contacts/AddContact'
+import WarningBanner from '../shared/WarningBanner';
 
 class DealContacts extends Component {
   constructor(props) {
@@ -45,7 +46,7 @@ class DealContacts extends Component {
       );
     }
     else {
-      return (<div></div>)
+      return (<WarningBanner />)
     }
   }
 }

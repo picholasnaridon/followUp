@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Doughnut, Bar } from 'react-chartjs-2'
 import { Grid, Row, Col } from 'react-bootstrap'
 import RecentActivity from './RecentActivity'
+import DollarFormat from '../shared/DollarFormat';
 
 const funnelOptions = {
   onClick: function (event, bar) {
@@ -99,7 +100,9 @@ class MyFunnel extends Component {
                 "Final Review",
               ]
             }} options={funnelOptions} />
-            <h1 style={{ textAlign: "center" }}>Funnel total: <span style={{ color: "#1ee861" }}>${(this.getTotalSales()).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</span></h1>
+            <h1 style={{ textAlign: "center" }}>Funnel total:
+                <DollarFormat value={this.getTotalSales()} color={true} />
+            </h1>
           </Col>
           <Col md={6} >
             <h1 style={{ textAlign: "center" }}>Close Ratio</h1>
