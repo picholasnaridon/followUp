@@ -18,6 +18,7 @@
     "chart.js": "^2.7.2",
     "chartjs-funnel": "^1.0.5",
     "dotenv": "^6.0.0",
+    "esm": "^3.0.84",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
