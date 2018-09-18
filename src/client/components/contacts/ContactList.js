@@ -109,7 +109,7 @@ const columns =
 
   ]
 
-class ContactList extends React.Component {
+class ContactList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -117,8 +117,6 @@ class ContactList extends React.Component {
     }
   }
   componentDidMount() {
-    var UserId = JSON.parse(localStorage.getItem('user_id'))
-
     fetch(`/api/contacts`)
       .then(response => response.json())
       .then(data => this.setState({ contacts: data }))

@@ -23,7 +23,7 @@ const stageMap = {
 }
 
 
-class DealList extends React.Component {
+class DealList extends Component {
   constructor(props) {
     super(props);
     this.state = {
