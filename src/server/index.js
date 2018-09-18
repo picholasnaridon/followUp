@@ -15,12 +15,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.engine("handlebars", exphbs());
-app.set("view engine", "handlebars");
-app.set('views', path.join(__dirname, '../../src/server/views'));
 
-app.use(express.static(path.join(__dirname, "/public")));
-app.use("/scripts", express.static(__dirname + "/node_modules"));
+
+app.use(express.static('dist'));
+
 
 app.use(
   session({

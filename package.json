@@ -8,8 +8,7 @@
     "build": "webpack --mode production",
     "client": "webpack-dev-server --hot  --color --progress --mode development -d",
     "server": "nodemon -r esm --watch src/server --inspect src/server/index.js",
-    "dev": "concurrently --kill-others \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "concurrently --kill-others \"npm run server\" \"npm run client\""
+    "dev": "concurrently --kill-others \"npm run server\" \"npm run client\""
   },
   "author": "",
   "license": "ISC",
