@@ -13,6 +13,6 @@ module.exports = {
     res.send("test")
   },
   createContactNote: function (req, res) {
-    res.send("test")
+    res.send("test123")
   }
 }
