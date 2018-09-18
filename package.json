@@ -4,6 +4,7 @@
   "description": "",
   "main": "src/server/index.js",
   "scripts": {
+    "heroku-postbuild": "NODE_ENV=production npm run webpack -- -p",
     "start": "node src/server/index.js",
     "build": "webpack --mode production",
     "client": "webpack-dev-server --hot  --color --progress --mode development -d",
