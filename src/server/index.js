@@ -31,7 +31,7 @@ app.use(passport.session()); // persistent login sessions
 require("./config/passport/passport.js")(passport, db.User);
 
 require("./routes/api-routes")(app, passport);
-require("./routes/html-routes")(app, passport);
+// require("./routes/html-routes")(app, passport);
 require("./routes/auth-routes.js")(app, passport);
 
 

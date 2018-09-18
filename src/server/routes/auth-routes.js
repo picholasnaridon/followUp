@@ -1,9 +1,7 @@
 var authController = require("../controllers/authController");
 
 module.exports = function (app, passport) {
-  app.get("/api/signup", authController.signup);
 
-  app.get("/api/signin", authController.signin);
 
   app.post('/api/signup', function (req, res) {
     passport.authenticate('local-signup', function (err, user, info) {
@@ -30,7 +28,6 @@ module.exports = function (app, passport) {
     })(req, res);
   });
 
-  app.get("/dashboard", isLoggedIn, authController.dashboard);
 
   app.get("/api/logout", authController.logout);
 
@@ -63,7 +60,6 @@ module.exports = function (app, passport) {
     if (req.isAuthenticated()) {
       return next();
     }
-
     res.redirect("/api/signin");
   }
 };
