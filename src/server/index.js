@@ -7,7 +7,7 @@ var passport = require("passport");
 var session = require("express-session");
 
 var app = express();
-var PORT = 8080;
+const PORT = 8080;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
