@@ -11,6 +11,7 @@ import ReactTable from 'react-table'
 import DealStatus from './DealStatus'
 import DealProgress from './DealProgress';
 import DollarFormat from '../shared/DollarFormat'
+import axios from 'axios'
 
 const stageMap = {
   "Closed Lost": 0,
@@ -35,11 +36,14 @@ class DealList extends Component {
     this.hideModal = this.hideModal.bind(this)
   }
   componentDidMount() {
-    var UserId = JSON.parse(localStorage.getItem('user_id'))
-
-    fetch(`/api/users/${this.props.userId}/deals`)
-      .then(response => response.json())
-      .then(data => this.setState({ deals: data.Deals }))
+    axios(`/api/deals`, {
+      params:{
+        userId: this.props.userId
+        }
+      }).then(response => {
+        console.log(response)
+        this.setState({deals: response.data})
+      })
   }
 
   showModal = () => {

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   HashRouter as Router,
   Route,
+  Redirect,
   Link
 } from 'react-router-dom'
 import Login from '../auth/Login'
@@ -24,18 +25,12 @@ class Main extends Component {
       user_id: null,
       user: null
     }
-    // this.handleAuth = this.handleAuth.bind(this)
     this.logout = this.logout.bind(this)
   }
   
   componentDidMount(){
-    axios.get('/api/user', {
-        headers: {
-          'authorization': localStorage.getItem('jwtToken'),
-          'Accept' : 'application/json',
-          'Content-Type': 'application/json'
-        }
-      })
+    axios.defaults.headers.common['Authorization'] = localStorage.getItem('jwtToken');
+    axios.get('/api/user')
       .then(response => {
         console.log(response)
         this.setState({
@@ -44,18 +39,10 @@ class Main extends Component {
         })
       })
       .catch((error) => {
-        window.href= "/#/login"
+        window.location.href= "/#/login"
       });
   }
 
-  // handleAuth(loggedIn, user) {
-  //   console.log("fired", loggedIn)
-  //   if (loggedIn) {
-  //     localStorage.setItem('loggedIn', true);
-  //     localStorage.setItem('user_id', user.id);
-  //     this.setState({ loggedIn: true })
-  //   }
-  // }
 
   logout() {
     var that = this
@@ -65,6 +52,7 @@ class Main extends Component {
       if (res.ok) {
         localStorage.setItem('jwtToken', null);
         that.setState({ loggedIn: false, user_id: null })
+        window.location.href= "/#/login"
       };
     })
   }
@@ -103,14 +91,14 @@ class Main extends Component {
               </Navbar>
               <Route exact path="/" render={() => <MyFunnel />} />
 
-              <Route exact path="/companies" render={() => <CompanyList />} />
-              <Route exact path="/companies/:id" render={(props) => <Company {...props} />} />
+              <Route exact path="/companies" render={(props) => <CompanyList userId={this.state.user_id} {...props}/>} />
+              <Route exact path="/companies/:id" render={(props) => <Company userId={this.state.user_id} {...props} />} />
 
               <Route exact path="/deals" render={(props) => <DealList userId={this.state.user_id} {...props}/>} />
-              <Route exact path="/deals/:id" render={(props) => <Deal {...props} />} />
+              <Route exact path="/deals/:id" render={(props) => <Deal userId={this.state.user_id} {...props} />} />
 
-              <Route exact path="/contacts" render={() => <ContactList />} />
-              <Route exact path="/contacts/:id" render={(props) => <Contact {...props} />} />
+              <Route exact path="/contacts" render={(props) => <ContactList userId={this.state.user_id} {...props}/>} />
+              <Route exact path="/contacts/:id" render={(props) => <Contact userId={this.state.user_id} {...props} />} />
             </div>
           </Router>
         </div>

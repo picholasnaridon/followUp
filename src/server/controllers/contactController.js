@@ -47,7 +47,11 @@ module.exports = {
     });
   },
   getAll: function (req, res) {
+    console.log("userId from req",req.query.userId)
     models.Contact.findAll({
+      where: {
+         UserId: req.query.userId
+          },
       include: [models.Company, models.Deal]
     }).then(function (results) {
       res.json(results);

@@ -39,7 +39,7 @@ class DealContacts extends Component {
             </tbody>
           </Table>
           <MyModal show={this.state.show} title="Add Contact" bsSize="lg" close={this.hideModal} style={{ margin: "3%" }}>
-            <AddContact dealId={this.props.dealId} close={this.hideModal} refresh={this.props.refresh} />
+            <AddContact dealId={this.props.dealId} close={this.hideModal} userId={this.props.userId} refresh={this.props.refresh} />
           </MyModal>
         </div >
       );

@@ -26,7 +26,7 @@ class Create extends Component {
 
     axios.post('/api/signup', { username, password })
       .then((result) => {
-        this.props.history.push("/login")
+        window.location.href= "/"
       });
   }
 

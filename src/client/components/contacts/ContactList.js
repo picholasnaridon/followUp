@@ -7,6 +7,8 @@ import {
 } from 'react-router-dom'
 import { Row, Grid, Col } from 'react-bootstrap'
 import ReactTable from 'react-table'
+import axios from 'axios'
+
 
 const columns =
   [
@@ -117,11 +119,14 @@ class ContactList extends React.Component {
     }
   }
   componentDidMount() {
-    var UserId = JSON.parse(localStorage.getItem('user_id'))
-
-    fetch(`/api/contacts`)
-      .then(response => response.json())
-      .then(data => this.setState({ contacts: data }))
+      axios(`/api/contacts`, {
+          params:{
+            userId: this.props.userId
+            }
+      }).then(response => {
+        console.log(response)
+        this.setState({contacts: response.data})
+      })
   }
   render() {
     return (

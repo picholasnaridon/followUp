@@ -114,7 +114,7 @@ class Deal extends Component {
           </Row>
           <hr></hr>
           <Row>
-            <DealContacts contacts={this.state.deal.Contacts} refresh={this.refresh} dealId={this.props.match.params.id} />
+            <DealContacts contacts={this.state.deal.Contacts} userId={this.props.userId} refresh={this.refresh} dealId={this.props.match.params.id} />
           </Row>
           <hr></hr>
           <Row>

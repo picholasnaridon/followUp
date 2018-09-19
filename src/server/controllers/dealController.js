@@ -113,7 +113,11 @@ module.exports = {
     });
   },
   getAll: function (req, res) {
-    models.Deal.findAll({ include: [models.Contact, models.Company] }).then(
+    models.Deal.findAll({
+      where: {
+        UserId: req.query.userId
+      },
+     include: [models.Contact, models.Company] }).then(
       function (results) {
         res.json(results);
       }

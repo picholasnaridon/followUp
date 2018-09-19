@@ -46,6 +46,9 @@ module.exports = {
   },
   getAll: function(req, res) {
     models.Company.findAll({
+      where: {
+        UserId: req.query.userId
+      },
       include: [models.Deal, models.Contact]
     }).then(function(results) {
       res.json(results);

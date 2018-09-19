@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom'
 import { Grid, Row, Col } from 'react-bootstrap'
 import ReactTable from 'react-table'
+import axios from 'axios'
 
 const
   columns = [
@@ -49,11 +50,14 @@ class CompanyList extends React.Component {
     }
   }
   componentDidMount() {
-    var UserId = JSON.parse(localStorage.getItem('user_id'))
-
-    fetch(`/api/companies`)
-      .then(response => response.json())
-      .then(data => this.setState({ companies: data }))
+     axios(`/api/companies`, {
+          params:{
+            userId: this.props.userId
+            }
+      }).then(response => {
+        console.log(response)
+        this.setState({companies: response.data})
+      })
   }
   render() {
     return (
