@@ -29,23 +29,23 @@ class Main extends Component {
   }
   
   componentDidMount(){
-  axios.get('/api/user', {
-      headers: {
-        'authorization': localStorage.getItem('jwtToken'),
-        'Accept' : 'application/json',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      console.log(response)
-      this.setState({
-        loggedIn: true,
-        user_id: response.data.id
+    axios.get('/api/user', {
+        headers: {
+          'authorization': localStorage.getItem('jwtToken'),
+          'Accept' : 'application/json',
+          'Content-Type': 'application/json'
+        }
       })
-    })
-    .catch((error) => {
-      window.href= "/#/login"
-    });
+      .then(response => {
+        console.log(response)
+        this.setState({
+          loggedIn: true,
+          user_id: response.data.id
+        })
+      })
+      .catch((error) => {
+        window.href= "/#/login"
+      });
   }
 
   // handleAuth(loggedIn, user) {
@@ -106,7 +106,7 @@ class Main extends Component {
               <Route exact path="/companies" render={() => <CompanyList />} />
               <Route exact path="/companies/:id" render={(props) => <Company {...props} />} />
 
-              <Route exact path="/deals" render={() => <DealList />} />
+              <Route exact path="/deals" render={(props) => <DealList userId={this.state.user_id} {...props}/>} />
               <Route exact path="/deals/:id" render={(props) => <Deal {...props} />} />
 
               <Route exact path="/contacts" render={() => <ContactList />} />
