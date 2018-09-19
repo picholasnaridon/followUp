@@ -14,26 +14,48 @@ import Deal from '../deals/Deal'
 import Company from '../companies/Company'
 import MyFunnel from './MyFunnel';
 import { Navbar, NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap'
+import axios from 'axios'
 
 class Main extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      loggedIn: JSON.parse(localStorage.getItem('loggedIn')) || null,
-      user_id: JSON.parse(localStorage.getItem('user_id')) || null,
+      loggedIn: null,
+      user_id: null,
+      user: null
     }
-    this.handleAuth = this.handleAuth.bind(this)
+    // this.handleAuth = this.handleAuth.bind(this)
     this.logout = this.logout.bind(this)
   }
-
-  handleAuth(loggedIn, user) {
-    console.log("fired", loggedIn)
-    if (loggedIn) {
-      localStorage.setItem('loggedIn', true);
-      localStorage.setItem('user_id', user.id);
-      this.setState({ loggedIn: true })
-    }
+  
+  componentDidMount(){
+  axios.get('/api/user', {
+      headers: {
+        'authorization': localStorage.getItem('jwtToken'),
+        'Accept' : 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      console.log(response)
+      this.setState({
+        loggedIn: true,
+        user_id: response.data.id
+      })
+    })
+    .catch((error) => {
+      window.href= "/#/login"
+    });
   }
+
+  // handleAuth(loggedIn, user) {
+  //   console.log("fired", loggedIn)
+  //   if (loggedIn) {
+  //     localStorage.setItem('loggedIn', true);
+  //     localStorage.setItem('user_id', user.id);
+  //     this.setState({ loggedIn: true })
+  //   }
+  // }
 
   logout() {
     var that = this
@@ -41,8 +63,7 @@ class Main extends Component {
       method: 'GET'
     }).then(function (res) {
       if (res.ok) {
-        localStorage.setItem('loggedIn', false)
-        localStorage.setItem('user_id', null)
+        localStorage.setItem('jwtToken', null);
         that.setState({ loggedIn: false, user_id: null })
       };
     })

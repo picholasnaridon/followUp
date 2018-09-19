@@ -3,8 +3,14 @@ var companyController = require("../controllers/companyController");
 var contactController = require("../controllers/contactController");
 var userController = require("../controllers/userController");
 
-module.exports = function (app, passport) {
+var passport = require('passport');
+var settings = require('../config/passport/settings');
+require('../config/passport/passport')(passport);
+var jwt = require('jsonwebtoken');
+
+module.exports = function (app) {
   //Users
+  app.get("/api/user", passport.authenticate('jwt', { session: false}), userController.currentUser)
   app.get("/api/users", userController.users);
   app.get("/api/users/:id", userController.user);
   app.get("/api/users/:id/deals", userController.userDeals);
@@ -25,4 +31,6 @@ module.exports = function (app, passport) {
 
   app.post("/api/deals/create", dealController.create);
   app.post("/api/deals/:id/addContact", dealController.addContact);
+
+  
 };

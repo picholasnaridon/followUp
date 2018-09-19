@@ -1,4 +1,6 @@
 var Sequelize = require("sequelize");
+var bcrypt = require('bcrypt-nodejs');
+
 
 module.exports = function (sequelize, DataTypes) {
   var User = sequelize.define("User", {
@@ -18,12 +20,6 @@ module.exports = function (sequelize, DataTypes) {
     username: {
       type: Sequelize.TEXT
     },
-    email: {
-      type: Sequelize.STRING,
-      validate: {
-        isEmail: true
-      }
-    },
     phone: {
       type: Sequelize.STRING
     },
@@ -38,8 +34,16 @@ module.exports = function (sequelize, DataTypes) {
       type: Sequelize.ENUM("active", "inactive"),
       defaultValue: "active"
     }
-  });
-
+  })
+  User.prototype.comparePassword = function (passw, cb) {
+      bcrypt.compare(passw, this.password, function (err, isMatch) {
+          if (err) {
+              return cb(err);
+          }
+          cb(null, isMatch);
+      });
+    }
+  
   User.associate = function (models) {
     models.User.hasMany(models.Deal);
     models.User.hasMany(models.Comment);

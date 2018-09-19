@@ -3,7 +3,9 @@ import ContactDeals from './ContactDeals'
 import NoteList from '../notes/NoteList'
 import EditContact from './EditContact'
 import MyModal from '../shared/MyModal'
-import { Table, Grid, Row, Col, Panel, Thumbnail, Button } from 'react-bootstrap'
+import ContactInfo from './ContactInfo'
+import { Grid, Row, Col, Panel, Thumbnail, Button } from 'react-bootstrap'
+import WarningBanner from '../shared/WarningBanner';
 
 class Contact extends Component {
   constructor(props) {
@@ -50,7 +52,6 @@ class Contact extends Component {
   render() {
     if (this.state.contact) {
       return (
-
         <Grid>
           <Button bsStyle="success" onClick={this.showModal}>Edit Contact</Button>
           <Row>
@@ -67,37 +68,7 @@ class Contact extends Component {
                   <h3><a href={`#/companies/${this.state.contact.Company.id}`}>{this.state.contact.Company.name}</a></h3>
                 </div>
               </Panel>
-              <Panel>
-                <h2>Contact Info</h2>
-                <Table>
-                  <tbody>
-                    <tr>
-                      <td><strong>Phone</strong></td>
-                      <td><a href={`tel:${this.state.contact.phone}`}>{this.state.contact.phone}</a></td>
-                      <td><strong>Mobile</strong></td>
-                      <td><a href={`tel:${this.state.contact.mobile}`}>{this.state.contact.mobile}</a></td>
-                      <td><strong>Email</strong></td>
-                      <td><a href={`mailto:${this.state.contact.email}`}>{this.state.contact.email}</a></td>
-                    </tr>
-                    <tr>
-                      <td><strong>Address 1</strong></td>
-                      <td>{this.state.contact.address1}</td>
-                      <td><strong>Address 2</strong></td>
-                      <td>{this.state.contact.address2}</td>
-                      <td><strong>City</strong></td>
-                      <td>{this.state.contact.city}</td>
-                    </tr>
-                    <tr>
-                      <td><strong>State</strong></td>
-                      <td>{this.state.contact.state}</td>
-                      <td><strong>Zip</strong></td>
-                      <td>{this.state.contact.zip}</td>
-                      <td><strong>Country</strong></td>
-                      <td>{this.state.contact.country}</td>
-                    </tr>
-                  </tbody>
-                </Table>
-              </Panel>
+              <ContactInfo contact={this.state.contact} />
             </Col>
           </Row>
           <Row>
@@ -114,10 +85,9 @@ class Contact extends Component {
             </Col>
           </Row>
         </Grid>
-
       );
     } else {
-      return (<div></div>)
+      return (<WarningBanner />)
     }
   }
 }

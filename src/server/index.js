@@ -5,28 +5,30 @@ var path = require("path");
 var exphbs = require("express-handlebars");
 var passport = require("passport");
 var session = require("express-session");
+var cookieParser = require('cookie-parser')
 
 var app = express();
 var PORT = process.env.PORT || 8080;
 
-app.use(bodyParser.urlencoded({ extended: true }));
+
+
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.static("dist"));
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-app.use(express.static('dist'));
-
-app.use(
-  session({
-    secret: "keyboard cat",
-    resave: false,
-    saveUninitialized: false
-  })
-); // session secret
+app.use(session({
+  cookieName: 'session',
+  secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
+  duration: 30 * 60 * 1000,
+  activeDuration: 30 * 60 * 1000,
+  httpOnly: true,
+  secure: true,
+  ephemeral: true
+}));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
+
+
 
 require("./config/passport/passport.js")(passport, db.User);
 
@@ -41,3 +43,4 @@ db.sequelize.sync({}).then(function () {
     console.log("App listening on PORT " + PORT);
   });
 });
+
