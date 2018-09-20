@@ -24,7 +24,7 @@ class AddContact extends Component {
       country: this.inputCountry.value,
       phone: this.inputPhone.value,
       mobile: this.inputMobile.value,
-      userId: JSON.parse(localStorage.getItem('user_id'))
+      userId: this.props.userId
     }
     fetch(`/api/deals/${this.props.dealId}/addContact`, {
       method: 'POST',

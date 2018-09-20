@@ -1,159 +1,122 @@
 import React, { Component } from 'react';
-import MyModal from '../shared/MyModal'
-import {
-  HashRouter as Router,
-  Route,
-  Link
-} from 'react-router-dom'
-import AddDeal from './AddDeal'
-import { Row, Grid, Col, Button } from 'react-bootstrap'
-import ReactTable from 'react-table'
+import { MyModal, DealProgress, DealStatus, DollarFormat, AddDeal } from '../components';
+import { HashRouter as Router, Route, Link } from 'react-router-dom';
+import { Row, Grid, Col, Button } from 'react-bootstrap';
+import ReactTable from 'react-table';
+import axios from 'axios';
 
 const stageMap = {
-  "Closed Lost": 0,
-  "Discovery": 16.6,
-  "Initial Meeting": 33.3,
-  "Proposal Sent": 49.8,
-  "Contract Signed": 66.4,
-  "Final Review": 83.1,
-  "Closed Won": 100
-}
+	'Closed Lost': 0,
+	Discovery: 16.6,
+	'Initial Meeting': 33.3,
+	'Proposal Sent': 49.8,
+	'Contract Signed': 66.4,
+	'Final Review': 83.1,
+	'Closed Won': 100
+};
 
+class DealList extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			deals: [],
+			show: false,
+			filterValue: 'Discovery'
+		};
+		this.showModal = this.showModal.bind(this);
+		this.hideModal = this.hideModal.bind(this);
+	}
+	componentDidMount() {
+		axios(`/api/deals`, {
+			params: {
+				userId: this.props.userId
+			}
+		}).then((response) => {
+			console.log(response);
+			this.setState({ deals: response.data });
+		});
+	}
 
-class DealList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      deals: [],
-      show: false,
-      filterValue: 'Discovery'
-    }
-    this.showModal = this.showModal.bind(this)
-    this.hideModal = this.hideModal.bind(this)
-  }
-  componentDidMount() {
-    var UserId = JSON.parse(localStorage.getItem('user_id'))
+	showModal = () => {
+		this.setState({ show: true });
+	};
 
-    fetch(`/api/users/${UserId}/deals`)
-      .then(response => response.json())
-      .then(data => this.setState({ deals: data.Deals }))
-  }
+	hideModal = () => {
+		this.setState({ show: false });
+	};
 
-  showModal = () => {
-    this.setState({ show: true });
-  }
-
-  hideModal = () => {
-    this.setState({ show: false });
-  }
-
-  render() {
-    return (
-      <Grid>
-        <Row>
-          <Col md={6}>
-            <h1>Deals</h1>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={6}>
-            <main style={{ marginBottom: "3%" }}>
-              <MyModal show={this.state.show} title="Add Deal" close={this.hideModal} >
-                <AddDeal closeModal={this.hideModal} />
-              </MyModal>
-              <Button bsStyle="success" onClick={this.showModal}>+ Deal</Button>
-            </main>
-          </Col>
-        </Row>
-        <Row>
-          <Col md={12}>
-            <ReactTable
-              filterable
-              defaultFilterMethod={(filter, row) =>
-                String(row[filter.id]) === filter.value
-              }
-
-              pageSize={10}
-              data={this.state.deals}
-              columns={[{
-                Header: 'Name',
-                accessor: 'name',
-                Cell: props => <a href={"#/deals/" + props.original.id}>{props.value}</a>,
-              }, {
-                Header: 'Status',
-                accessor: 'status',
-                Cell: row => (
-                  <span>
-                    <span style={{
-                      color: row.value === 'In Danger' ? '#ff2e00'
-                        : row.value === 'Follow Up' ? '#ffbf00'
-                          : '#57d500',
-                      transition: 'all .3s ease'
-                    }}>
-                      &#x25cf;
-                    </span> {
-                      row.value === 'In Danger' ? 'Danger'
-                        : row.value === 'Follow Up' ? `Follow Up`
-                          : 'Good'
-                    }
-                  </span>
-                )
-              }, {
-                Header: 'Stage',
-                accessor: 'stage',
-
-              }, {
-                Header: 'Progress',
-                accessor: 'stage',
-                Cell: row => (
-                  <div
-                    style={{
-                      width: '100%',
-                      height: '100%',
-                      backgroundColor: '#dadada',
-                      borderRadius: '2px'
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: `${stageMap[row.value]}%`,
-                        height: '100%',
-                        backgroundColor:
-                          stageMap[row.value] > 90 ? '#00ff11' : stageMap[row.value]
-                            > 66 ? '#85cc00' : stageMap[row.value]
-                              > 33 ? '#ffbf00' : '#ff2e00',
-                        borderRadius: '2px',
-                        transition: 'all .2s ease-out'
-                      }}
-                    />
-                  </div>
-                )
-              }, {
-                Header: 'Amount', // Required because our accessor is not a string
-                accessor: 'amount',
-                Cell: (row) => (
-                  <div>${(row.value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</div>
-                ),
-                Footer: (data) => {
-                  var total = 0
-                  console.log(data)
-                  data.data.forEach(function (deal) {
-                    total += deal.amount
-                  })
-                  return (
-                    <span>
-                      <strong>Total: </strong>
-                      <span style={{ color: "#1ee861" }}>${(total).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}</span>
-                    </span>
-                  )
-                }
-              }]}
-            />
-          </Col>
-        </Row>
-      </Grid>
-    );
-  }
+	render() {
+		return (
+			<Grid>
+				<Row>
+					<Col md={6}>
+						<h1>Deals</h1>
+					</Col>
+				</Row>
+				<Row>
+					<Col md={6}>
+						<main style={{ marginBottom: '3%' }}>
+							<MyModal show={this.state.show} title="Add Deal" close={this.hideModal}>
+								<AddDeal closeModal={this.hideModal} userId={this.props.userId} />
+							</MyModal>
+							<Button bsStyle="success" onClick={this.showModal}>
+								+ Deal
+							</Button>
+						</main>
+					</Col>
+				</Row>
+				<Row>
+					<Col md={12}>
+						<ReactTable
+							filterable
+							defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value}
+							pageSize={10}
+							data={this.state.deals}
+							columns={[
+								{
+									Header: 'Name',
+									accessor: 'name',
+									Cell: (props) => <a href={'#/deals/' + props.original.id}>{props.value}</a>
+								},
+								{
+									Header: 'Status',
+									accessor: 'status',
+									Cell: (row) => <DealStatus status={row.value} />
+								},
+								{
+									Header: 'Stage',
+									accessor: 'stage'
+								},
+								{
+									Header: 'Progress',
+									accessor: 'stage',
+									Cell: (row) => <DealProgress progress={stageMap[row.value]} />
+								},
+								{
+									Header: 'Amount', // Required because our accessor is not a string
+									accessor: 'amount',
+									Cell: (row) => <DollarFormat value={row.value} />,
+									Footer: (data) => {
+										var total = 0;
+										console.log(data);
+										data.data.forEach(function(deal) {
+											total += deal.amount;
+										});
+										return (
+											<span>
+												<strong>Total: </strong>
+												<DollarFormat color={true} value={total} />
+											</span>
+										);
+									}
+								}
+							]}
+						/>
+					</Col>
+				</Row>
+			</Grid>
+		);
+	}
 }
 
 export default DealList;

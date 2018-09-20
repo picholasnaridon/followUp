@@ -18,30 +18,7 @@ var getToken = function(headers) {
 
 module.exports = {
   // SHOW DEALS
-  index: function (req, res) {
-    models.Deal.findAll({
-      where: {
-        UserId: req.user.id
-      },
-      include: [models.Contact, models.Company]
-    }).then(function (results) {
-      console.log(results);
-      res.json(results)
-    });
-  },
-  show: function (req, res) {
-    models.Deal.findOne({
-      where: {
-        id: req.params.id
-      },
-      include: [models.Contact, models.Company]
-    }).then(function (results) {
-      res.json(results)
-    });
-  },
-  new: function (req, res) {
-    res.json(results)
-  },
+
   create: function (req, res) {
     models.Deal.create({
       name: req.body.name,
@@ -113,7 +90,11 @@ module.exports = {
     });
   },
   getAll: function (req, res) {
-    models.Deal.findAll({ include: [models.Contact, models.Company] }).then(
+    models.Deal.findAll({
+      where: {
+        UserId: req.query.userId
+      },
+     include: [models.Contact, models.Company] }).then(
       function (results) {
         res.json(results);
       }

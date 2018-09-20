@@ -32,7 +32,7 @@ class AddDeal extends Component {
       amount: this.inputAmount.value,
       stage: this.state.selectStage,
       status: this.state.selectStatus,
-      UserId: this.state.user_id
+      UserId: this.props.userId
     }
     console.log(payload)
     fetch("/api/deals/create", {
@@ -61,7 +61,7 @@ class AddDeal extends Component {
             placeholder="Deal Name" ></FormControl>
         </FormGroup>
         <FormGroup controlId="formControlsSelect">
-          <ControlLabel>Stage</ControlLabel>
+          <ControlLabel>Stage {this.props.userId}</ControlLabel>
           <FormControl value={this.state.selectStage} componentClass="select" onChange={this.handleStageChange.bind(this)}>
             <option value="Discovery">Discovery</option>
             <option value="Initial Meeting">Initial Meeting</option>

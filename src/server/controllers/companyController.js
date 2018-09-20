@@ -17,23 +17,7 @@ var getToken = function(headers) {
   }
 
 module.exports = {
-  index: function(req, res) {
-    models.Company.findAll({ where: { UserId: req.user.id } }).then(function(
-      results
-    ) {
-      res.render("companies/index", { companies: results });
-    });
-  },
-  show: function(req, res) {
-    models.Company.findOne({
-      where: {
-        id: req.params.id
-      },
-      include: [models.Contact, models.Deal]
-    }).then(function(results) {
-      res.render("companies/show", { company: results });
-    });
-  },
+ 
   getOne: function(req, res) {
     models.Company.findOne({
       where: {
@@ -46,6 +30,9 @@ module.exports = {
   },
   getAll: function(req, res) {
     models.Company.findAll({
+      where: {
+        UserId: req.query.userId
+      },
       include: [models.Deal, models.Contact]
     }).then(function(results) {
       res.json(results);
