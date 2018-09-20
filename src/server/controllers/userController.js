@@ -25,14 +25,6 @@ module.exports = {
       return res.status(403).send({success: false, msg: 'Unauthorized.'});
     }
   },
-  showUser: function (req, res) {
-    models.User.findOne({
-      where: { id: req.params.id }
-    }).then(function (result) {
-      res.render("user", { user: result });
-    });
-  },
-  //GET USER
   user: function (req, res) {
     models.User.findOne({
       where: {
@@ -42,7 +34,6 @@ module.exports = {
       res.json(results);
     });
   },
-  // GET USERS
   users: function (req, res) {
     models.User.findOne({
       where: {

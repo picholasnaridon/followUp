@@ -17,25 +17,7 @@ var getToken = function(headers) {
   }
 
 module.exports = {
-  // SHOW CONTACTS
-  index: function (req, res) {
-    models.Contact.findAll({
-      where: {
-        UserId: req.user.id
-      }
-    }).then(function (results) {
-      res.render("contacts/index", { contacts: results });
-    });
-  },
-  show: function (req, res) {
-    console.log(req.user);
-    models.Contact.findOne({
-      where: { id: req.params.id },
-      include: [models.Deal, models.Company]
-    }).then(function (results) {
-      res.render("contacts/show", { contact: results });
-    });
-  },
+  // SHOW CONTACTS  
   getOne: function (req, res) {
     models.Contact.findOne({
       where: {
