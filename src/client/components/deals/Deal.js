@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Button, FormControl, Grid, Row, Col } from 'react-bootstrap';
 import { NoteList, EditDeal, MyModal, DealContacts } from '../components';
+import parse from 'date-fns/parse';
+import format from 'date-fns/format';
 
 class Deal extends Component {
 	constructor(props) {
@@ -14,6 +16,7 @@ class Deal extends Component {
 		this.hideModal = this.hideModal.bind(this);
 		this.refresh = this.refresh.bind(this);
 		this.markLostOrWon = this.markLostOrWon.bind(this);
+		this.formatDate = this.formatDate.bind(this);
 	}
 
 	markLostOrWon(e, stage) {
@@ -32,6 +35,8 @@ class Deal extends Component {
 			.then((data) => {
 				this.setState({ stage: stage });
 			});
+
+		// ANOTHER FETCH FOR RECORDING STAGE CHAGNES
 	}
 	showModal() {
 		this.setState({ show: true });
@@ -78,7 +83,11 @@ class Deal extends Component {
 				this.setState({ deal: json, stage: json.stage });
 			});
 	}
-
+	formatDate() {
+		var date = parse(this.state.deal.createdAt, 'MM-dd-yyyy', new Date());
+		var string = format(date, 'MMMM do YYYY');
+		return <span> {string} </span>;
+	}
 	refresh() {
 		fetch(`/api/deals/${this.props.match.params.id}`, {
 			method: 'GET'
@@ -99,6 +108,7 @@ class Deal extends Component {
 					<Row>
 						<Col md={11}>
 							<h2>{this.state.deal.name}</h2>
+							<h5>Created: {this.formatDate()}</h5>
 							<h4>{this.state.stage}</h4>
 							<Button bsStyle="success" onClick={(e) => this.markLostOrWon(e, 'Closed Won')}>
 								Won
