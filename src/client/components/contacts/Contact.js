@@ -99,7 +99,11 @@ class Contact extends Component {
 					</Row>
 					<Row>
 						<Col>
-							<NoteList />
+							<NoteList
+								type="contacts"
+								parentId={this.state.contact.id}
+								userId={this.state.contact.UserId}
+							/>
 						</Col>
 					</Row>
 				</Grid>

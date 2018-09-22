@@ -1,31 +1,31 @@
-var Sequelize = require("sequelize");
+var Sequelize = require('sequelize');
 
-module.exports = function (sequelize, DataTypes) {
-  var Comment = sequelize.define(
-    "Comment",
-    {
-      body: { type: Sequelize.TEXT, allowNull: false },
+module.exports = function(sequelize, DataTypes) {
+	var Comment = sequelize.define('Comment', {
+		body: { type: Sequelize.TEXT, allowNull: false }
+	});
 
-    },
-    {
-      timestamps: false
-    }
-  );
+	Comment.associate = function(models) {
+		models.Comment.belongsTo(models.User, {
+			onDelete: 'CASCADE',
+			foreignKey: {
+				allowNull: false
+			}
+		});
+		models.Comment.belongsTo(models.Contact, {
+			onDelete: 'CASCADE',
+			foreignKey: {
+				allowNull: true
+			}
+		});
 
-  Comment.associate = function (models) {
-    models.Comment.belongsTo(models.User, {
-      onDelete: "CASCADE",
-      foreignKey: {
-        allowNull: false
-      }
-    });
-    models.Comment.belongsToMany(models.Deal, {
-      through: models.DealComment
-    });
-    models.Comment.belongsToMany(models.Contact, {
-      through: models.ContactComment
-    });
-  };
+		models.Comment.belongsTo(models.Deal, {
+			onDelete: 'CASCADE',
+			foreignKey: {
+				allowNull: true
+			}
+		});
+	};
 
-  return Comment;
+	return Comment;
 };

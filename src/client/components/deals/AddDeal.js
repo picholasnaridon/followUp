@@ -44,7 +44,6 @@ class AddDeal extends Component {
 		}).then((response) => {
 			if (response.ok) {
 				response.json().then((json) => {
-					console.log(json);
 					this.props.closeModal();
 					location.href = `#/deals/${json.id}`;
 				});

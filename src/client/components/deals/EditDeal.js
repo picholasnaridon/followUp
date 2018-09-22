@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
-
+import axios from 'axios';
 class EditDeal extends Component {
 	constructor(props) {
 		super(props);
@@ -29,23 +29,32 @@ class EditDeal extends Component {
 		e.preventDefault();
 
 		if (this.state.selectStage !== this.props.deal.stage) {
-			console.log(this.state.selectStage, this.props.deal.stage);
+			axios
+				.post('/api/updates/deal/add', {
+					updateType: 'stage',
+					startingVal: this.props.deal.stage,
+					endingVal: this.state.selectStage,
+					dealId: this.props.deal.id,
+					userId: this.props.deal.UserId
+				})
+				.then((result) => {
+					console.log(result);
+				});
 		}
 
-		var payload = {
+		var dealPayload = {
 			name: this.inputName.value,
 			amount: this.inputAmount.value,
 			stage: this.state.selectStage,
 			status: this.state.selectStatus
 		};
-		console.log(payload);
 		fetch(`/api/deals/${this.state.deal.id}/edit`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
 			},
 			credentials: 'include',
-			body: JSON.stringify(payload)
+			body: JSON.stringify(dealPayload)
 		}).then((response) => {
 			if (response.ok) {
 				response.json().then((json) => {
@@ -55,8 +64,6 @@ class EditDeal extends Component {
 				});
 			}
 		});
-
-		// ANOTHER FETCH FOR RECORDING STAGE CHAGNES
 	}
 
 	render() {

@@ -18,9 +18,8 @@ module.exports = function(sequelize, DataTypes) {
 		models.Deal.belongsToMany(models.Contact, {
 			through: models.DealContact
 		});
-		models.Deal.belongsToMany(models.Comment, {
-			through: models.DealComment
-		});
+		models.Deal.hasMany(models.Comment);
+		models.Deal.hasMany(models.Update);
 		models.Deal.belongsTo(models.Company);
 	};
 
