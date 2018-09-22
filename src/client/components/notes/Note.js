@@ -4,7 +4,6 @@ import { Panel } from 'react-bootstrap';
 class Note extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
 	}
 	render() {
 		return (
