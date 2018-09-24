@@ -38,6 +38,9 @@ class NoteList extends Component {
 			.then((result) => {
 				console.log(result);
 				this.componentDidMount();
+				this.setState({
+					note: ''
+				});
 			})
 			.catch((error) => {});
 	}
