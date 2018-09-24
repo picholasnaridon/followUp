@@ -1,34 +1,27 @@
-var Sequelize = require("sequelize");
+var Sequelize = require('sequelize');
 
-module.exports = function (sequelize, DataTypes) {
-  var Deal = sequelize.define(
-    "Deal",
-    {
-      name: { type: Sequelize.TEXT, allowNull: false },
-      amount: { type: Sequelize.INTEGER, allowNull: true },
-      stage: { type: Sequelize.STRING, allowNull: true },
-      status: { type: Sequelize.STRING, allowNull: true }
-    },
-    {
-      timestamps: false
-    }
-  );
+module.exports = function(sequelize, DataTypes) {
+	var Deal = sequelize.define('Deal', {
+		name: { type: Sequelize.TEXT, allowNull: false },
+		amount: { type: Sequelize.INTEGER, allowNull: true },
+		stage: { type: Sequelize.STRING, allowNull: true },
+		status: { type: Sequelize.STRING, allowNull: true }
+	});
 
-  Deal.associate = function (models) {
-    models.Deal.belongsTo(models.User, {
-      onDelete: "CASCADE",
-      foreignKey: {
-        allowNull: false
-      }
-    });
-    models.Deal.belongsToMany(models.Contact, {
-      through: models.DealContact
-    });
-    models.Deal.belongsToMany(models.Comment, {
-      through: models.DealComment
-    });
-    models.Deal.belongsTo(models.Company);
-  };
+	Deal.associate = function(models) {
+		models.Deal.belongsTo(models.User, {
+			onDelete: 'CASCADE',
+			foreignKey: {
+				allowNull: false
+			}
+		});
+		models.Deal.belongsToMany(models.Contact, {
+			through: models.DealContact
+		});
+		models.Deal.hasMany(models.Comment);
+		models.Deal.hasMany(models.Update);
+		models.Deal.belongsTo(models.Company);
+	};
 
-  return Deal;
+	return Deal;
 };

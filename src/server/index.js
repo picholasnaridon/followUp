@@ -14,19 +14,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static('dist'));
 
-app.use(
-	session({
-		cookieName: 'session',
-		secret: 'eg[isfd-8yF9-7w2315df{}+Ijsli;;to8',
-		duration: 30 * 60 * 1000,
-		activeDuration: 30 * 60 * 1000,
-		httpOnly: true,
-		secure: true,
-		ephemeral: true
-	})
-);
 app.use(passport.initialize());
-app.use(passport.session()); // persistent login sessions
 
 require('./routes/api-routes')(app, passport);
 require('./routes/auth-routes.js')(app, passport);

@@ -135,8 +135,8 @@ class MyFunnel extends Component {
 				</Row>
 				<hr />
 				<Row>
-					<Col md={6} mdPush={4}>
-						<RecentActivity />
+					<Col>
+						<RecentActivity userId={this.props.userId} />
 					</Col>
 				</Row>
 			</Grid>

@@ -37,6 +37,7 @@ const columns = [
 		}
 	}
 ];
+
 class CompanyList extends React.Component {
 	constructor(props) {
 		super(props);

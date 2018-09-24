@@ -8,9 +8,9 @@ class Contact extends Component {
 		this.state = {
 			contact: null
 		};
-		this.refresh = this.refresh.bind(this);
-		this.showModal = this.showModal.bind(this);
-		this.hideModal = this.hideModal.bind(this);
+		// this.refresh = this.refresh.bind(this);
+		// this.showModal = this.showModal.bind(this);
+		// this.hideModal = this.hideModal.bind(this);
 	}
 
 	componentDidMount() {
@@ -26,15 +26,15 @@ class Contact extends Component {
 			});
 	}
 
-	showModal() {
+	showModal = () => {
 		this.setState({ show: true });
-	}
+	};
 
-	hideModal() {
+	hideModal = () => {
 		this.setState({ show: false });
-	}
+	};
 
-	refresh() {
+	refresh = () => {
 		fetch(`/api/contacts/${this.props.match.params.id}`, {
 			method: 'GET'
 		})
@@ -45,7 +45,7 @@ class Contact extends Component {
 				console.log(json);
 				this.setState({ contact: json });
 			});
-	}
+	};
 
 	render() {
 		if (this.state.contact) {
@@ -99,7 +99,11 @@ class Contact extends Component {
 					</Row>
 					<Row>
 						<Col>
-							<NoteList />
+							<NoteList
+								type="contacts"
+								parentId={this.state.contact.id}
+								userId={this.state.contact.UserId}
+							/>
 						</Col>
 					</Row>
 				</Grid>

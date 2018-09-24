@@ -9,7 +9,7 @@ class Main extends Component {
 		super(props);
 		this.state = {
 			loggedIn: null,
-			user_id: null,
+			userId: null,
 			user: null
 		};
 		this.logout = this.logout.bind(this);
@@ -23,7 +23,7 @@ class Main extends Component {
 				console.log(response);
 				this.setState({
 					loggedIn: true,
-					user_id: response.data.id
+					userId: response.data.id
 				});
 			})
 			.catch((error) => {
@@ -38,7 +38,7 @@ class Main extends Component {
 		}).then(function(res) {
 			if (res.ok) {
 				localStorage.setItem('jwtToken', null);
-				that.setState({ loggedIn: false, user_id: null });
+				that.setState({ loggedIn: false, userId: null });
 				window.location.href = '/#/login';
 			}
 		});
@@ -78,39 +78,39 @@ class Main extends Component {
 								</NavDropdown>
 							</Nav>
 						</Navbar>
-						<Route exact path="/" render={(props) => <MyFunnel userId={this.state.user_id} />} />
+						<Route exact path="/" render={(props) => <MyFunnel userId={this.state.userId} />} />
 
 						<Route
 							exact
 							path="/companies"
-							render={(props) => <CompanyList userId={this.state.user_id} {...props} />}
+							render={(props) => <CompanyList userId={this.state.userId} {...props} />}
 						/>
 						<Route
 							exact
 							path="/companies/:id"
-							render={(props) => <Company userId={this.state.user_id} {...props} />}
+							render={(props) => <Company userId={this.state.userId} {...props} />}
 						/>
 
 						<Route
 							exact
 							path="/deals"
-							render={(props) => <DealList userId={this.state.user_id} {...props} />}
+							render={(props) => <DealList userId={this.state.userId} {...props} />}
 						/>
 						<Route
 							exact
 							path="/deals/:id"
-							render={(props) => <Deal userId={this.state.user_id} {...props} />}
+							render={(props) => <Deal userId={this.state.userId} {...props} />}
 						/>
 
 						<Route
 							exact
 							path="/contacts"
-							render={(props) => <ContactList userId={this.state.user_id} {...props} />}
+							render={(props) => <ContactList userId={this.state.userId} {...props} />}
 						/>
 						<Route
 							exact
 							path="/contacts/:id"
-							render={(props) => <Contact userId={this.state.user_id} {...props} />}
+							render={(props) => <Contact userId={this.state.userId} {...props} />}
 						/>
 					</div>
 				</Router>

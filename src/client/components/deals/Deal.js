@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { Button, FormControl, Grid, Row, Col } from 'react-bootstrap';
-import { NoteList, EditDeal, MyModal, DealContacts } from '../components';
-
+import { NoteList, EditDeal, MyModal, DealContacts, DealStatus } from '../components';
+import parse from 'date-fns/parse';
+import format from 'date-fns/format';
+import axios from 'axios';
 class Deal extends Component {
 	constructor(props) {
 		super(props);
@@ -9,14 +11,28 @@ class Deal extends Component {
 			deal: null,
 			stage: null
 		};
-		this.renderStatus = this.renderStatus.bind(this);
 		this.showModal = this.showModal.bind(this);
 		this.hideModal = this.hideModal.bind(this);
 		this.refresh = this.refresh.bind(this);
 		this.markLostOrWon = this.markLostOrWon.bind(this);
+		this.formatDate = this.formatDate.bind(this);
 	}
 
 	markLostOrWon(e, stage) {
+		if (this.state.deal.stage !== stage) {
+			axios
+				.post('/api/updates/deal/add', {
+					updateType: 'stage',
+					startingVal: this.state.deal.stage,
+					endingVal: stage,
+					dealId: this.state.deal.id,
+					userId: this.state.deal.UserId
+				})
+				.then((result) => {
+					console.log(result);
+				});
+		}
+
 		var payload = {
 			stage: stage
 		};
@@ -32,6 +48,8 @@ class Deal extends Component {
 			.then((data) => {
 				this.setState({ stage: stage });
 			});
+
+		// ANOTHER FETCH FOR RECORDING STAGE CHAGNES
 	}
 	showModal() {
 		this.setState({ show: true });
@@ -39,31 +57,6 @@ class Deal extends Component {
 
 	hideModal() {
 		this.setState({ show: false });
-	}
-
-	renderStatus() {
-		return (
-			<span>
-				<span
-					style={{
-						color:
-							this.state.deal.status === 'In Danger'
-								? '#ff2e00'
-								: this.state.deal.status === 'Follow Up' ? '#ffbf00' : '#57d500',
-						transition: 'all .3s ease'
-					}}
-				>
-					&#x25cf;
-				</span>{' '}
-				{this.state.deal.status === 'In Danger' ? (
-					'Danger'
-				) : this.state.deal.status === 'Follow Up' ? (
-					`Follow Up`
-				) : (
-					'Good'
-				)}
-			</span>
-		);
 	}
 
 	componentDidMount() {
@@ -78,7 +71,11 @@ class Deal extends Component {
 				this.setState({ deal: json, stage: json.stage });
 			});
 	}
-
+	formatDate() {
+		var date = parse(this.state.deal.createdAt, 'MM-dd-yyyy', new Date());
+		var string = format(date, 'MMMM do YYYY');
+		return <span> {string} </span>;
+	}
 	refresh() {
 		fetch(`/api/deals/${this.props.match.params.id}`, {
 			method: 'GET'
@@ -99,6 +96,7 @@ class Deal extends Component {
 					<Row>
 						<Col md={11}>
 							<h2>{this.state.deal.name}</h2>
+							<h5>Created: {this.formatDate()}</h5>
 							<h4>{this.state.stage}</h4>
 							<Button bsStyle="success" onClick={(e) => this.markLostOrWon(e, 'Closed Won')}>
 								Won
@@ -125,7 +123,7 @@ class Deal extends Component {
 					<Row>
 						<Col>
 							<div>
-								<h4>{this.renderStatus()}</h4>
+								<DealStatus status={this.state.deal.status} />
 								<h4>$ {this.state.deal.amount}</h4>
 							</div>
 						</Col>
@@ -142,7 +140,7 @@ class Deal extends Component {
 					<hr />
 					<Row>
 						<Col>
-							<NoteList />
+							<NoteList type="deals" parentId={this.state.deal.id} userId={this.state.deal.UserId} />
 						</Col>
 					</Row>
 				</Grid>
