@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { Panel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Login.css';
 
@@ -81,6 +82,14 @@ class Login extends Component {
 							<span class="glyphicon glyphicon-plus-sign" aria-hidden="true" /> Register here
 						</Link>
 					</p>
+					<br />
+					<Panel>
+						<Panel.Heading>Test user with data</Panel.Heading>
+						<Panel.Body>
+							<strong>Username:</strong> fake@fake.com <br />
+							<strong>Password:</strong> password
+						</Panel.Body>
+					</Panel>
 				</form>
 			</div>
 		);

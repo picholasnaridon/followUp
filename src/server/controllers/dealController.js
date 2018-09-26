@@ -89,7 +89,7 @@ module.exports = {
 				where: {
 					id: req.params.id
 				},
-				include: [ models.Company, models.Contact ]
+				include: [ models.Company, models.Contact, models.Update ]
 			})
 			.then(function(results) {
 				res.json(results);

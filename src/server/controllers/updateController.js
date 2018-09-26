@@ -8,7 +8,8 @@ module.exports = {
 				endingVal: req.body.endingVal,
 				updateType: req.body.updateType,
 				DealId: req.body.dealId,
-				UserId: req.body.userId
+				UserId: req.body.userId,
+				creationDate: req.body.creationDate
 			})
 			.then(function(results) {
 				res.json(results);
@@ -19,6 +20,18 @@ module.exports = {
 			.findAll({
 				where: { UserId: req.params.id },
 				include: [ models.Deal ]
+			})
+			.then(function(results) {
+				res.json(results);
+			});
+	},
+	closeTime: function(req, res) {
+		models.Update
+			.findAll({
+				where: {
+					DealId: req.params.id,
+					endingVal: 'Closed Won'
+				}
 			})
 			.then(function(results) {
 				res.json(results);

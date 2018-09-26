@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Button, FormControl, Grid, Row, Col } from 'react-bootstrap';
-import { NoteList, EditDeal, MyModal, DealContacts, DealStatus } from '../components';
-import parse from 'date-fns/parse';
-import format from 'date-fns/format';
+import { NoteList, EditDeal, MyModal, DealContacts, DealStatus, DealUpdates, DealCloseTime } from '../components';
+import moment from 'moment';
 import axios from 'axios';
+
 class Deal extends Component {
 	constructor(props) {
 		super(props);
@@ -15,7 +15,6 @@ class Deal extends Component {
 		this.hideModal = this.hideModal.bind(this);
 		this.refresh = this.refresh.bind(this);
 		this.markLostOrWon = this.markLostOrWon.bind(this);
-		this.formatDate = this.formatDate.bind(this);
 	}
 
 	markLostOrWon(e, stage) {
@@ -26,13 +25,13 @@ class Deal extends Component {
 					startingVal: this.state.deal.stage,
 					endingVal: stage,
 					dealId: this.state.deal.id,
-					userId: this.state.deal.UserId
+					userId: this.state.deal.UserId,
+					creationDate: this.state.deal.createdAt
 				})
 				.then((result) => {
 					console.log(result);
 				});
 		}
-
 		var payload = {
 			stage: stage
 		};
@@ -46,10 +45,8 @@ class Deal extends Component {
 		})
 			.then((response) => response)
 			.then((data) => {
-				this.setState({ stage: stage });
+				this.componentDidMount();
 			});
-
-		// ANOTHER FETCH FOR RECORDING STAGE CHAGNES
 	}
 	showModal() {
 		this.setState({ show: true });
@@ -60,33 +57,50 @@ class Deal extends Component {
 	}
 
 	componentDidMount() {
-		fetch(`/api/deals/${this.props.match.params.id}`, {
+		axios(`/api/deals/${this.props.match.params.id}`, {
 			method: 'GET'
-		})
-			.then((response) => {
-				return response.json();
-			})
-			.then((json) => {
-				console.log(json);
-				this.setState({ deal: json, stage: json.stage });
-			});
+		}).then((response) => {
+			this.setState({ deal: response.data, stage: response.data.stage });
+		});
 	}
-	formatDate() {
-		var date = parse(this.state.deal.createdAt, 'MM-dd-yyyy', new Date());
-		var string = format(date, 'MMMM do YYYY');
-		return <span> {string} </span>;
-	}
+
 	refresh() {
-		fetch(`/api/deals/${this.props.match.params.id}`, {
-			method: 'GET'
-		})
-			.then((response) => {
-				return response.json();
-			})
-			.then((json) => {
-				console.log(json);
-				this.setState({ deal: json, stage: json.stage });
-			});
+		this.componentDidMount();
+	}
+
+	renderCloseButtons() {
+		switch (this.state.deal.stage) {
+			case 'Closed Won':
+				return (
+					<div>
+						<DealCloseTime updates={this.state.deal.Updates} />
+						<Button bsStyle="danger" onClick={(e) => this.markLostOrWon(e, 'Closed Lost')}>
+							Mark Lost
+						</Button>
+					</div>
+				);
+			case 'Closed Lost':
+				return (
+					<div>
+						<DealCloseTime updates={this.state.deal.Updates} />
+						<Button bsStyle="success" onClick={(e) => this.markLostOrWon(e, 'Closed Won')}>
+							Mark Won
+						</Button>
+					</div>
+				);
+			default:
+				return (
+					<div>
+						<h5>Created: {moment(this.state.deal.createdAt).format('MM-DD-YYYY')}</h5>
+						<Button bsStyle="danger" onClick={(e) => this.markLostOrWon(e, 'Closed Lost')}>
+							Mark Lost
+						</Button>
+						<Button bsStyle="success" onClick={(e) => this.markLostOrWon(e, 'Closed Won')}>
+							Mark Won
+						</Button>
+					</div>
+				);
+		}
 	}
 
 	render() {
@@ -96,14 +110,8 @@ class Deal extends Component {
 					<Row>
 						<Col md={11}>
 							<h2>{this.state.deal.name}</h2>
-							<h5>Created: {this.formatDate()}</h5>
 							<h4>{this.state.stage}</h4>
-							<Button bsStyle="success" onClick={(e) => this.markLostOrWon(e, 'Closed Won')}>
-								Won
-							</Button>
-							<Button bsStyle="danger" onClick={(e) => this.markLostOrWon(e, 'Closed Lost')}>
-								Lost
-							</Button>
+							{this.renderCloseButtons()}
 							<MyModal
 								show={this.state.show}
 								title="Edit Deal"
@@ -141,6 +149,11 @@ class Deal extends Component {
 					<Row>
 						<Col>
 							<NoteList type="deals" parentId={this.state.deal.id} userId={this.state.deal.UserId} />
+						</Col>
+					</Row>
+					<Row>
+						<Col>
+							<DealUpdates updates={this.state.deal.Updates} />
 						</Col>
 					</Row>
 				</Grid>
