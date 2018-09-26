@@ -4,10 +4,12 @@ import Company from './companies/Company';
 import CompanyList from './companies/CompanyList';
 import Deal from './deals/Deal';
 import DealList from './deals/DealList';
+import DealUpdates from './deals/DealUpdates';
 import AddDeal from './deals/AddDeal';
 import DealProgress from './deals/DealProgress';
 import DealStatus from './deals/DealStatus';
 import DealContacts from './deals/DealContacts';
+import DealCloseTime from './deals/DealCloseTime';
 import Contact from './contacts/Contact';
 import AddContact from './contacts/AddContact';
 import ContactDeals from './contacts/ContactDeals';
@@ -37,10 +39,12 @@ export {
 	CompanyList,
 	Deal,
 	DealList,
+	DealUpdates,
 	AddDeal,
 	DealProgress,
 	DealStatus,
 	DealContacts,
+	DealCloseTime,
 	EditDeal,
 	Note,
 	NoteList,

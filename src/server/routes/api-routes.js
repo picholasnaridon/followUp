@@ -44,5 +44,6 @@ module.exports = function(app) {
 
 	//Updates
 	app.get('/api/updates/getAll/:id', updateController.getAll);
+	app.get('/api/updates/closeTime/:id', updateController.closeTime);
 	app.post('/api/updates/deal/add', updateController.createDealUpdate);
 };

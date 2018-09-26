@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
+import { Panel } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Login.css';
 
@@ -76,6 +77,14 @@ class Create extends Component {
 					<button class="btn btn-lg btn-primary btn-block" type="submit">
 						Register
 					</button>
+					<br />
+					<Panel>
+						<Panel.Heading>Test user with data</Panel.Heading>
+						<Panel.Body>
+							<strong>Username:</strong> fake@fake.com <br />
+							<strong>Password:</strong> password
+						</Panel.Body>
+					</Panel>
 				</form>
 			</div>
 		);

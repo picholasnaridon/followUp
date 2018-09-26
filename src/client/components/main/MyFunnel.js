@@ -77,7 +77,7 @@ class MyFunnel extends Component {
 			<Grid>
 				<Row>
 					<Col md={6}>
-						<h1 style={{ textAlign: 'center' }}>My Deals</h1>
+						<h1 style={{ textAlign: 'center' }}>Open Deals</h1>
 						<Bar
 							height={500}
 							width={700}

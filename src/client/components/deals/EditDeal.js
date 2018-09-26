@@ -35,7 +35,8 @@ class EditDeal extends Component {
 					startingVal: this.props.deal.stage,
 					endingVal: this.state.selectStage,
 					dealId: this.props.deal.id,
-					userId: this.props.deal.UserId
+					userId: this.props.deal.UserId,
+					creationDate: this.props.deal.createdAt
 				})
 				.then((result) => {
 					console.log(result);
