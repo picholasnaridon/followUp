@@ -9,7 +9,7 @@ class DealCloseTime extends Component {
 		var startingDate = moment(lastItem.creationDate);
 		var endingDate = moment(lastItem.createdAt);
 
-		var daysToClose = startingDate.diff(endingDate, 'days');
+		var daysToClose = endingDate.diff(startingDate, 'days');
 		return <div>Days to close: {daysToClose} </div>;
 	}
 }

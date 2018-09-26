@@ -70,7 +70,6 @@ class EditContact extends Component {
 							placeholder="First Name"
 						/>
 					</FormGroup>
-
 					<FormGroup>
 						<ControlLabel>Last Name</ControlLabel>
 						<FormControl
@@ -80,7 +79,6 @@ class EditContact extends Component {
 							placeholder="Last Name"
 						/>
 					</FormGroup>
-
 					<FormGroup>
 						<ControlLabel>Phone</ControlLabel>
 						<FormControl
@@ -99,7 +97,6 @@ class EditContact extends Component {
 							placeholder="Email"
 						/>
 					</FormGroup>
-
 					<FormGroup>
 						<ControlLabel>Addres 1</ControlLabel>
 						<FormControl
@@ -109,7 +106,6 @@ class EditContact extends Component {
 							placeholder="Address 1"
 						/>
 					</FormGroup>
-
 					<FormGroup>
 						<ControlLabel>Addres 2</ControlLabel>
 						<FormControl
@@ -119,7 +115,6 @@ class EditContact extends Component {
 							placeholder="Address 2"
 						/>
 					</FormGroup>
-
 					<FormGroup>
 						<ControlLabel>City</ControlLabel>
 						<FormControl
@@ -129,7 +124,6 @@ class EditContact extends Component {
 							placeholder="City"
 						/>
 					</FormGroup>
-
 					<FormGroup>
 						<ControlLabel>State</ControlLabel>
 						<FormControl
@@ -139,7 +133,6 @@ class EditContact extends Component {
 							placeholder="State"
 						/>
 					</FormGroup>
-
 					<FormGroup>
 						<ControlLabel>Zip</ControlLabel>
 						<FormControl
@@ -149,7 +142,6 @@ class EditContact extends Component {
 							placeholder="Zip"
 						/>
 					</FormGroup>
-
 					<FormGroup>
 						<ControlLabel>Country</ControlLabel>
 						<FormControl
@@ -159,7 +151,6 @@ class EditContact extends Component {
 							placeholder="Country"
 						/>
 					</FormGroup>
-
 					<FormGroup>
 						<ControlLabel>Mobile</ControlLabel>
 						<FormControl
@@ -169,7 +160,6 @@ class EditContact extends Component {
 							placeholder="Mobile"
 						/>
 					</FormGroup>
-
 					<FormGroup>
 						<FormControl type="submit" className="form-control btn-primary" />
 					</FormGroup>
