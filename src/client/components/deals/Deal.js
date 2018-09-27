@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Button, FormControl, Grid, Row, Col } from 'react-bootstrap';
+import { Button, FormControl, Grid, Row, Col, Well } from 'react-bootstrap';
 import { NoteList, EditDeal, MyModal, DealContacts, DealStatus, DealUpdates, DealCloseTime } from '../components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import axios from 'axios';
 
@@ -11,13 +13,22 @@ class Deal extends Component {
 			deal: null,
 			stage: null
 		};
-		this.showModal = this.showModal.bind(this);
-		this.hideModal = this.hideModal.bind(this);
-		this.refresh = this.refresh.bind(this);
-		this.markLostOrWon = this.markLostOrWon.bind(this);
+		// this.showModal = this.showModal.bind(this);
+		// this.hideModal = this.hideModal.bind(this);
+		// this.refresh = this.refresh.bind(this);
+		// this.markLostOrWon = this.markLostOrWon.bind(this);
 	}
+	componentDidMount = () => {
+		axios.get(`/api/deals/${this.props.match.params.id}`).then((response) => {
+			console.log('AXIOS RESPONSE', response.data);
+			this.setState({
+				deal: response.data,
+				stage: response.data.stage
+			});
+		});
+	};
 
-	markLostOrWon(e, stage) {
+	markLostOrWon = (e, stage) => {
 		if (this.state.deal.stage !== stage) {
 			axios
 				.post('/api/updates/deal/add', {
@@ -45,28 +56,27 @@ class Deal extends Component {
 		})
 			.then((response) => response)
 			.then((data) => {
-				this.componentDidMount();
+				this.refresh();
 			});
-	}
-	showModal() {
+	};
+	showModal = () => {
 		this.setState({ show: true });
-	}
+	};
 
-	hideModal() {
+	hideModal = () => {
 		this.setState({ show: false });
-	}
+	};
 
-	componentDidMount() {
-		axios(`/api/deals/${this.props.match.params.id}`, {
-			method: 'GET'
-		}).then((response) => {
-			this.setState({ deal: response.data, stage: response.data.stage });
+	refresh = () => {
+		var that = this;
+		axios.get(`/api/deals/${this.props.match.params.id}`).then((response) => {
+			console.log('AXIOS RESPONSE', response.data);
+			that.setState({
+				deal: response.data,
+				stage: response.data.stage
+			});
 		});
-	}
-
-	refresh() {
-		this.componentDidMount();
-	}
+	};
 
 	renderCloseButtons() {
 		switch (this.state.deal.stage) {
@@ -108,54 +118,82 @@ class Deal extends Component {
 			return (
 				<Grid>
 					<Row>
-						<Col md={11}>
-							<h2>{this.state.deal.name}</h2>
-							<h4>{this.state.stage}</h4>
-							{this.renderCloseButtons()}
-							<MyModal
-								show={this.state.show}
-								title="Edit Deal"
-								close={this.hideModal}
-								onHide={this.hideModal}
-							>
-								<EditDeal close={this.hideModal} deal={this.state.deal} refresh={this.refresh} />
-							</MyModal>
+						<Col md={12}>
+							<Well>
+								<h2>
+									{this.state.deal.name}
+									<span onClick={this.showModal}>
+										<FontAwesomeIcon icon={faPencilAlt} size={'1x'} color="#337ab7" />
+									</span>
+								</h2>
+								<MyModal
+									show={this.state.show}
+									title="Edit Deal"
+									close={this.hideModal}
+									onHide={this.hideModal}
+								>
+									<EditDeal close={this.hideModal} deal={this.state.deal} refresh={this.refresh} />
+								</MyModal>
+							</Well>
 						</Col>
-						<Col md={1}>
-							<Button bsStyle="primary" onClick={this.showModal}>
-								Edit Deal
-							</Button>
+					</Row>
+					<br />
+					<Row>
+						<Col md={6}>
+							<Well>
+								<div>
+									{this.renderCloseButtons()}
+									<h3>{this.state.stage}</h3>
+									<DealStatus status={this.state.deal.status} />
+									<h4>$ {this.state.deal.amount}</h4>
+								</div>
+							</Well>
+						</Col>
+						<Col md={6}>
+							<Well>
+								<h3>Todos</h3>
+								<div style={{ textAlign: 'right' }}>
+									<h4>Pending tasks:</h4>
+									<h4>Pending tasks:</h4>
+									<h4>Pending tasks:</h4>
+									<h4>Pending tasks:</h4>
+									<h4>Pending tasks:</h4>
+									<h4>Pending tasks:</h4>
+									<h4>Pending tasks:</h4>
+								</div>
+							</Well>
 						</Col>
 					</Row>
 					<hr />
-					<Row>
-						<Col>
-							<div>
-								<DealStatus status={this.state.deal.status} />
-								<h4>$ {this.state.deal.amount}</h4>
-							</div>
-						</Col>
-					</Row>
+					<Well>
+						<Row>
+							<DealContacts
+								contacts={this.state.deal.Contacts}
+								userId={this.props.userId}
+								refresh={this.refresh}
+								dealId={this.props.match.params.id}
+							/>
+						</Row>
+					</Well>
 					<hr />
-					<Row>
-						<DealContacts
-							contacts={this.state.deal.Contacts}
-							userId={this.props.userId}
-							refresh={this.refresh}
-							dealId={this.props.match.params.id}
-						/>
-					</Row>
-					<hr />
-					<Row>
-						<Col>
-							<NoteList type="deals" parentId={this.state.deal.id} userId={this.state.deal.UserId} />
-						</Col>
-					</Row>
-					<Row>
-						<Col>
-							<DealUpdates updates={this.state.deal.Updates} />
-						</Col>
-					</Row>
+					<Well>
+						<Row>
+							<Col>
+								<NoteList type="deals" parentId={this.state.deal.id} userId={this.state.deal.UserId} />
+							</Col>
+						</Row>
+					</Well>
+					<Well>
+						<Row>
+							<Col>
+								<DealUpdates
+									updates={this.state.deal.Updates}
+									refresh={this.refresh}
+									dealId={this.state.deal.id}
+								/>
+							</Col>
+						</Row>
+					</Well>
 				</Grid>
 			);
 		} else {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { ContactDeals, NoteList, EditContact, MyModal, ContactInfo, WarningBanner } from '../components';
-import { Grid, Row, Col, Panel, Thumbnail, Button } from 'react-bootstrap';
+import { Grid, Row, Col, Panel, Thumbnail, Button, Well } from 'react-bootstrap';
 
 class Contact extends Component {
 	constructor(props) {
@@ -63,7 +63,7 @@ class Contact extends Component {
 							/>
 						</Col>
 						<Col md={9}>
-							<Panel>
+							<Well>
 								<div>
 									<h2>
 										{this.state.contact.firstName} {this.state.contact.lastName}
@@ -86,24 +86,30 @@ class Contact extends Component {
 										</a>
 									</h3>
 								</div>
-							</Panel>
-							<ContactInfo contact={this.state.contact} />
+							</Well>
+							<Well>
+								<ContactInfo contact={this.state.contact} style={{ background: 'grey' }} />
+							</Well>
 						</Col>
 					</Row>
 					<Row />
 					<Row>
 						<Col>
-							<h2>Deals</h2>
-							<ContactDeals deals={this.state.contact.Deals} />
+							<Well>
+								<h2>Deals</h2>
+								<ContactDeals deals={this.state.contact.Deals} />
+							</Well>
 						</Col>
 					</Row>
 					<Row>
 						<Col>
-							<NoteList
-								type="contacts"
-								parentId={this.state.contact.id}
-								userId={this.state.contact.UserId}
-							/>
+							<Well>
+								<NoteList
+									type="contacts"
+									parentId={this.state.contact.id}
+									userId={this.state.contact.UserId}
+								/>
+							</Well>
 						</Col>
 					</Row>
 				</Grid>

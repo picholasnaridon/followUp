@@ -6,7 +6,7 @@ module.exports = {
 			.create({
 				DealId: req.body.id,
 				body: req.body.body,
-				UserId: req.body.id
+				UserId: req.body.userId
 			})
 			.then(function(results) {
 				res.json(results);
@@ -17,7 +17,7 @@ module.exports = {
 			.create({
 				ContactId: req.body.id,
 				body: req.body.body,
-				UserId: req.body.id
+				UserId: req.body.userId
 			})
 			.then(function(results) {
 				res.json(results);
