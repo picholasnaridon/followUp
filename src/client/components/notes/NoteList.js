@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Note } from '../components';
-import { FormGroup, ControlLabel, FormControl, Row, Grid, Col, Button } from 'react-bootstrap';
+import { Note, AddNote, MyModal } from '../components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { FormGroup, ControlLabel, FormControl, Row, Grid, Col, Button, Label } from 'react-bootstrap';
 import axios from 'axios';
 
 class NoteList extends Component {
@@ -11,7 +13,6 @@ class NoteList extends Component {
 			notes: []
 		};
 		this.addNote = this.addNote.bind(this);
-		this.handleNoteChange = this.handleNoteChange.bind(this);
 	}
 	componentDidMount() {
 		axios(`/api/comments/${this.props.type}/${this.props.parentId}`, {})
@@ -23,52 +24,42 @@ class NoteList extends Component {
 				console.log(error);
 			});
 	}
-	handleNoteChange(e) {
-		console.log(e.target.value);
-		this.setState({ note: e.target.value });
+
+	showModal = () => {
+		this.setState({ show: true });
+	};
+
+	hideModal = () => {
+		this.setState({ show: false });
+	};
+	addNote() {
+		this.componentDidMount();
+		this.hideModal();
 	}
-	addNote(e) {
-		console.log('fired');
-		axios
-			.post(`/api/comments/${this.props.type}/add`, {
-				id: this.props.parentId,
-				body: this.state.note,
-				userId: this.props.userId
-			})
-			.then((result) => {
-				console.log(result);
-				this.componentDidMount();
-				this.setState({
-					note: ''
-				});
-			})
-			.catch((error) => {});
-	}
+
 	render() {
 		return (
 			<Grid>
 				<Row>
-					<Col md={11} />
-					<Col md={1}>
-						<Button bsStyle="primary" onClick={this.addNote}>
-							+ Note
-						</Button>
-					</Col>
+					<MyModal show={this.state.show} title="Edit Contact" close={this.hideModal} onHide={this.hideModal}>
+						<AddNote
+							type={this.props.type}
+							addNote={this.addNote}
+							parentId={this.props.parentId}
+							closeModal={this.hideModal}
+							userId={this.props.userId}
+							contact={this.state.contact}
+						/>
+					</MyModal>
+					<FontAwesomeIcon
+						icon={faPlus}
+						onClick={this.showModal}
+						size="lg"
+						color="#337ab7"
+						style={{ float: 'right', marginRight: '5%', marginBottom: '2%' }}
+					/>
+					<hr />
 				</Row>
-				<Row>
-					<Col>
-						<FormGroup controlId="formControlsTextarea">
-							<ControlLabel>Note</ControlLabel>
-							<FormControl
-								componentClass="textarea"
-								placeholder="add note..."
-								value={this.state.note}
-								onChange={this.handleNoteChange.bind(this)}
-							/>
-						</FormGroup>
-					</Col>
-				</Row>
-				<hr />
 				<Row>
 					<Col>
 						{this.state.notes.map(function(note) {

@@ -4,6 +4,7 @@ var contactController = require('../controllers/contactController');
 var userController = require('../controllers/userController');
 var commentController = require('../controllers/commentController');
 var updateController = require('../controllers/updateController');
+
 var passport = require('passport');
 var settings = require('../config/passport/settings');
 require('../config/passport/passport')(passport);
@@ -44,6 +45,7 @@ module.exports = function(app) {
 
 	//Updates
 	app.get('/api/updates/getAll/:id', updateController.getAll);
+	app.get('/api/updates/deal/:id', updateController.getDealUpdates);
 	app.get('/api/updates/closeTime/:id', updateController.closeTime);
 	app.post('/api/updates/deal/add', updateController.createDealUpdate);
 };

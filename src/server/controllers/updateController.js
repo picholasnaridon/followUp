@@ -15,6 +15,15 @@ module.exports = {
 				res.json(results);
 			});
 	},
+	getDealUpdates: function(req, res) {
+		models.Update
+			.findAll({
+				where: { DealId: req.params.id }
+			})
+			.then(function(results) {
+				res.json(results);
+			});
+	},
 	getAll: function(req, res) {
 		models.Update
 			.findAll({

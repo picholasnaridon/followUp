@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { MyModal, AddContact } from '../components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Table, Button } from 'react-bootstrap';
 
 class DealContacts extends Component {
@@ -24,9 +26,14 @@ class DealContacts extends Component {
 		if (this.props.contacts) {
 			return (
 				<div>
-					<Button bsStyle="primary" onClick={this.showModal} style={{ float: 'right' }}>
-						+ Contact
-					</Button>
+					<FontAwesomeIcon
+						icon={faUserPlus}
+						onClick={this.showModal}
+						size="lg"
+						style={{ float: 'right', marginRight: '5%', marginBottom: '2%' }}
+						color="#337ab7"
+					/>
+					<br />
 					<Table>
 						<tbody>
 							{this.props.contacts.map(function(contact) {

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Panel } from 'react-bootstrap';
+
 import moment from 'moment';
 
 class Note extends Component {
@@ -9,7 +10,7 @@ class Note extends Component {
 	render() {
 		return (
 			<div>
-				<Panel>
+				<Panel style={{ width: '90%' }}>
 					<Panel.Heading>{moment(this.props.note.createdAt).format('MM-DD-YYYY')}</Panel.Heading>
 					<Panel.Body>{this.props.note.body}</Panel.Body>
 				</Panel>

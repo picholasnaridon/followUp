@@ -91,7 +91,7 @@ module.exports = {
 				},
 				include: [ models.Company, models.Contact, models.Update ]
 			})
-			.then(function(results) {
+			.then((results) => {
 				res.json(results);
 			});
 	},

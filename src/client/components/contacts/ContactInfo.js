@@ -7,7 +7,7 @@ class ContactInfo extends Component {
 	}
 	render() {
 		return (
-			<Panel>
+			<div>
 				<h2>Contact Info</h2>
 				<Table>
 					<tbody>
@@ -61,7 +61,7 @@ class ContactInfo extends Component {
 						</tr>
 					</tbody>
 				</Table>
-			</Panel>
+			</div>
 		);
 	}
 }

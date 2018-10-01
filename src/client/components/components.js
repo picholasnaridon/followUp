@@ -18,6 +18,7 @@ import ContactList from './contacts/ContactList';
 import EditContact from './contacts/EditContact';
 import EditDeal from './deals/EditDeal';
 import Note from './notes/Note';
+import AddNote from './notes/AddNote';
 import RecentActivity from './main/RecentActivity';
 import NoteList from './notes/NoteList';
 import DollarFormat from './shared/DollarFormat';
@@ -47,6 +48,7 @@ export {
 	DealCloseTime,
 	EditDeal,
 	Note,
+	AddNote,
 	NoteList,
 	DollarFormat,
 	MyModal,
