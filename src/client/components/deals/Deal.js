@@ -83,19 +83,19 @@ class Deal extends Component {
 			case 'Closed Won':
 				return (
 					<div>
-						<DealCloseTime updates={this.state.deal.Updates} />
 						<Button bsStyle="danger" onClick={(e) => this.markLostOrWon(e, 'Closed Lost')}>
-							Mark Lost
+							Lost
 						</Button>
+						<DealCloseTime updates={this.state.deal.Updates} />
 					</div>
 				);
 			case 'Closed Lost':
 				return (
 					<div>
-						<DealCloseTime updates={this.state.deal.Updates} />
 						<Button bsStyle="success" onClick={(e) => this.markLostOrWon(e, 'Closed Won')}>
-							Mark Won
+							Won
 						</Button>
+						<DealCloseTime updates={this.state.deal.Updates} />
 					</div>
 				);
 			default:
@@ -103,10 +103,10 @@ class Deal extends Component {
 					<div>
 						<h5>Created: {moment(this.state.deal.createdAt).format('MM-DD-YYYY')}</h5>
 						<Button bsStyle="danger" onClick={(e) => this.markLostOrWon(e, 'Closed Lost')}>
-							Mark Lost
+							Lost
 						</Button>
 						<Button bsStyle="success" onClick={(e) => this.markLostOrWon(e, 'Closed Won')}>
-							Mark Won
+							Won
 						</Button>
 					</div>
 				);
@@ -121,9 +121,9 @@ class Deal extends Component {
 						<Col md={12}>
 							<Well>
 								<h2>
-									{this.state.deal.name}
+									{this.state.deal.name}{' '}
 									<span onClick={this.showModal}>
-										<FontAwesomeIcon icon={faPencilAlt} size={'1x'} color="#337ab7" />
+										<FontAwesomeIcon icon={faPencilAlt} size={'xs'} color="#337ab7" />
 									</span>
 								</h2>
 								<MyModal
