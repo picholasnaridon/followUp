@@ -1,33 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class DealProgress extends Component {
-	render() {
-		return (
+const DealProgress = (props) => {
+	return (
+		<div
+			style={{
+				width: '100%',
+				height: '100%',
+				backgroundColor: '#dadada',
+				borderRadius: '2px'
+			}}
+		>
 			<div
 				style={{
-					width: '100%',
+					width: `${props.progress}%`,
 					height: '100%',
-					backgroundColor: '#dadada',
-					borderRadius: '2px'
+					backgroundColor:
+						props.progress > 90
+							? '#00ff11'
+							: props.progress > 66 ? '#85cc00' : props.progress > 33 ? '#ffbf00' : '#ff2e00',
+					borderRadius: '2px',
+					transition: 'all .2s ease-out'
 				}}
-			>
-				<div
-					style={{
-						width: `${this.props.progress}%`,
-						height: '100%',
-						backgroundColor:
-							this.props.progress > 90
-								? '#00ff11'
-								: this.props.progress > 66
-									? '#85cc00'
-									: this.props.progress > 33 ? '#ffbf00' : '#ff2e00',
-						borderRadius: '2px',
-						transition: 'all .2s ease-out'
-					}}
-				/>
-			</div>
-		);
-	}
-}
+			/>
+		</div>
+	);
+};
 
 export default DealProgress;
