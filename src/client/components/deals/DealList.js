@@ -32,7 +32,6 @@ class DealList extends Component {
 				userId: this.props.userId
 			}
 		}).then((response) => {
-			console.log(response);
 			this.setState({ deals: response.data });
 		});
 	}

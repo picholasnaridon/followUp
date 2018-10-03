@@ -16,18 +16,15 @@ class EditDeal extends Component {
 	}
 
 	handleStageChange(e) {
-		console.log(e.target.value);
 		this.setState({ selectStage: e.target.value });
 	}
 
 	handleStatusChange(e) {
-		console.log(e.target.value);
 		this.setState({ selectStatus: e.target.value });
 	}
 
 	submit(e) {
 		e.preventDefault();
-
 		if (this.state.selectStage !== this.props.deal.stage) {
 			axios
 				.post('/api/updates/deal/add', {

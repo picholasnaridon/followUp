@@ -10,17 +10,15 @@ class DealContacts extends Component {
 		this.state = {
 			show: false
 		};
-		this.showModal = this.showModal.bind(this);
-		this.hideModal = this.hideModal.bind(this);
 	}
 
-	showModal() {
+	showModal = () => {
 		this.setState({ show: true });
-	}
+	};
 
-	hideModal() {
+	hideModal = () => {
 		this.setState({ show: false });
-	}
+	};
 
 	render() {
 		if (this.props.contacts) {
