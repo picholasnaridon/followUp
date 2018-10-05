@@ -1,4 +1,4 @@
-# Follow Up
+# Follow Up (WIP)
 
 This is a full-stack Javascript app built using Express and React. It's designed to be used by sales people as a sales tracker and contact management system.
 
@@ -7,7 +7,7 @@ This is a full-stack Javascript app built using Express and React. It's designed
 * [ReactJs] - HTML enhanced for web apps!
 * [React Bootstrap] - React implementation of Bootstraps
 * [node.js] - evented I/O for the backend
-* [Express] - fast node.js network app framework [@tjholowaychuk]
+* [Express] - fast node.js network app framework 
 * [Passport] - User authentication (JWT strategy)
 * [MySql + Sequelize] - Database and ORM
 
