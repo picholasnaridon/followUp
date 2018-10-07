@@ -4,7 +4,7 @@ import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 class AddContact extends Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+
 		this.addContact = this.addContact.bind(this);
 	}
 	addContact(e) {

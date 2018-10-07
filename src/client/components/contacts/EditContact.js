@@ -13,17 +13,17 @@ class EditContact extends Component {
 		this.hanldeStatusChange = this.handleStatusChange.bind(this);
 	}
 
-	handleStageChange(e) {
+	handleStageChange = (e) => {
 		console.log(e.target.value);
 		this.setState({ selectStage: e.target.value });
-	}
+	};
 
-	handleStatusChange(e) {
+	handleStatusChange = (e) => {
 		console.log(e.target.value);
 		this.setState({ selectStatus: e.target.value });
-	}
+	};
 
-	submit(e) {
+	submit = (e) => {
 		e.preventDefault();
 		var payload = {
 			firstName: this.inputFirstName.value,
@@ -56,7 +56,7 @@ class EditContact extends Component {
 				});
 			}
 		});
-	}
+	};
 	render() {
 		return (
 			<div>

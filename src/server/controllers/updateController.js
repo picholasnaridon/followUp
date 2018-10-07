@@ -27,6 +27,7 @@ module.exports = {
 	getAll: function(req, res) {
 		models.Update
 			.findAll({
+				limit: req.params.limit ? req.params.limit : 10,
 				where: { UserId: req.params.id },
 				include: [ models.Deal ]
 			})

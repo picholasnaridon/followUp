@@ -13,10 +13,6 @@ class Deal extends Component {
 			deal: null,
 			stage: null
 		};
-		// this.showModal = this.showModal.bind(this);
-		// this.hideModal = this.hideModal.bind(this);
-		// this.refresh = this.refresh.bind(this);
-		// this.markLostOrWon = this.markLostOrWon.bind(this);
 	}
 	componentDidMount = () => {
 		axios.get(`/api/deals/${this.props.match.params.id}`).then((response) => {

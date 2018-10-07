@@ -1,33 +1,6 @@
 import React, { Component } from 'react';
-import { Doughnut, Bar } from 'react-chartjs-2';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { RecentActivity, DollarFormat } from '../components';
-
-const funnelOptions = {
-	onClick: function(event, bar) {
-		console.log(bar[0]._model.label);
-		location.href = '/#/deals';
-	},
-	scales: {
-		xAxes: [
-			{
-				gridLines: {
-					drawOnChartArea: false
-				}
-			}
-		],
-		yAxes: [
-			{
-				ticks: {
-					beginAtZero: true
-				},
-				gridLines: {
-					drawOnChartArea: false
-				}
-			}
-		]
-	}
-};
+import { RecentActivity, DollarFormat, StageGraph, RatioGraph } from '../components';
 
 class MyFunnel extends Component {
 	constructor(props) {
@@ -36,7 +9,6 @@ class MyFunnel extends Component {
 			deals: [],
 			dealsByStage: {}
 		};
-		this.getTotalSales = this.getTotalSales.bind(this);
 	}
 	componentDidMount() {
 		var dealsByStage = {
@@ -62,7 +34,7 @@ class MyFunnel extends Component {
 			});
 	}
 
-	getTotalSales() {
+	getTotalSales = () => {
 		var total = 0;
 		this.state.deals.forEach(function(deal) {
 			if (deal.stage !== 'Closed Won' || deal.stage !== 'Closed Lost') {
@@ -70,7 +42,7 @@ class MyFunnel extends Component {
 			}
 		});
 		return total;
-	}
+	};
 
 	render() {
 		return (
@@ -78,32 +50,12 @@ class MyFunnel extends Component {
 				<Row>
 					<Col md={6}>
 						<h1 style={{ textAlign: 'center' }}>Open Deals</h1>
-						<Bar
-							height={500}
-							width={700}
-							data={{
-								datasets: [
-									{
-										data: [
-											this.state.dealsByStage['Discovery'],
-											this.state.dealsByStage['Initial Meeting'],
-											this.state.dealsByStage['Proposal Sent'],
-											this.state.dealsByStage['Contract Signed'],
-											this.state.dealsByStage['Final Review']
-										],
-										backgroundColor: [ '#f4d83a', '#1ee861', '#1abfe0', '#3b50ed', '#dc34e5' ],
-										label: 'My Funnel'
-									}
-								],
-								labels: [
-									'Discovery',
-									'Initial Meeting',
-									'Proposal Sent',
-									'Contract Signed',
-									'Final Review'
-								]
-							}}
-							options={funnelOptions}
+						<StageGraph
+							discovery={this.state.dealsByStage['Discovery']}
+							initialMeeting={this.state.dealsByStage['Initial Meeting']}
+							proposalSent={this.state.dealsByStage['Proposal Sent']}
+							contractSigned={this.state.dealsByStage['Contract Signed']}
+							finalReview={this.state.dealsByStage['Final Review']}
 						/>
 						<h1 style={{ textAlign: 'center' }}>
 							Funnel total:
@@ -112,20 +64,10 @@ class MyFunnel extends Component {
 					</Col>
 					<Col md={6}>
 						<h1 style={{ textAlign: 'center' }}>Close Ratio</h1>
-						<Doughnut
-							data={{
-								datasets: [
-									{
-										data: [
-											this.state.dealsByStage['Closed Lost'],
-											this.state.dealsByStage['Closed Won']
-										],
-										backgroundColor: [ '#f4443a', '#1be246' ]
-									}
-								],
-								labels: [ 'Lost', 'Won' ]
-							}}
-						/>
+						<RatioGraph
+							closedWon={this.state.dealsByStage['Closed Won']}
+							closedLost={this.state.dealsByStage['Closed Lost']}
+						/>>
 						<h1 style={{ textAlign: 'center' }}>
 							{this.state.dealsByStage['Closed Won'] /
 								(this.state.dealsByStage['Closed Lost'] + this.state.dealsByStage['Closed Lost']) *

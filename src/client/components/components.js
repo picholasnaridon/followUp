@@ -25,6 +25,8 @@ import DollarFormat from './shared/DollarFormat';
 import MyModal from './shared/MyModal';
 import WarningBanner from './shared/WarningBanner';
 import MyFunnel from './main/MyFunnel';
+import StageGraph from './main/StageGraph';
+import RatioGraph from './main/RatioGraph';
 
 export {
 	Contact,
@@ -53,5 +55,7 @@ export {
 	DollarFormat,
 	MyModal,
 	WarningBanner,
-	MyFunnel
+	MyFunnel,
+	StageGraph,
+	RatioGraph
 };

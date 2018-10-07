@@ -12,7 +12,6 @@ class Main extends Component {
 			userId: null,
 			user: null
 		};
-		this.logout = this.logout.bind(this);
 	}
 
 	componentDidMount() {
@@ -31,7 +30,7 @@ class Main extends Component {
 			});
 	}
 
-	logout() {
+	logout = () => {
 		var that = this;
 		fetch('/api/logout', {
 			method: 'GET'
@@ -42,7 +41,7 @@ class Main extends Component {
 				window.location.href = '/#/login';
 			}
 		});
-	}
+	};
 
 	render() {
 		if (this.state.loggedIn)

@@ -8,9 +8,6 @@ class Contact extends Component {
 		this.state = {
 			contact: null
 		};
-		// this.refresh = this.refresh.bind(this);
-		// this.showModal = this.showModal.bind(this);
-		// this.hideModal = this.hideModal.bind(this);
 	}
 
 	componentDidMount() {

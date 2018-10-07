@@ -9,21 +9,15 @@ class AddDeal extends Component {
 			selectStage: 'Discovery',
 			selectStatus: 'Good'
 		};
-
-		this.submit = this.submit.bind(this);
-		this.handleStageChange = this.handleStageChange.bind(this);
-		this.hanldeStatusChange = this.handleStatusChange.bind(this);
 	}
 
-	handleStageChange(e) {
-		console.log(e.target.value);
+	handleStageChange = (e) => {
 		this.setState({ selectStage: e.target.value });
-	}
-	handleStatusChange(e) {
-		console.log(e.target.value);
+	};
+	handleStatusChange = (e) => {
 		this.setState({ selectStatus: e.target.value });
-	}
-	submit(e) {
+	};
+	submit = (e) => {
 		e.preventDefault();
 
 		var payload = {
@@ -49,7 +43,7 @@ class AddDeal extends Component {
 				});
 			}
 		});
-	}
+	};
 	render() {
 		return (
 			<form onSubmit={this.submit}>

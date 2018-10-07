@@ -5,7 +5,9 @@ module.exports = function(sequelize, DataTypes) {
 		name: { type: Sequelize.TEXT, allowNull: false },
 		amount: { type: Sequelize.INTEGER, allowNull: true },
 		stage: { type: Sequelize.STRING, allowNull: true },
-		status: { type: Sequelize.STRING, allowNull: true }
+		status: { type: Sequelize.STRING, allowNull: true },
+		expectedCloseDate: { type: Sequelize.DATE, allowNull: true },
+		summary: { type: Sequelize.TEXT, allowNull: true }
 	});
 
 	Deal.associate = function(models) {
