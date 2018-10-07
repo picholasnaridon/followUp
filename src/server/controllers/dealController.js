@@ -31,9 +31,6 @@ module.exports = {
 				res.json(deal);
 			});
 	},
-	update: function(req, res) {
-		models.Deal.update({});
-	},
 	addContact: function(req, res) {
 		models.Deal
 			.findOne({
@@ -108,10 +105,11 @@ module.exports = {
 			});
 	},
 	changeStage: function(req, res) {
-		console.log(req.body);
 		models.Deal
 			.update(
-				{ stage: req.body.stage },
+				{
+					stage: req.body.stage
+				},
 				{
 					where: { id: req.params.id }
 				}
@@ -121,7 +119,6 @@ module.exports = {
 			});
 	},
 	edit: function(req, res) {
-		console.log(req.body);
 		models.Deal
 			.update(
 				{

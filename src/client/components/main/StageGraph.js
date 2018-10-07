@@ -16,7 +16,9 @@ const funnelOptions = {
 		yAxes: [
 			{
 				ticks: {
-					beginAtZero: true
+					beginAtZero: true,
+					min: 0,
+					stepSize: 1
 				},
 				gridLines: {
 					drawOnChartArea: false

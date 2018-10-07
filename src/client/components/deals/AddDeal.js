@@ -12,11 +12,9 @@ class AddDeal extends Component {
 	}
 
 	handleStageChange = (e) => {
-		console.log(e.target.value);
 		this.setState({ selectStage: e.target.value });
 	};
 	handleStatusChange = (e) => {
-		console.log(e.target.value);
 		this.setState({ selectStatus: e.target.value });
 	};
 	submit = (e) => {
