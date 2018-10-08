@@ -1,26 +1,14 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, FormGroup, FormControl, ControlLabel } from 'react-bootstrap';
 
-class EditContact extends Component {
+class EditCompany extends Component {
 	constructor(props) {
 		super(props);
 	}
 
-	handleStageChange = (e) => {
-		console.log(e.target.value);
-		this.setState({ selectStage: e.target.value });
-	};
-
-	handleStatusChange = (e) => {
-		console.log(e.target.value);
-		this.setState({ selectStatus: e.target.value });
-	};
-
 	submit = (e) => {
 		e.preventDefault();
 		var payload = {
-			firstName: this.inputFirstName.value,
-			lastName: this.inputLastName.value,
 			email: this.inputEmail.value,
 			address1: this.inputAddress1.value,
 			address2: this.inputAddress2.value,
@@ -28,11 +16,9 @@ class EditContact extends Component {
 			state: this.inputState.value,
 			zip: this.inputZip.value,
 			country: this.inputCountry.value,
-			phone: this.inputPhone.value,
-			mobile: this.inputMobile.value
+			phone: this.inputPhone.value
 		};
-
-		fetch(`/api/contacts/${this.props.contact.id}/edit`, {
+		fetch(`/api/companies/${this.props.company.id}/edit`, {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json'
@@ -42,8 +28,7 @@ class EditContact extends Component {
 		}).then((response) => {
 			if (response.ok) {
 				response.json().then((json) => {
-					console.log(json);
-					this.props.closeModal();
+					this.props.close();
 					this.props.refresh();
 				});
 			}
@@ -54,28 +39,10 @@ class EditContact extends Component {
 			<div>
 				<form onSubmit={this.submit}>
 					<FormGroup>
-						<ControlLabel>First Name</ControlLabel>
-						<FormControl
-							type="text"
-							defaultValue={this.props.contact.firstName}
-							inputRef={(input) => (this.inputFirstName = input)}
-							placeholder="First Name"
-						/>
-					</FormGroup>
-					<FormGroup>
-						<ControlLabel>Last Name</ControlLabel>
-						<FormControl
-							type="text"
-							defaultValue={this.props.contact.lastName}
-							inputRef={(input) => (this.inputLastName = input)}
-							placeholder="Last Name"
-						/>
-					</FormGroup>
-					<FormGroup>
 						<ControlLabel>Phone</ControlLabel>
 						<FormControl
 							type="phone"
-							defaultValue={this.props.contact.phone}
+							defaultValue={this.props.company.phone}
 							inputRef={(input) => (this.inputPhone = input)}
 							placeholder="phone"
 						/>
@@ -84,7 +51,7 @@ class EditContact extends Component {
 						<ControlLabel>Email</ControlLabel>
 						<FormControl
 							type="text"
-							defaultValue={this.props.contact.email}
+							defaultValue={this.props.company.email}
 							inputRef={(input) => (this.inputEmail = input)}
 							placeholder="Email"
 						/>
@@ -93,7 +60,7 @@ class EditContact extends Component {
 						<ControlLabel>Addres 1</ControlLabel>
 						<FormControl
 							type="text"
-							defaultValue={this.props.contact.address1}
+							defaultValue={this.props.company.address1}
 							inputRef={(input) => (this.inputAddress1 = input)}
 							placeholder="Address 1"
 						/>
@@ -102,7 +69,7 @@ class EditContact extends Component {
 						<ControlLabel>Addres 2</ControlLabel>
 						<FormControl
 							type="text"
-							defaultValue={this.props.contact.address2}
+							defaultValue={this.props.company.address2}
 							inputRef={(input) => (this.inputAddress2 = input)}
 							placeholder="Address 2"
 						/>
@@ -111,7 +78,7 @@ class EditContact extends Component {
 						<ControlLabel>City</ControlLabel>
 						<FormControl
 							type="text"
-							defaultValue={this.props.contact.city}
+							defaultValue={this.props.company.city}
 							inputRef={(input) => (this.inputCity = input)}
 							placeholder="City"
 						/>
@@ -120,7 +87,7 @@ class EditContact extends Component {
 						<ControlLabel>State</ControlLabel>
 						<FormControl
 							type="text"
-							defaultValue={this.props.contact.state}
+							defaultValue={this.props.company.state}
 							inputRef={(input) => (this.inputState = input)}
 							placeholder="State"
 						/>
@@ -129,27 +96,18 @@ class EditContact extends Component {
 						<ControlLabel>Zip</ControlLabel>
 						<FormControl
 							type="text"
-							defaultValue={this.props.contact.zip}
+							defaultValue={this.props.company.zip}
 							inputRef={(input) => (this.inputZip = input)}
 							placeholder="Zip"
 						/>
 					</FormGroup>
 					<FormGroup>
-						<ControlLabel>Country</ControlLabel>
+						<ControlLabel>Zip</ControlLabel>
 						<FormControl
 							type="text"
-							defaultValue={this.props.contact.country}
+							defaultValue={this.props.company.country}
 							inputRef={(input) => (this.inputCountry = input)}
-							placeholder="Country"
-						/>
-					</FormGroup>
-					<FormGroup>
-						<ControlLabel>Mobile</ControlLabel>
-						<FormControl
-							type="text"
-							defaultValue={this.props.contact.mobile}
-							inputRef={(input) => (this.inputMobile = input)}
-							placeholder="Mobile"
+							placeholder="Zip"
 						/>
 					</FormGroup>
 					<FormGroup>
@@ -161,4 +119,4 @@ class EditContact extends Component {
 	}
 }
 
-export default EditContact;
+export default EditCompany;

@@ -33,6 +33,7 @@ module.exports = function(app) {
 	//Companies
 	app.get('/api/companies', companyController.getAll);
 	app.get('/api/companies/:id', companyController.getOne);
+	app.put('/api/companies/:id/edit', companyController.edit);
 
 	//Deals
 	app.get('/api/deals', dealController.getAll);
