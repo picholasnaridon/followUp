@@ -33,10 +33,13 @@ module.exports = function(app) {
 	//Companies
 	app.get('/api/companies', companyController.getAll);
 	app.get('/api/companies/:id', companyController.getOne);
+	app.put('/api/companies/:id/edit', companyController.edit);
 
 	//Deals
 	app.get('/api/deals', dealController.getAll);
 	app.get('/api/deals/:id', dealController.getOne);
+	app.get('/api/deals/active', dealController.getActive);
+	app.get('/api/deals/closed', dealController.getClosed);
 	app.put('/api/deals/:id/changeStage', dealController.changeStage);
 	app.put('/api/deals/:id/edit', dealController.edit);
 	app.post('/api/deals/create', dealController.create);

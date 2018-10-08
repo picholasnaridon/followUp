@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
 import { Grid, Row, Col } from 'react-bootstrap';
+import { DollarFormat } from '../components';
 import ReactTable from 'react-table';
 import axios from 'axios';
 
@@ -26,6 +27,33 @@ const columns = [
 		}
 	},
 	{
+		Header: 'Sales in Funnel',
+		accessor: 'Deals',
+		Cell: function(props) {
+			var total = 0;
+			props.original.Deals.forEach(function(deal) {
+				if (deal.stage != 'Closed Won' && deal.stage !== 'Closed Lost') {
+					total += deal.amount;
+				}
+			});
+			return <DollarFormat value={total} />;
+		}
+	},
+	{
+		Header: 'Won Sales',
+		accessor: 'Deals',
+		Cell: function(props) {
+			var total = 0;
+			var total = 0;
+			props.original.Deals.forEach(function(deal) {
+				if (deal.stage === 'Closed Won') {
+					total += deal.amount;
+				}
+			});
+			return <DollarFormat value={total} />;
+		}
+	},
+	{
 		Header: 'Contact Count',
 		accessor: 'Contacts',
 		Cell: function(props) {
@@ -35,6 +63,35 @@ const columns = [
 			});
 			return <span>{total}</span>;
 		}
+	},
+	{
+		Header: 'Address',
+		columns: [
+			{
+				Header: 'Address 1',
+				accessor: 'address1'
+			},
+			{
+				Header: 'Address 2',
+				accessor: 'address2'
+			},
+			{
+				Header: 'City',
+				accessor: 'city'
+			},
+			{
+				Header: 'State',
+				accessor: 'state'
+			},
+			{
+				Header: 'Zip',
+				accessor: 'zip'
+			},
+			{
+				Header: 'Country',
+				accessor: 'country'
+			}
+		]
 	}
 ];
 

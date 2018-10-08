@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { ContactDeals, NoteList, EditContact, MyModal, ContactInfo, WarningBanner } from '../components';
+import { NoteList, EditContact, MyModal, ContactInfo, WarningBanner, SimpleDealList } from '../components';
 import { Grid, Row, Col, Panel, Thumbnail, Button, Well } from 'react-bootstrap';
 
 class Contact extends Component {
@@ -94,7 +94,7 @@ class Contact extends Component {
 						<Col>
 							<Well>
 								<h2>Deals</h2>
-								<ContactDeals deals={this.state.contact.Deals} />
+								<SimpleDealList deals={this.state.contact.Deals} />
 							</Well>
 						</Col>
 					</Row>

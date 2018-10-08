@@ -12,7 +12,6 @@ import DealContacts from './deals/DealContacts';
 import DealCloseTime from './deals/DealCloseTime';
 import Contact from './contacts/Contact';
 import AddContact from './contacts/AddContact';
-import ContactDeals from './contacts/ContactDeals';
 import ContactInfo from './contacts/ContactInfo';
 import ContactList from './contacts/ContactList';
 import EditContact from './contacts/EditContact';
@@ -27,12 +26,15 @@ import WarningBanner from './shared/WarningBanner';
 import MyFunnel from './main/MyFunnel';
 import StageGraph from './main/StageGraph';
 import RatioGraph from './main/RatioGraph';
+import SimpleDealList from './shared/SimpleDealList';
+import SimpleContactList from './shared/SimpleContactList';
+import CompanyInfo from './companies/CompanyInfo';
+import EditCompany from './companies/EditCompany';
 
 export {
 	Contact,
 	RecentActivity,
 	AddContact,
-	ContactDeals,
 	ContactInfo,
 	ContactList,
 	EditContact,
@@ -40,6 +42,8 @@ export {
 	Register,
 	Company,
 	CompanyList,
+	CompanyInfo,
+	EditCompany,
 	Deal,
 	DealList,
 	DealUpdates,
@@ -57,5 +61,7 @@ export {
 	WarningBanner,
 	MyFunnel,
 	StageGraph,
-	RatioGraph
+	RatioGraph,
+	SimpleContactList,
+	SimpleDealList
 };
