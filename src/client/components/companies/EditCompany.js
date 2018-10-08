@@ -102,7 +102,7 @@ class EditCompany extends Component {
 						/>
 					</FormGroup>
 					<FormGroup>
-						<ControlLabel>Zip</ControlLabel>
+						<ControlLabel>Country</ControlLabel>
 						<FormControl
 							type="text"
 							defaultValue={this.props.company.country}

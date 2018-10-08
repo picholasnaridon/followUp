@@ -38,6 +38,8 @@ module.exports = function(app) {
 	//Deals
 	app.get('/api/deals', dealController.getAll);
 	app.get('/api/deals/:id', dealController.getOne);
+	app.get('/api/deals/active', dealController.getActive);
+	app.get('/api/deals/closed', dealController.getClosed);
 	app.put('/api/deals/:id/changeStage', dealController.changeStage);
 	app.put('/api/deals/:id/edit', dealController.edit);
 	app.post('/api/deals/create', dealController.create);

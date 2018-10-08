@@ -54,22 +54,31 @@ module.exports = {
 						.spread(function(company, created) {
 							console.log(created);
 							return models.Contact
-								.create({
-									firstName: req.body.firstName,
-									lastName: req.body.lastName,
-									email: req.body.email,
-									address1: req.body.address1,
-									address2: req.body.address2,
-									city: req.body.city,
-									state: req.body.state,
-									zip: req.body.zip,
-									country: req.body.country,
-									phone: req.body.phone,
-									mobile: req.body.mobile,
-									UserId: req.body.userId,
-									CompanyId: company.id
+								.findOrCreate({
+									where: {
+										email: req.body.email,
+										UserId: req.body.userId,
+										CompanyId: company.id
+									},
+									defaults: {
+										firstName: req.body.firstName,
+										lastName: req.body.lastName,
+										email: req.body.email,
+										CompanyId: company.id,
+										UserId: req.body.userId
+									}
+
+									// address1: req.body.address1,
+									// address2: req.body.address2,
+									// city: req.body.city,
+									// state: req.body.state,
+									// zip: req.body.zip,
+									// country: req.body.country,
+									// phone: req.body.phone,
+									// mobile: req.body.mobile,
+									// UserId: req.body.userId,
 								})
-								.then(function(contact) {
+								.spread(function(contact, created) {
 									company.addDeals([ deal ]);
 									return deal.addContacts([ contact ]);
 								});
@@ -114,6 +123,30 @@ module.exports = {
 					where: { id: req.params.id }
 				}
 			)
+			.then(function(results) {
+				res.json(results);
+			});
+	},
+	getClosed: function(req, res) {
+		models.Deal
+			.findAll({
+				where: {
+					stage: { [Op.or]: [ 'Closed Won', 'Closed Lost' ] }
+				}
+			})
+			.then(function(results) {
+				res.json(results);
+			});
+	},
+	getActive: function(req, res) {
+		models.Deal
+			.findAll({
+				where: {
+					stage: {
+						[Op.or]: [ 'Discovery', 'Initial Meeting', 'Proposal Sent', 'Contract Signed', 'Final Review' ]
+					}
+				}
+			})
 			.then(function(results) {
 				res.json(results);
 			});

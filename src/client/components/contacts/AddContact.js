@@ -14,14 +14,14 @@ class AddContact extends Component {
 			lastName: this.inputLastName.value,
 			company: this.inputCompany.value,
 			email: this.inputEmail.value,
-			address1: this.inputAddress1.value,
-			address2: this.inputAddress2.value,
-			city: this.inputCity.value,
-			state: this.inputState.value,
-			zip: this.inputZip.value,
-			country: this.inputCountry.value,
-			phone: this.inputPhone.value,
-			mobile: this.inputMobile.value,
+			// address1: this.inputAddress1.value,
+			// address2: this.inputAddress2.value,
+			// city: this.inputCity.value,
+			// state: this.inputState.value,
+			// zip: this.inputZip.value,
+			// country: this.inputCountry.value,
+			// phone: this.inputPhone.value,
+			// mobile: this.inputMobile.value,
 			userId: this.props.userId
 		};
 		fetch(`/api/deals/${this.props.dealId}/addContact`, {
@@ -57,10 +57,10 @@ class AddContact extends Component {
 					/>
 				</FormGroup>
 
-				<FormGroup>
+				{/* <FormGroup>
 					<ControlLabel>Phone</ControlLabel>
 					<FormControl type="phone" inputRef={(input) => (this.inputPhone = input)} placeholder="phone" />
-				</FormGroup>
+				</FormGroup> */}
 
 				<FormGroup>
 					<ControlLabel>Company</ControlLabel>
@@ -72,7 +72,7 @@ class AddContact extends Component {
 					<FormControl type="text" inputRef={(input) => (this.inputEmail = input)} placeholder="Email" />
 				</FormGroup>
 
-				<FormGroup>
+				{/* <FormGroup>
 					<ControlLabel>Addres 1</ControlLabel>
 					<FormControl
 						type="text"
@@ -113,7 +113,7 @@ class AddContact extends Component {
 				<FormGroup>
 					<ControlLabel>Mobile</ControlLabel>
 					<FormControl type="text" inputRef={(input) => (this.inputMobile = input)} placeholder="Mobile" />
-				</FormGroup>
+				</FormGroup> */}
 
 				<FormGroup>
 					<FormControl type="submit" className="form-control btn-primary" />

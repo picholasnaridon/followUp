@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { MyModal, AddContact } from '../components';
+import { MyModal, AddContact, SimpleContactList } from '../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
 import { Table, Button } from 'react-bootstrap';
@@ -32,22 +32,7 @@ class DealContacts extends Component {
 						color="#337ab7"
 					/>
 					<br />
-					<Table>
-						<tbody>
-							{this.props.contacts.map(function(contact) {
-								console.log(contact);
-								return (
-									<tr key={contact.id}>
-										<td>
-											<a href={`#/contacts/${contact.id}`}>
-												{contact.firstName} {contact.lastName}
-											</a>
-										</td>
-									</tr>
-								);
-							})}
-						</tbody>
-					</Table>
+					<SimpleContactList contacts={this.props.contacts} />
 					<MyModal
 						show={this.state.show}
 						title="Add Contact"
