@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { DollarFormat } from '../components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartLine } from '@fortawesome/free-solid-svg-icons';
+
 class SalesNumbers extends Component {
 	render() {
 		return (
 			<div>
-				<h1>KPIs</h1>
+				<h1>
+					<FontAwesomeIcon icon={faChartLine} />
+				</h1>
 				<hr />
 				<div style={{ textAlign: 'right' }}>
 					<h3>

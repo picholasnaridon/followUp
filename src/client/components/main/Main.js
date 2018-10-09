@@ -13,6 +13,8 @@ import {
 	MetricsPage
 } from '../components';
 import { Navbar, NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChartLine, faUsers, faBuilding, faHandshake } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 class Main extends Component {
@@ -68,16 +70,24 @@ class Main extends Component {
 							<Nav>
 								<NavItem eventKey={1} href="#" />
 								<NavItem>
-									<Link to="/deals">Deals</Link>
+									<Link to="/deals">
+										Deals <FontAwesomeIcon icon={faHandshake} />
+									</Link>
 								</NavItem>
 								<NavItem>
-									<Link to="/companies">Companies</Link>
+									<Link to="/companies">
+										Companies <FontAwesomeIcon icon={faBuilding} />
+									</Link>
 								</NavItem>
 								<NavItem>
-									<Link to="/contacts">Contacts</Link>
+									<Link to="/contacts">
+										Contacts <FontAwesomeIcon icon={faUsers} />
+									</Link>
 								</NavItem>
 								<NavItem>
-									<Link to="/metrics">Metrics</Link>
+									<Link to="/metrics">
+										Metrics <FontAwesomeIcon icon={faChartLine} />
+									</Link>
 								</NavItem>
 							</Nav>
 							<Nav className="pull-right" pullRight>
@@ -92,7 +102,6 @@ class Main extends Component {
 							</Nav>
 						</Navbar>
 						<Route exact path="/" render={(props) => <MyFunnel userId={this.state.userId} />} />
-
 						<Route
 							exact
 							path="/companies"

@@ -46,7 +46,6 @@ class Company extends Component {
 	};
 
 	render() {
-		console.log(this.state.company);
 		if (this.state.company) {
 			return (
 				<div>

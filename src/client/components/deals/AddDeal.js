@@ -5,9 +5,7 @@ class AddDeal extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			user_id: JSON.parse(localStorage.getItem('user_id')),
-			selectStage: 'Discovery',
-			selectStatus: 'Good'
+			user_id: JSON.parse(localStorage.getItem('user_id'))
 		};
 	}
 

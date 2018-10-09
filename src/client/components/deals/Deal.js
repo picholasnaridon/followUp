@@ -122,6 +122,7 @@ class Deal extends Component {
 										<FontAwesomeIcon icon={faPencilAlt} size={'xs'} color="#337ab7" />
 									</span>
 								</h2>
+								<div>{this.state.deal.summary}</div>
 								<MyModal
 									show={this.state.show}
 									title="Edit Deal"
