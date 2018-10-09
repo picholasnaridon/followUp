@@ -64,7 +64,7 @@ class Main extends Component {
 						<Navbar>
 							<Navbar.Header>
 								<Navbar.Brand>
-									<Link to="/">My Funnel</Link>
+									<Link to="/">Dashboard</Link>
 								</Navbar.Brand>
 							</Navbar.Header>
 							<Nav>

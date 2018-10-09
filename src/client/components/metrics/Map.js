@@ -63,7 +63,13 @@ class Map extends Component {
 		return (
 			<div style={{ textAlign: 'center' }}>
 				<USAMap customize={this.state.stateMap} title="Deals by State" />
-				<MyModal show={this.state.show} title="Deals" close={this.hideModal} onHide={this.hideModal}>
+				<MyModal
+					show={this.state.show}
+					title="Deals in this state"
+					close={this.hideModal}
+					onHide={this.hideModal}
+					size="small"
+				>
 					{this.state.deals.map(function(deal) {
 						return (
 							<a key={deal.id} href={`/#/deals/${deal.id}`}>

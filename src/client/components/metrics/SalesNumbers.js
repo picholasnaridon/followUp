@@ -6,12 +6,11 @@ import { faChartLine } from '@fortawesome/free-solid-svg-icons';
 class SalesNumbers extends Component {
 	render() {
 		return (
-			<div>
+			<div style={{ textAlign: 'right' }}>
 				<h1>
 					<FontAwesomeIcon icon={faChartLine} />
 				</h1>
-				<hr />
-				<div style={{ textAlign: 'right' }}>
+				<div>
 					<h3>
 						Won (Total): <DollarFormat value={500} color={true} />
 					</h3>

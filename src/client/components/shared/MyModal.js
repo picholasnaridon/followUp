@@ -21,7 +21,7 @@ class MyModal extends React.Component {
 	}
 	render() {
 		return (
-			<Modal show={this.props.show} onHide={this.handleClose}>
+			<Modal show={this.props.show} onHide={this.handleClose} bsSize={this.props.size}>
 				<Modal.Header closeButton>
 					<Modal.Title>{this.props.title}</Modal.Title>
 				</Modal.Header>
