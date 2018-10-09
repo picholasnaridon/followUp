@@ -76,6 +76,23 @@ class EditDeal extends Component {
 						placeholder="Deal Name"
 					/>
 				</FormGroup>
+				<FormGroup>
+					<ControlLabel>Summary</ControlLabel>
+					<FormControl
+						componentClass="textarea"
+						defaultValue={this.state.deal.summary}
+						inputRef={(input) => (this.inputSummary = input)}
+						placeholder="Summary"
+					/>
+				</FormGroup>
+				<FormGroup>
+					<ControlLabel>Expected Close Date</ControlLabel>
+					<input
+						type="date"
+						placeholder={this.state.deal.expectedCloseDate}
+						ref={(input) => (this.inputExpectedCloseDate = input)}
+					/>
+				</FormGroup>
 				<FormGroup controlId="formControlsSelect">
 					<ControlLabel>Stage</ControlLabel>
 					<FormControl

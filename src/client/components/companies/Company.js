@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Grid, Row, Col, Well } from 'react-bootstrap';
-import { SimpleDealList, SimpleContactList, CompanyInfo, MyModal, EditCompany } from '../components';
+import { SimpleDealList, SimpleContactList, CompanyInfo, MyModal, EditCompany, CompanySalesInfo } from '../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -46,16 +46,9 @@ class Company extends Component {
 	};
 
 	render() {
-		console.log(this.state.company);
 		if (this.state.company) {
 			return (
 				<div>
-					<h2>
-						{this.state.company.name}{' '}
-						<span onClick={this.showModal}>
-							<FontAwesomeIcon icon={faPencilAlt} size={'xs'} color="#337ab7" />
-						</span>
-					</h2>
 					<MyModal
 						show={this.state.show}
 						title={this.state.company.name}
@@ -64,11 +57,42 @@ class Company extends Component {
 					>
 						<EditCompany close={this.hideModal} company={this.state.company} refresh={this.refresh} />
 					</MyModal>
-					<CompanyInfo company={this.state.company} />
-					<h3>Deals</h3>
-					<SimpleDealList deals={this.state.company.Deals} />
-					<h3>Contacts</h3>
-					<SimpleContactList contacts={this.state.company.Contacts} />
+					<Grid>
+						<Row>
+							<Col md={12}>
+								<Well>
+									<h2>
+										{this.state.company.name}{' '}
+										<span onClick={this.showModal}>
+											<FontAwesomeIcon icon={faPencilAlt} size={'xs'} color="#337ab7" />
+										</span>
+									</h2>
+									<CompanyInfo company={this.state.company} />
+								</Well>
+							</Col>
+						</Row>
+						<Row>
+							<Col md={6}>
+								<Well>
+									<h3>Deals</h3>
+									<SimpleDealList deals={this.state.company.Deals} />
+								</Well>
+							</Col>
+							<Col md={6}>
+								<Well>
+									<h3>Contacts</h3>
+									<SimpleContactList contacts={this.state.company.Contacts} />
+								</Well>
+							</Col>
+						</Row>
+						<Row>
+							<Col md={12}>
+								<Well>
+									<CompanySalesInfo />
+								</Well>
+							</Col>
+						</Row>
+					</Grid>
 				</div>
 			);
 		} else {

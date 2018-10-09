@@ -30,6 +30,7 @@ import SimpleDealList from './shared/SimpleDealList';
 import SimpleContactList from './shared/SimpleContactList';
 import CompanyInfo from './companies/CompanyInfo';
 import EditCompany from './companies/EditCompany';
+import CompanySalesInfo from './companies/CompanySalesInfo';
 import SourceGraph from './metrics/SourceGraph';
 import Map from './metrics/Map';
 import MetricsPage from './metrics/MetricsPage';
@@ -71,5 +72,6 @@ export {
 	RatioGraph,
 	SimpleContactList,
 	SimpleDealList,
-	SalesNumbers
+	SalesNumbers,
+	CompanySalesInfo
 };

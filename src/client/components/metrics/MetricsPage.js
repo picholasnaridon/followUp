@@ -14,7 +14,7 @@ class MetricsPage extends Component {
 				<hr />
 				<Row>
 					<Col md={6} style={{ borderRight: '1px solid rgba(86,61,124,.2)' }}>
-						<h4 style={{ textAlign: 'center' }}>Deals By Stage</h4>
+						<h4 style={{ textAlign: 'center' }}>Funnel</h4>
 						<StageGraph userId={this.props.userId} />
 					</Col>
 					<Col md={6}>

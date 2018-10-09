@@ -5,7 +5,6 @@ import { Panel, Table } from 'react-bootstrap';
 const CompanyInfo = ({ company: { name, phone, fax, email, address1, address2, city, state, zip, country } }) => {
 	return (
 		<div>
-			<h2>Company Info</h2>
 			<Table>
 				<tbody>
 					<tr>
