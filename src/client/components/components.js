@@ -24,17 +24,22 @@ import DollarFormat from './shared/DollarFormat';
 import MyModal from './shared/MyModal';
 import WarningBanner from './shared/WarningBanner';
 import MyFunnel from './main/MyFunnel';
-import StageGraph from './main/StageGraph';
-import RatioGraph from './main/RatioGraph';
+import StageGraph from './metrics/StageGraph';
+import RatioGraph from './metrics/RatioGraph';
 import SimpleDealList from './shared/SimpleDealList';
 import SimpleContactList from './shared/SimpleContactList';
 import CompanyInfo from './companies/CompanyInfo';
 import EditCompany from './companies/EditCompany';
+import SourceGraph from './metrics/SourceGraph';
+import Map from './metrics/Map';
+import MetricsPage from './metrics/MetricsPage';
+import SalesNumbers from './metrics/SalesNumbers';
 
 export {
 	Contact,
 	RecentActivity,
 	AddContact,
+	Map,
 	ContactInfo,
 	ContactList,
 	EditContact,
@@ -58,10 +63,13 @@ export {
 	NoteList,
 	DollarFormat,
 	MyModal,
+	MetricsPage,
 	WarningBanner,
 	MyFunnel,
 	StageGraph,
+	SourceGraph,
 	RatioGraph,
 	SimpleContactList,
-	SimpleDealList
+	SimpleDealList,
+	SalesNumbers
 };

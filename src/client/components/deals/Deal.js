@@ -149,13 +149,7 @@ class Deal extends Component {
 							<Well>
 								<h3>Todos</h3>
 								<div style={{ textAlign: 'right' }}>
-									<h4>Pending tasks:</h4>
-									<h4>Pending tasks:</h4>
-									<h4>Pending tasks:</h4>
-									<h4>Pending tasks:</h4>
-									<h4>Pending tasks:</h4>
-									<h4>Pending tasks:</h4>
-									<h4>Pending tasks:</h4>
+									<div>Need to do</div>
 								</div>
 							</Well>
 						</Col>

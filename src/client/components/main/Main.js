@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Redirect, Link } from 'react-router-dom';
-import { Login, Register, CompanyList, DealList, ContactList, Contact, Deal, Company, MyFunnel } from '../components';
+import {
+	Login,
+	Register,
+	CompanyList,
+	DealList,
+	ContactList,
+	Contact,
+	Deal,
+	Company,
+	MyFunnel,
+	MetricsPage
+} from '../components';
 import { Navbar, NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 import axios from 'axios';
 
@@ -65,6 +76,9 @@ class Main extends Component {
 								<NavItem>
 									<Link to="/contacts">Contacts</Link>
 								</NavItem>
+								<NavItem>
+									<Link to="/metrics">Metrics</Link>
+								</NavItem>
 							</Nav>
 							<Nav className="pull-right" pullRight>
 								<NavDropdown pullRight eventKey={3} title="Profile" id="basic-nav-dropdown">
@@ -111,6 +125,7 @@ class Main extends Component {
 							path="/contacts/:id"
 							render={(props) => <Contact userId={this.state.userId} {...props} />}
 						/>
+						<Route exact path="/metrics" render={(props) => <MetricsPage userId={this.state.userId} />} />
 					</div>
 				</Router>
 			);

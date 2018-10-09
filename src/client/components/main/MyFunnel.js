@@ -11,15 +11,6 @@ class MyFunnel extends Component {
 		};
 	}
 	componentDidMount() {
-		var dealsByStage = {
-			'Closed Won': 0,
-			'Closed Lost': 0,
-			Discovery: 0,
-			'Initial Meeting': 0,
-			'Proposal Sent': 0,
-			'Contract Signed': 0,
-			'Final Review': 0
-		};
 		fetch(`/api/users/${this.props.userId}/deals`, {
 			method: 'GET'
 		})
@@ -27,17 +18,23 @@ class MyFunnel extends Component {
 				return response.json();
 			})
 			.then((json) => {
-				json.Deals.forEach(function(deal) {
-					dealsByStage[deal.stage] = dealsByStage[deal.stage] + 1 || 1;
-				});
-				this.setState({ deals: json.Deals, dealsByStage: dealsByStage });
+				this.setState({ deals: json.Deals });
 			});
 	}
 
-	getTotalSales = () => {
+	getSalesInFunnel = () => {
 		var total = 0;
 		this.state.deals.forEach(function(deal) {
-			if (deal.stage !== 'Closed Won' || deal.stage !== 'Closed Lost') {
+			if (deal.stage !== 'Closed Won' && deal.stage !== 'Closed Lost') {
+				total += deal.amount;
+			}
+		});
+		return total;
+	};
+	getSalesClosed = () => {
+		var total = 0;
+		this.state.deals.forEach(function(deal) {
+			if (deal.stage === 'Closed Won') {
 				total += deal.amount;
 			}
 		});
@@ -50,28 +47,17 @@ class MyFunnel extends Component {
 				<Row>
 					<Col md={6}>
 						<h1 style={{ textAlign: 'center' }}>Open Deals</h1>
-						<StageGraph
-							discovery={this.state.dealsByStage['Discovery']}
-							initialMeeting={this.state.dealsByStage['Initial Meeting']}
-							proposalSent={this.state.dealsByStage['Proposal Sent']}
-							contractSigned={this.state.dealsByStage['Contract Signed']}
-							finalReview={this.state.dealsByStage['Final Review']}
-						/>
+						<StageGraph userId={this.props.userId} />
 						<h1 style={{ textAlign: 'center' }}>
 							Funnel total:
-							<DollarFormat value={this.getTotalSales()} color={true} />
+							<DollarFormat value={this.getSalesInFunnel()} color={true} />
 						</h1>
 					</Col>
 					<Col md={6}>
 						<h1 style={{ textAlign: 'center' }}>Close Ratio</h1>
-						<RatioGraph
-							closedWon={this.state.dealsByStage['Closed Won']}
-							closedLost={this.state.dealsByStage['Closed Lost']}
-						/>>
+						<RatioGraph userId={this.props.userId} />
 						<h1 style={{ textAlign: 'center' }}>
-							{this.state.dealsByStage['Closed Won'] /
-								(this.state.dealsByStage['Closed Lost'] + this.state.dealsByStage['Closed Lost']) *
-								100}%
+							Won Sales: <DollarFormat value={this.getSalesClosed()} color={true} />
 						</h1>
 					</Col>
 				</Row>

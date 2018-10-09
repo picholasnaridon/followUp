@@ -78,6 +78,10 @@ class DealList extends Component {
 									Cell: (props) => <a href={'#/deals/' + props.original.id}>{props.value}</a>
 								},
 								{
+									Header: 'Source',
+									accessor: 'source'
+								},
+								{
 									Header: 'Status',
 									accessor: 'status',
 									Cell: (row) => <DealStatus status={row.value} />
@@ -99,7 +103,9 @@ class DealList extends Component {
 										var total = 0;
 										console.log(data);
 										data.data.forEach(function(deal) {
-											total += deal.amount;
+											if (deal.stage !== 'Closed Won' && deal.stage !== 'Closed Lost') {
+												total += deal.amount;
+											}
 										});
 										return (
 											<span>
