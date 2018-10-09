@@ -11,23 +11,18 @@ class AddDeal extends Component {
 		};
 	}
 
-	handleStageChange = (e) => {
-		this.setState({ selectStage: e.target.value });
-	};
-	handleStatusChange = (e) => {
-		this.setState({ selectStatus: e.target.value });
-	};
 	submit = (e) => {
 		e.preventDefault();
-
 		var payload = {
 			name: this.inputName.value,
 			amount: this.inputAmount.value,
-			stage: this.state.selectStage,
-			status: this.state.selectStatus,
+			stage: this.inputStage.value,
+			status: this.inputStatus.value,
+			source: this.inputSource.value,
+			summary: this.inputSummary.value,
+			expectedCloseDate: this.inputExpectedCloseDate.value,
 			UserId: this.props.userId
 		};
-		console.log(payload);
 		fetch('/api/deals/create', {
 			method: 'POST',
 			headers: {
@@ -48,15 +43,28 @@ class AddDeal extends Component {
 		return (
 			<form onSubmit={this.submit}>
 				<FormGroup>
-					<ControlLabel>Deal Name</ControlLabel>
+					<ControlLabel>Name</ControlLabel>
 					<FormControl type="text" inputRef={(input) => (this.inputName = input)} placeholder="Deal Name" />
 				</FormGroup>
-				<FormGroup controlId="formControlsSelect">
-					<ControlLabel>Stage {this.props.userId}</ControlLabel>
+				<FormGroup>
+					<ControlLabel>Summary</ControlLabel>
 					<FormControl
-						value={this.state.selectStage}
+						componentClass="textarea"
+						inputRef={(input) => (this.inputSummary = input)}
+						placeholder="Summary"
+					/>
+				</FormGroup>
+				<FormGroup>
+					<ControlLabel>Expected Close Date</ControlLabel>
+					<input type="date" ref={(input) => (this.inputExpectedCloseDate = input)} />
+				</FormGroup>
+
+				<FormGroup controlId="formControlsSelect">
+					<ControlLabel>Stage</ControlLabel>
+					<FormControl
 						componentClass="select"
-						onChange={this.handleStageChange.bind(this)}
+						placeholder={'Discovery'}
+						inputRef={(input) => (this.inputStage = input)}
 					>
 						<option value="Discovery">Discovery</option>
 						<option value="Initial Meeting">Initial Meeting</option>
@@ -65,12 +73,26 @@ class AddDeal extends Component {
 						<option value="Final Review">Final Review</option>
 					</FormControl>
 				</FormGroup>
-				<FormGroup controlId="formControlsSelectTwo">
+				<FormGroup controlId="formControlsSelect">
+					<ControlLabel>Source</ControlLabel>
+					<FormControl
+						componentClass="select"
+						placeholder={'Social Media'}
+						inputRef={(input) => (this.inputSource = input)}
+					>
+						<option value="Social Media">Social Media</option>
+						<option value="Direct Mailing">Direct Mailing</option>
+						<option value="Door to Door">Door to Door</option>
+						<option value="Cold Call">Cold Call</option>
+						<option value="Referral">Referral</option>
+					</FormControl>
+				</FormGroup>
+				<FormGroup controlId="formControlsSelect">
 					<ControlLabel>Status</ControlLabel>
 					<FormControl
-						value={this.state.selectStatus}
 						componentClass="select"
-						onChange={this.handleStatusChange.bind(this)}
+						placeholder={'Follow Up'}
+						inputRef={(input) => (this.inputStatus = input)}
 					>
 						<option value="In Danger">In Danger</option>
 						<option value="Follow Up">Follow Up</option>

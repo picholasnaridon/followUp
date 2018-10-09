@@ -25,9 +25,23 @@ module.exports = {
 				UserId: req.body.UserId,
 				amount: req.body.amount,
 				stage: req.body.stage,
-				status: req.body.status
+				status: req.body.status,
+				source: req.body.source,
+				expectedCloseDate: req.body.expectedCloseDate,
+				summary: req.body.summary
 			})
 			.then(function(deal) {
+				res.json(deal);
+			});
+	},
+	dealsByStage: function(req, res) {
+		models.Deal
+			.findAll({
+				where: { UserId: req.params.id },
+				group: [ 'stage' ],
+				attributes: [ 'stage', [ models.sequelize.fn('COUNT', 'stage'), 'stageCount' ] ]
+			})
+			.then((deal) => {
 				res.json(deal);
 			});
 	},

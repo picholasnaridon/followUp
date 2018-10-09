@@ -6,6 +6,7 @@ var commentController = require('../controllers/commentController');
 var updateController = require('../controllers/updateController');
 var passport = require('passport');
 var settings = require('../config/passport/settings');
+var models = require('../models');
 require('../config/passport/passport')(passport);
 var jwt = require('jsonwebtoken');
 
@@ -36,6 +37,7 @@ module.exports = function(app) {
 	app.put('/api/companies/:id/edit', companyController.edit);
 
 	//Deals
+	app.get('/api/deals/:id/stageCount', dealController.dealsByStage);
 	app.get('/api/deals', dealController.getAll);
 	app.get('/api/deals/:id', dealController.getOne);
 	app.get('/api/deals/active', dealController.getActive);
