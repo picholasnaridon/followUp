@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel } from 'react-bootstrap';
+import { Panel, ListGroupItem } from 'react-bootstrap';
 
 import moment from 'moment';
 
@@ -10,10 +10,8 @@ class Note extends Component {
 	render() {
 		return (
 			<div>
-				<Panel style={{ width: '90%' }}>
-					<Panel.Heading>{moment(this.props.note.createdAt).format('MM-DD-YYYY')}</Panel.Heading>
-					<Panel.Body>{this.props.note.body}</Panel.Body>
-				</Panel>
+				<ListGroupItem heading={2}> {moment(this.props.note.createdAt).format('MM-DD-YYYY')}</ListGroupItem>
+				<ListGroupItem>{this.props.note.body}</ListGroupItem>
 			</div>
 		);
 	}

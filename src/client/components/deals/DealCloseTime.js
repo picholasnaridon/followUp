@@ -7,7 +7,11 @@ class DealCloseTime extends Component {
 		var startingDate = moment(lastItem.creationDate);
 		var endingDate = moment(lastItem.createdAt);
 		var daysToClose = endingDate.diff(startingDate, 'days');
-		return <div>Days to close: {daysToClose} </div>;
+		if (this.props.stage === 'Closed Won' || this.props.stage === 'Closed Lost') {
+			return <div style={{ textAlign: 'center' }}>Days to close: {daysToClose} </div>;
+		} else {
+			return <div />;
+		}
 	}
 }
 

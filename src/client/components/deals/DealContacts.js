@@ -28,18 +28,12 @@ class DealContacts extends Component {
 						icon={faUserPlus}
 						onClick={this.showModal}
 						size="lg"
-						style={{ float: 'right', marginRight: '5%', marginBottom: '2%' }}
+						style={{ float: 'right', marginBottom: '2%' }}
 						color="#337ab7"
 					/>
 					<br />
 					<SimpleContactList contacts={this.props.contacts} />
-					<MyModal
-						show={this.state.show}
-						title="Add Contact"
-						bsSize="lg"
-						close={this.hideModal}
-						style={{ margin: '3%' }}
-					>
+					<MyModal show={this.state.show} title="Add Contact" bsSize="lg" close={this.hideModal}>
 						<AddContact
 							dealId={this.props.dealId}
 							close={this.hideModal}

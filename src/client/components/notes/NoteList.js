@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Note, AddNote, MyModal } from '../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import { FormGroup, ControlLabel, FormControl, Row, Grid, Col, Button, Label } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Row, Grid, Col, Button, Label, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
 
 class NoteList extends Component {
@@ -39,35 +39,25 @@ class NoteList extends Component {
 
 	render() {
 		return (
-			<Grid>
-				<Row>
-					<MyModal show={this.state.show} title="Edit Contact" close={this.hideModal} onHide={this.hideModal}>
-						<AddNote
-							type={this.props.type}
-							addNote={this.addNote}
-							parentId={this.props.parentId}
-							closeModal={this.hideModal}
-							userId={this.props.userId}
-							contact={this.state.contact}
-						/>
-					</MyModal>
-					<FontAwesomeIcon
-						icon={faPlus}
-						onClick={this.showModal}
-						size="lg"
-						color="#337ab7"
-						style={{ float: 'right', marginRight: '5%', marginBottom: '2%' }}
+			<div>
+				<MyModal show={this.state.show} title="Edit Contact" close={this.hideModal} onHide={this.hideModal}>
+					<AddNote
+						type={this.props.type}
+						addNote={this.addNote}
+						parentId={this.props.parentId}
+						closeModal={this.hideModal}
+						userId={this.props.userId}
+						contact={this.state.contact}
 					/>
-					<hr />
-				</Row>
-				<Row>
-					<Col>
-						{this.state.notes.map(function(note) {
-							return <Note key={note.id} note={note} />;
-						})}
-					</Col>
-				</Row>
-			</Grid>
+				</MyModal>
+				<FontAwesomeIcon icon={faPlus} onClick={this.showModal} size="lg" color="#337ab7" />
+				<hr />
+				<ListGroup>
+					{this.state.notes.map(function(note) {
+						return <Note key={note.id} note={note} />;
+					})}
+				</ListGroup>
+			</div>
 		);
 	}
 }
