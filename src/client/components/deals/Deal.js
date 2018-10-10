@@ -87,7 +87,7 @@ class Deal extends Component {
 									currentStage={this.state.deal.stage}
 								/>
 								<hr />
-								<DealCloseTime stage={this.state.deal.stage} updates={this.state.deal.Updates} />
+								{/* <DealCloseTime stage={this.state.deal.stage} updates={this.state.deal.Updates} /> */}
 							</Well>
 						</Col>
 					</Row>
