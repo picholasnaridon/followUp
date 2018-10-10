@@ -1,0 +1,7 @@
+.outline path {
+	pointer-events: all;
+}
+.outline path:hover {
+	opacity: 0.50;
+	cursor: pointer;
+}

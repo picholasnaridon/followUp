@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import axios from 'axios';
+import StageStepper from './StageStepper';
 
 class Deal extends Component {
 	constructor(props) {
@@ -24,37 +25,6 @@ class Deal extends Component {
 		});
 	};
 
-	markLostOrWon = (e, stage) => {
-		if (this.state.deal.stage !== stage) {
-			axios
-				.post('/api/updates/deal/add', {
-					updateType: 'stage',
-					startingVal: this.state.deal.stage,
-					endingVal: stage,
-					dealId: this.state.deal.id,
-					userId: this.state.deal.UserId,
-					creationDate: this.state.deal.createdAt
-				})
-				.then((result) => {
-					console.log(result);
-				});
-		}
-		var payload = {
-			stage: stage
-		};
-		fetch(`/api/deals/${this.props.match.params.id}/changeStage`, {
-			method: 'PUT',
-			headers: {
-				'Content-Type': 'application/json'
-			},
-			credentials: 'include',
-			body: JSON.stringify(payload)
-		})
-			.then((response) => response)
-			.then((data) => {
-				this.refresh();
-			});
-	};
 	showModal = () => {
 		this.setState({ show: true });
 	};
@@ -74,41 +44,6 @@ class Deal extends Component {
 		});
 	};
 
-	renderCloseButtons() {
-		switch (this.state.deal.stage) {
-			case 'Closed Won':
-				return (
-					<div>
-						<Button bsStyle="danger" onClick={(e) => this.markLostOrWon(e, 'Closed Lost')}>
-							Lost
-						</Button>
-						<DealCloseTime updates={this.state.deal.Updates} />
-					</div>
-				);
-			case 'Closed Lost':
-				return (
-					<div>
-						<Button bsStyle="success" onClick={(e) => this.markLostOrWon(e, 'Closed Won')}>
-							Won
-						</Button>
-						<DealCloseTime updates={this.state.deal.Updates} />
-					</div>
-				);
-			default:
-				return (
-					<div>
-						<h5>Created: {moment(this.state.deal.createdAt).format('MM-DD-YYYY')}</h5>
-						<Button bsStyle="danger" onClick={(e) => this.markLostOrWon(e, 'Closed Lost')}>
-							Lost
-						</Button>
-						<Button bsStyle="success" onClick={(e) => this.markLostOrWon(e, 'Closed Won')}>
-							Won
-						</Button>
-					</div>
-				);
-		}
-	}
-
 	render() {
 		if (this.state.deal) {
 			return (
@@ -122,7 +57,6 @@ class Deal extends Component {
 										<FontAwesomeIcon icon={faPencilAlt} size={'xs'} color="#337ab7" />
 									</span>
 								</h2>
-								<div>{this.state.deal.summary}</div>
 								<MyModal
 									show={this.state.show}
 									title="Edit Deal"
@@ -139,52 +73,57 @@ class Deal extends Component {
 						<Col md={6}>
 							<Well>
 								<div>
-									{this.renderCloseButtons()}
-									<h3>{this.state.stage}</h3>
 									<DealStatus status={this.state.deal.status} />
 									<h4>$ {this.state.deal.amount}</h4>
+									<p>{this.state.deal.summary}</p>
 								</div>
 							</Well>
 						</Col>
 						<Col md={6}>
 							<Well>
-								<h3>Todos</h3>
-								<div style={{ textAlign: 'right' }}>
-									<div>Need to do</div>
-								</div>
+								<StageStepper
+									refresh={this.refresh}
+									deal={this.state.deal}
+									currentStage={this.state.deal.stage}
+								/>
+								<hr />
+								<DealCloseTime stage={this.state.deal.stage} updates={this.state.deal.Updates} />
 							</Well>
 						</Col>
 					</Row>
 					<hr />
-					<Well>
-						<Row>
-							<DealContacts
-								contacts={this.state.deal.Contacts}
-								userId={this.props.userId}
-								refresh={this.refresh}
-								dealId={this.props.match.params.id}
-							/>
-						</Row>
-					</Well>
+					<Row>
+						<Col md={12}>
+							<h4>Contacts</h4>
+							<Well>
+								<DealContacts
+									contacts={this.state.deal.Contacts}
+									userId={this.props.userId}
+									refresh={this.refresh}
+									dealId={this.props.match.params.id}
+								/>
+							</Well>
+						</Col>
+					</Row>
 					<hr />
-					<Well>
-						<Row>
-							<Col>
+					<Row>
+						<Col md={6}>
+							<h4>Notes</h4>
+							<Well>
 								<NoteList type="deals" parentId={this.state.deal.id} userId={this.state.deal.UserId} />
-							</Col>
-						</Row>
-					</Well>
-					<Well>
-						<Row>
-							<Col>
+							</Well>
+						</Col>
+						<Col md={6}>
+							<h4>Recent Updates</h4>
+							<Well>
 								<DealUpdates
 									updates={this.state.deal.Updates}
 									refresh={this.refresh}
 									dealId={this.state.deal.id}
 								/>
-							</Col>
-						</Row>
-					</Well>
+							</Well>
+						</Col>
+					</Row>
 				</Grid>
 			);
 		} else {
