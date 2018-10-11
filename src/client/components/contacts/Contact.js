@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { NoteList, EditContact, MyModal, ContactInfo, WarningBanner, SimpleDealList } from '../components';
 import { Grid, Row, Col, Panel, Thumbnail, Button, Well } from 'react-bootstrap';
+import userPhoto from '../../assets/images/userPlaceHolder.png';
+import Upload from '../file/Upload';
 
 class Contact extends Component {
 	constructor(props) {
@@ -48,16 +50,18 @@ class Contact extends Component {
 		if (this.state.contact) {
 			return (
 				<Grid>
-					<Button bsStyle="success" onClick={this.showModal}>
+					<Button bsStyle="success" onClick={this.showModal} style={{ float: 'right' }}>
 						Edit Contact
 					</Button>
+					<br />
 					<Row>
 						<Col md={3}>
 							<Thumbnail
 								href="#"
 								alt="171x180"
-								src="http://www.nickparidon.com/static/media/me.b920f956.png"
+								src={this.state.contact.imageUrl ? this.state.contact.imageUrl : userPhoto}
 							/>
+							<Upload id={this.state.contact.id} refresh={this.refresh} />
 						</Col>
 						<Col md={9}>
 							<Well>

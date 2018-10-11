@@ -12,12 +12,14 @@ var PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 app.use(express.static('dist'));
 
 app.use(passport.initialize());
 
 require('./routes/api-routes')(app, passport);
 require('./routes/auth-routes.js')(app, passport);
+require('./routes/file-routes.js')(app, passport);
 
 db.sequelize.sync({}).then(function() {
 	app.listen(PORT, function() {

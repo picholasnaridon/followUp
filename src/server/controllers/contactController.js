@@ -1,6 +1,6 @@
 const models = require('../models');
-
 var passport = require('passport');
+
 require('../config/passport/passport')(passport);
 
 var getToken = function(headers) {
@@ -44,7 +44,6 @@ module.exports = {
 			});
 	},
 	edit: function(req, res) {
-		console.log(req.body);
 		models.Contact
 			.update(
 				{

@@ -14,7 +14,8 @@ module.exports = function(sequelize, DataTypes) {
 			zip: { type: Sequelize.TEXT, allowNull: true },
 			country: { type: Sequelize.TEXT, allowNull: true },
 			phone: { type: Sequelize.TEXT, allowNull: true },
-			mobile: { type: Sequelize.TEXT, allowNull: true }
+			mobile: { type: Sequelize.TEXT, allowNull: true },
+			imageUrl: { type: Sequelize.TEXT, allowNull: true }
 		},
 		{
 			timestamps: false
