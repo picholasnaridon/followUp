@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NoteList, EditContact, MyModal, ContactInfo, WarningBanner, SimpleDealList } from '../components';
 import { Grid, Row, Col, Panel, Thumbnail, Button, Well } from 'react-bootstrap';
-import userPhoto from '../../assets/images/userPlaceHolder.png';
+import userPhoto from '../../assets/images/userPlaceholder.png';
 import Upload from '../file/Upload';
 
 class Contact extends Component {
@@ -61,7 +61,11 @@ class Contact extends Component {
 								alt="171x180"
 								src={this.state.contact.imageUrl ? this.state.contact.imageUrl : userPhoto}
 							/>
-							<Upload id={this.state.contact.id} refresh={this.refresh} />
+							<Upload
+								endpoint={`/api/contacts/${this.state.contact.id}/addPhoto`}
+								id={this.state.contact.id}
+								refresh={this.refresh}
+							/>
 						</Col>
 						<Col md={9}>
 							<Well>

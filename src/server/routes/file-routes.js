@@ -14,7 +14,7 @@ cloudinary.config({
 	api_secret: process.env.CLOUDINARY_API_SECRET
 });
 var multer = require('multer');
-var upload = multer({ dest: 'uploads/' });
+var upload = multer({ dest: '../uploads' });
 
 module.exports = function(app) {
 	app.post('/api/contacts/:id/addPhoto', upload.single('avatar'), function(req, res) {
@@ -22,7 +22,7 @@ module.exports = function(app) {
 			if (error) {
 				console.log(error);
 			}
-			fs.unlink('uploads/' + req.file.filename, (err) => {
+			fs.unlink('../uploads/' + req.file.filename, (err) => {
 				if (err) {
 					console.log('failed to delete local image:' + err);
 				} else {

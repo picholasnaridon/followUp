@@ -17,7 +17,7 @@ class Upload extends React.Component {
 		const data = new FormData();
 		data.append('avatar', this.uploadInput.files[0]);
 
-		fetch(`/api/contacts/${this.props.id}/addPhoto`, {
+		fetch(this.props.endpoint, {
 			method: 'POST',
 			body: data
 		}).then((response) => {
