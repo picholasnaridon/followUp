@@ -33,7 +33,6 @@ class Main extends Component {
 		axios
 			.get('/api/user')
 			.then((response) => {
-				console.log(response);
 				this.setState({
 					loggedIn: true,
 					userId: response.data.id
@@ -113,7 +112,6 @@ class Main extends Component {
 							path="/companies/:id"
 							render={(props) => <Company userId={this.state.userId} {...props} />}
 						/>
-
 						<Route
 							exact
 							path="/deals"
@@ -124,7 +122,6 @@ class Main extends Component {
 							path="/deals/:id"
 							render={(props) => <Deal userId={this.state.userId} {...props} />}
 						/>
-
 						<Route
 							exact
 							path="/contacts"
