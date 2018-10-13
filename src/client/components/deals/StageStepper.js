@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Button } from 'react-bootstrap';
 import Stepper from 'react-stepper-horizontal';
 import axios from 'axios';
 
@@ -124,19 +125,11 @@ class StageStepper extends Component {
 	};
 
 	renderNext = () => {
-		const buttonStyle = {
-			background: '#E0E0E0',
-			width: 200,
-			padding: 16,
-			textAlign: 'center',
-			margin: '0 auto',
-			marginTop: 32
-		};
 		if (this.state.currentStep != 6) {
 			return (
-				<div style={buttonStyle} onClick={this.onClickNext}>
+				<Button onClick={this.onClickNext} bsStyle="info" bsSize="md">
 					Next Stage
-				</div>
+				</Button>
 			);
 		} else {
 			return <div />;
@@ -144,8 +137,9 @@ class StageStepper extends Component {
 	};
 	render() {
 		return (
-			<div>
+			<div style={{ textAlign: 'center' }}>
 				<Stepper steps={this.state.steps} activeStep={this.state.currentStep} />
+				<br />
 				{this.renderNext()}
 			</div>
 		);

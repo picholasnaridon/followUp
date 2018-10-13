@@ -7,12 +7,10 @@ class EditContact extends Component {
 	}
 
 	handleStageChange = (e) => {
-		console.log(e.target.value);
 		this.setState({ selectStage: e.target.value });
 	};
 
 	handleStatusChange = (e) => {
-		console.log(e.target.value);
 		this.setState({ selectStatus: e.target.value });
 	};
 
@@ -42,13 +40,13 @@ class EditContact extends Component {
 		}).then((response) => {
 			if (response.ok) {
 				response.json().then((json) => {
-					console.log(json);
 					this.props.closeModal();
 					this.props.refresh();
 				});
 			}
 		});
 	};
+
 	render() {
 		return (
 			<div>

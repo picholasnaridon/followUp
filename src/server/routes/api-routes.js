@@ -29,6 +29,7 @@ module.exports = function(app) {
 	//Contacts
 	app.get('/api/contacts', contactController.getAll);
 	app.get('/api/contacts/:id', contactController.getOne);
+	// app.post('/api/contacts/:id/addPhoto', contactController.addPhoto);
 	app.put('/api/contacts/:id/edit', contactController.edit);
 
 	//Companies

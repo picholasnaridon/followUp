@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import '../../assets/styles/modal.css';
 import { Button, Grid, Row, Col, Modal } from 'react-bootstrap';
 
 class MyModal extends React.Component {

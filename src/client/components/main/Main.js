@@ -10,11 +10,12 @@ import {
 	Deal,
 	Company,
 	MyFunnel,
-	MetricsPage
+	MetricsPage,
+	Profile
 } from '../components';
 import { Navbar, NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faUsers, faBuilding, faHandshake } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faUsers, faBuilding, faHandshake, faUser } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 class Main extends Component {
@@ -32,7 +33,6 @@ class Main extends Component {
 		axios
 			.get('/api/user')
 			.then((response) => {
-				console.log(response);
 				this.setState({
 					loggedIn: true,
 					userId: response.data.id
@@ -93,10 +93,10 @@ class Main extends Component {
 							<Nav className="pull-right" pullRight>
 								<NavDropdown pullRight eventKey={3} title="Profile" id="basic-nav-dropdown">
 									<MenuItem eventKey={3.1}>
-										<div onClick={this.logout}>Logout</div>
+										<Link to="/profile">Profile</Link>
 									</MenuItem>
 									<MenuItem eventKey={3.2}>
-										<Link to="/profile">Profile</Link>
+										<div onClick={this.logout}>Logout</div>
 									</MenuItem>
 								</NavDropdown>
 							</Nav>
@@ -112,7 +112,6 @@ class Main extends Component {
 							path="/companies/:id"
 							render={(props) => <Company userId={this.state.userId} {...props} />}
 						/>
-
 						<Route
 							exact
 							path="/deals"
@@ -123,7 +122,6 @@ class Main extends Component {
 							path="/deals/:id"
 							render={(props) => <Deal userId={this.state.userId} {...props} />}
 						/>
-
 						<Route
 							exact
 							path="/contacts"
@@ -134,7 +132,16 @@ class Main extends Component {
 							path="/contacts/:id"
 							render={(props) => <Contact userId={this.state.userId} {...props} />}
 						/>
-						<Route exact path="/metrics" render={(props) => <MetricsPage userId={this.state.userId} />} />
+						<Route
+							exact
+							path="/metrics"
+							render={(props) => <MetricsPage userId={this.state.userId} {...props} />}
+						/>
+						<Route
+							exact
+							path="/profile"
+							render={(props) => <Profile userId={this.state.userId} {...props} />}
+						/>
 					</div>
 				</Router>
 			);

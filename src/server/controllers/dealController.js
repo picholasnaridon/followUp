@@ -172,6 +172,7 @@ module.exports = {
 					stage: req.body.stage,
 					name: req.body.name,
 					amount: req.body.amount,
+					summary: req.body.summary,
 					status: req.body.status
 				},
 				{

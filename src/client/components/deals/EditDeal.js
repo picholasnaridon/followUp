@@ -43,6 +43,7 @@ class EditDeal extends Component {
 		var dealPayload = {
 			name: this.inputName.value,
 			amount: this.inputAmount.value,
+			summary: this.inputSummary.value,
 			stage: this.state.selectStage,
 			status: this.state.selectStatus
 		};

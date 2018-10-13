@@ -117,7 +117,6 @@ class ContactList extends React.Component {
 				userId: this.props.userId
 			}
 		}).then((response) => {
-			console.log(response);
 			this.setState({ contacts: response.data });
 		});
 	}
