@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { Button, Grid, Row, Col, Well } from 'react-bootstrap';
-import { SimpleDealList, SimpleContactList, CompanyInfo, MyModal, EditCompany, CompanySalesInfo } from '../components';
+import {
+	SimpleDealList,
+	SimpleContactList,
+	CompanyInfo,
+	MyModal,
+	EditCompany,
+	CompanySalesInfo,
+	LoadingBanner
+} from '../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 
@@ -96,7 +104,7 @@ class Company extends Component {
 				</div>
 			);
 		} else {
-			return <div />;
+			return <LoadingBanner />;
 		}
 	}
 }

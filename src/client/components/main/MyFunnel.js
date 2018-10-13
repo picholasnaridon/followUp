@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { RecentActivity, DollarFormat, StageGraph, RatioGraph } from '../components';
+import { RecentActivity, DollarFormat, StageGraph, RatioGraph, LoadingBanner } from '../components';
 
 class MyFunnel extends Component {
 	constructor(props) {

@@ -1,6 +1,15 @@
 import React, { Component } from 'react';
 import { Button, FormControl, Grid, Row, Col, Well } from 'react-bootstrap';
-import { NoteList, EditDeal, MyModal, DealContacts, DealStatus, DealUpdates, DealCloseTime } from '../components';
+import {
+	NoteList,
+	EditDeal,
+	MyModal,
+	DealContacts,
+	DealStatus,
+	DealUpdates,
+	DealCloseTime,
+	LoadingBanner
+} from '../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
@@ -127,7 +136,7 @@ class Deal extends Component {
 				</Grid>
 			);
 		} else {
-			return <div />;
+			return <LoadingBanner />;
 		}
 	}
 }
