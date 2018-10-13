@@ -22,7 +22,7 @@ import RecentActivity from './main/RecentActivity';
 import NoteList from './notes/NoteList';
 import DollarFormat from './shared/DollarFormat';
 import MyModal from './shared/MyModal';
-import WarningBanner from './shared/WarningBanner';
+import LoadingBanner from './shared/LoadingBanner';
 import MyFunnel from './main/MyFunnel';
 import StageGraph from './metrics/StageGraph';
 import RatioGraph from './metrics/RatioGraph';
@@ -69,7 +69,7 @@ export {
 	DollarFormat,
 	MyModal,
 	MetricsPage,
-	WarningBanner,
+	LoadingBanner,
 	MyFunnel,
 	StageGraph,
 	SourceGraph,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NoteList, EditContact, MyModal, ContactInfo, WarningBanner, SimpleDealList } from '../components';
+import { NoteList, EditContact, MyModal, ContactInfo, LoadingBanner, SimpleDealList } from '../components';
 import { Grid, Row, Col, Panel, Thumbnail, Button, Well } from 'react-bootstrap';
 import userPhoto from '../../assets/images/userPlaceholder.png';
 import Upload from '../file/Upload';
@@ -120,7 +120,7 @@ class Contact extends Component {
 				</Grid>
 			);
 		} else {
-			return <WarningBanner />;
+			return <LoadingBanner />;
 		}
 	}
 }
