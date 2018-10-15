@@ -10,7 +10,7 @@ import {
 	LoadingBanner
 } from '../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faHandshake, faUsers, faChartLine, faBuilding } from '@fortawesome/free-solid-svg-icons';
 
 class Company extends Component {
 	constructor(props) {
@@ -70,8 +70,8 @@ class Company extends Component {
 							<Col md={12}>
 								<Well>
 									<h2>
-										{this.state.company.name}{' '}
-										<span onClick={this.showModal}>
+										<FontAwesomeIcon icon={faBuilding} size={'lg'} /> {this.state.company.name}{' '}
+										<span onClick={this.showModal} style={{ float: 'right' }}>
 											<FontAwesomeIcon icon={faPencilAlt} size={'xs'} color="#337ab7" />
 										</span>
 									</h2>
@@ -81,20 +81,27 @@ class Company extends Component {
 						</Row>
 						<Row>
 							<Col md={6}>
+								<h4>
+									<FontAwesomeIcon icon={faHandshake} size={'lg'} />
+								</h4>
 								<Well>
-									<h3>Deals</h3>
 									<SimpleDealList deals={this.state.company.Deals} />
 								</Well>
 							</Col>
 							<Col md={6}>
+								<h4>
+									<FontAwesomeIcon icon={faUsers} size={'lg'} />
+								</h4>
 								<Well>
-									<h3>Contacts</h3>
 									<SimpleContactList contacts={this.state.company.Contacts} />
 								</Well>
 							</Col>
 						</Row>
 						<Row>
 							<Col md={12}>
+								<h4>
+									<FontAwesomeIcon icon={faChartLine} size={'lg'} />
+								</h4>
 								<Well>
 									<CompanySalesInfo />
 								</Well>

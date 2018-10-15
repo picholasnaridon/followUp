@@ -11,7 +11,7 @@ const DealUpdates = (props) => {
 					return (
 						<ListGroupItem key={update.id}>
 							Changed from {update.startingVal} to {update.endingVal} on{' '}
-							{moment(update.createdAt).format('MM-DD-YYYY')}
+							{moment(update.createdAt).format('MM/DD/YYYY')}
 						</ListGroupItem>
 					);
 				})}

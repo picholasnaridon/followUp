@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, PageHeader } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCity } from '@fortawesome/free-solid-svg-icons';
 import { DollarFormat } from '../components';
 import ReactTable from 'react-table';
 import axios from 'axios';
@@ -117,7 +119,9 @@ class CompanyList extends React.Component {
 			<Grid>
 				<Row>
 					<Col md={6}>
-						<h1>Companies</h1>
+						<PageHeader>
+							<FontAwesomeIcon icon={faCity} size="lg" color="#777" /> <small>Companies</small>
+						</PageHeader>
 					</Col>
 				</Row>
 				<Row>
@@ -127,6 +131,7 @@ class CompanyList extends React.Component {
 							data={this.state.companies}
 							columns={columns}
 							filterable
+							style={{ color: '#777' }}
 							defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value}
 						/>
 					</Col>

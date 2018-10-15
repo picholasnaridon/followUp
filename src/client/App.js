@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Main from './components/main/Main';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import './app.css';
 
 class App extends React.Component {
 	render() {

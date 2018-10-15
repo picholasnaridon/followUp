@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, PageHeader } from 'react-bootstrap';
 import { RecentActivity, DollarFormat, StageGraph, RatioGraph, LoadingBanner } from '../components';
 
 class MyFunnel extends Component {
@@ -46,19 +46,19 @@ class MyFunnel extends Component {
 			<Grid>
 				<Row>
 					<Col md={6}>
-						<h1 style={{ textAlign: 'center' }}>Open Deals</h1>
-						<StageGraph userId={this.props.userId} />
-						<h1 style={{ textAlign: 'center' }}>
+						<PageHeader style={{ textAlign: 'center' }}>Open Deals</PageHeader>
+						<h3 style={{ textAlign: 'center' }}>
 							Funnel total:
 							<DollarFormat value={this.getSalesInFunnel()} color={true} />
-						</h1>
+						</h3>
+						<StageGraph userId={this.props.userId} />
 					</Col>
 					<Col md={6}>
-						<h1 style={{ textAlign: 'center' }}>Close Ratio</h1>
-						<RatioGraph userId={this.props.userId} />
-						<h1 style={{ textAlign: 'center' }}>
+						<PageHeader style={{ textAlign: 'center' }}>Close Ratio</PageHeader>
+						<h3 style={{ textAlign: 'center' }}>
 							Won Sales: <DollarFormat value={this.getSalesClosed()} color={true} />
-						</h1>
+						</h3>
+						<RatioGraph userId={this.props.userId} />
 					</Col>
 				</Row>
 				<hr />
