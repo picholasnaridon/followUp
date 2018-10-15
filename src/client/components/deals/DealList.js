@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { MyModal, DealProgress, DealStatus, DollarFormat, AddDeal } from '../components';
 import { HashRouter as Router, Route, Link } from 'react-router-dom';
-import { Row, Grid, Col, Button } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHandshake } from '@fortawesome/free-solid-svg-icons';
+import { Row, Grid, Col, Button, PageHeader } from 'react-bootstrap';
 import ReactTable from 'react-table';
 import axios from 'axios';
 
@@ -49,19 +51,19 @@ class DealList extends Component {
 			<Grid>
 				<Row>
 					<Col md={6}>
-						<h1>Deals</h1>
+						<PageHeader>
+							<FontAwesomeIcon icon={faHandshake} size="lg" color="#777" /> <small>Deals</small>
+						</PageHeader>
 					</Col>
 				</Row>
 				<Row>
 					<Col md={6}>
-						<main style={{ marginBottom: '3%' }}>
-							<MyModal show={this.state.show} title="Add Deal" close={this.hideModal}>
-								<AddDeal closeModal={this.hideModal} userId={this.props.userId} />
-							</MyModal>
-							<Button bsStyle="success" onClick={this.showModal}>
-								+ Deal
-							</Button>
-						</main>
+						<MyModal show={this.state.show} title="Add Deal" close={this.hideModal}>
+							<AddDeal closeModal={this.hideModal} userId={this.props.userId} />
+						</MyModal>
+						<Button bsStyle="success" onClick={this.showModal} style={{ marginBottom: '1%' }}>
+							+ Deal
+						</Button>
 					</Col>
 				</Row>
 				<Row>
@@ -71,6 +73,7 @@ class DealList extends Component {
 							defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value}
 							pageSize={10}
 							data={this.state.deals}
+							style={{ color: '#777' }}
 							columns={[
 								{
 									Header: 'Name',

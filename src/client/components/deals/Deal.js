@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, FormControl, Grid, Row, Col, Well } from 'react-bootstrap';
+import { Button, FormControl, Grid, Row, Col, Well, Panel } from 'react-bootstrap';
 import {
 	NoteList,
 	EditDeal,
@@ -11,7 +11,7 @@ import {
 	LoadingBanner
 } from '../components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faEdit, faUsers, faClock, faHandshake } from '@fortawesome/free-solid-svg-icons';
 import moment from 'moment';
 import axios from 'axios';
 import StageStepper from './StageStepper';
@@ -61,8 +61,8 @@ class Deal extends Component {
 						<Col md={12}>
 							<Well>
 								<h2>
-									{this.state.deal.name}{' '}
-									<span onClick={this.showModal}>
+									<FontAwesomeIcon icon={faHandshake} size={'lg'} /> {this.state.deal.name}{' '}
+									<span onClick={this.showModal} style={{ float: 'right' }}>
 										<FontAwesomeIcon icon={faPencilAlt} size={'xs'} color="#337ab7" />
 									</span>
 								</h2>
@@ -95,15 +95,15 @@ class Deal extends Component {
 									deal={this.state.deal}
 									currentStage={this.state.deal.stage}
 								/>
-								<hr />
 								{/* <DealCloseTime stage={this.state.deal.stage} updates={this.state.deal.Updates} /> */}
 							</Well>
 						</Col>
 					</Row>
-					<hr />
 					<Row>
 						<Col md={12}>
-							<h4>Contacts</h4>
+							<h4>
+								<FontAwesomeIcon icon={faUsers} size={'lg'} />
+							</h4>
 							<Well>
 								<DealContacts
 									contacts={this.state.deal.Contacts}
@@ -114,16 +114,19 @@ class Deal extends Component {
 							</Well>
 						</Col>
 					</Row>
-					<hr />
 					<Row>
 						<Col md={6}>
-							<h4>Notes</h4>
+							<h4>
+								<FontAwesomeIcon icon={faEdit} size={'lg'} />
+							</h4>
 							<Well>
 								<NoteList type="deals" parentId={this.state.deal.id} userId={this.state.deal.UserId} />
 							</Well>
 						</Col>
 						<Col md={6}>
-							<h4>Recent Updates</h4>
+							<h4>
+								<FontAwesomeIcon icon={faClock} size={'lg'} />
+							</h4>
 							<Well>
 								<DealUpdates
 									updates={this.state.deal.Updates}

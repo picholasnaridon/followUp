@@ -15,7 +15,7 @@ import {
 } from '../components';
 import { Navbar, NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faUsers, faBuilding, faHandshake, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faUsers, faCity, faHandshake, faUser } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 
 class Main extends Component {
@@ -76,7 +76,7 @@ class Main extends Component {
 								</NavItem>
 								<NavItem>
 									<Link to="/companies">
-										Companies <FontAwesomeIcon icon={faBuilding} />
+										Companies <FontAwesomeIcon icon={faCity} />
 									</Link>
 								</NavItem>
 								<NavItem>

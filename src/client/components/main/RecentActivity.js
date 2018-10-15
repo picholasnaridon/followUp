@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Panel, Grid, Row, Col, Well, ListGroup, ListGroupItem } from 'react-bootstrap';
 import axios from 'axios';
+import moment from 'moment';
 
 class RecentActivity extends Component {
 	constructor(props) {
@@ -25,11 +26,11 @@ class RecentActivity extends Component {
 	render() {
 		return (
 			<div>
-				<Grid>
+				<Grid style={{ color: '#777' }}>
 					<Row>
 						<Col md={6}>
-							<Panel bsStyle="info">
-								<Panel.Heading>
+							<Panel>
+								<Panel.Heading style={{ color: '#777' }}>
 									<Panel.Title componentClass="h3">Recent Notes</Panel.Title>
 								</Panel.Heading>
 								<Panel.Body>
@@ -38,13 +39,21 @@ class RecentActivity extends Component {
 											<Panel key={comment.id}>
 												{comment.Deal ? (
 													<Panel.Heading>
-														<a href={`/#/deals/${comment.Deal.id}`}>{comment.Deal.name}</a>
+														<span style={{ color: '#777' }}>
+															<a href={`/#/deals/${comment.Deal.id}`}>
+																{comment.Deal.name}
+															</a>{' '}
+															- {moment(comment.createdAt).format('MM/DD/YYYY')}
+														</span>
 													</Panel.Heading>
 												) : (
 													<Panel.Heading>
-														<a href={`/#/contacts/${comment.Contact.id}`}>
-															{comment.Contact.firstName} {comment.Contact.lastName}
-														</a>
+														<span style={{ color: '#777' }}>
+															<a href={`/#/contacts/${comment.Contact.id}`}>
+																{comment.Contact.firstName} {comment.Contact.lastName}{' '}
+															</a>
+															- {moment(comment.createdAt).format('MM/DD/YYYY')}
+														</span>
 													</Panel.Heading>
 												)}
 												<Panel.Body>{comment.body}</Panel.Body>
@@ -55,8 +64,8 @@ class RecentActivity extends Component {
 							</Panel>
 						</Col>
 						<Col md={6}>
-							<Panel bsStyle="info">
-								<Panel.Heading>
+							<Panel>
+								<Panel.Heading style={{ color: '#777' }}>
 									<Panel.Title componentClass="h3">Recent Updates</Panel.Title>
 								</Panel.Heading>
 								<Panel.Body>
@@ -65,7 +74,8 @@ class RecentActivity extends Component {
 											return (
 												<ListGroupItem key={update.id}>
 													<a href={`/#/deals/${update.Deal.id}`}>{update.Deal.name} </a> -
-													changed from {update.startingVal} to {update.endingVal}
+													changed from {update.startingVal} to {update.endingVal} on{' '}
+													{moment(update.createdAt).format('MM/DD/YYYY')}
 												</ListGroupItem>
 											);
 										})}

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom';
-import { Row, Grid, Col } from 'react-bootstrap';
+import { Row, Grid, Col, PageHeader } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUsers } from '@fortawesome/free-solid-svg-icons';
 import ReactTable from 'react-table';
 import axios from 'axios';
 
@@ -125,7 +127,9 @@ class ContactList extends React.Component {
 			<Grid>
 				<Row>
 					<Col md={6}>
-						<h1>Contacts</h1>
+						<PageHeader>
+							<FontAwesomeIcon icon={faUsers} size="lg" color="#777" /> <small>Contacts</small>
+						</PageHeader>
 					</Col>
 				</Row>
 				<Row>
@@ -135,6 +139,7 @@ class ContactList extends React.Component {
 							data={this.state.contacts}
 							columns={columns}
 							filterable
+							style={{ color: '#777' }}
 							defaultFilterMethod={(filter, row) => String(row[filter.id]) === filter.value}
 						/>
 					</Col>

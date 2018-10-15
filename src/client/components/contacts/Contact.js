@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { NoteList, EditContact, MyModal, ContactInfo, LoadingBanner, SimpleDealList } from '../components';
 import { Grid, Row, Col, Panel, Thumbnail, Button, Well } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencilAlt, faEdit, faHandshake, faUser } from '@fortawesome/free-solid-svg-icons';
 import userPhoto from '../../assets/images/userPlaceholder.png';
 import Upload from '../file/Upload';
 
@@ -50,9 +52,6 @@ class Contact extends Component {
 		if (this.state.contact) {
 			return (
 				<Grid>
-					<Button bsStyle="success" onClick={this.showModal} style={{ float: 'right' }}>
-						Edit Contact
-					</Button>
 					<br />
 					<Row>
 						<Col md={3}>
@@ -71,8 +70,13 @@ class Contact extends Component {
 							<Well>
 								<div>
 									<h2>
-										{this.state.contact.firstName} {this.state.contact.lastName}
+										<FontAwesomeIcon icon={faUser} size={'lg'} /> {this.state.contact.firstName}{' '}
+										{this.state.contact.lastName}{' '}
+										<span onClick={this.showModal} style={{ float: 'right' }}>
+											<FontAwesomeIcon icon={faPencilAlt} size={'xs'} color="#337ab7" />
+										</span>
 									</h2>
+
 									<MyModal
 										show={this.state.show}
 										title="Edit Contact"
@@ -100,14 +104,19 @@ class Contact extends Component {
 					<Row />
 					<Row>
 						<Col>
+							<h4>
+								<FontAwesomeIcon icon={faHandshake} size={'lg'} />
+							</h4>
 							<Well>
-								<h2>Deals</h2>
 								<SimpleDealList deals={this.state.contact.Deals} />
 							</Well>
 						</Col>
 					</Row>
 					<Row>
 						<Col>
+							<h4>
+								<FontAwesomeIcon icon={faEdit} size={'lg'} />
+							</h4>
 							<Well>
 								<NoteList
 									type="contacts"

@@ -4,7 +4,6 @@ import { Panel, Table } from 'react-bootstrap';
 const ContactInfo = ({ contact: { phone, mobile, email, address1, address2, city, state, zip, country } }) => {
 	return (
 		<div>
-			<h2>Contact Info</h2>
 			<Table>
 				<tbody>
 					<tr>
