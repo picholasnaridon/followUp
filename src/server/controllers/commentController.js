@@ -29,6 +29,7 @@ module.exports = {
 			.findAll({
 				limit: req.params.limit ? req.params.limit : 10,
 				where: { UserId: req.params.id },
+				order: [ [ 'id', 'DESC' ] ],
 				include: [ models.Contact, models.Deal ]
 			})
 			.then(function(results) {
