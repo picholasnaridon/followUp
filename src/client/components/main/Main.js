@@ -11,7 +11,8 @@ import {
 	Company,
 	MyFunnel,
 	MetricsPage,
-	Profile
+	Profile,
+	Homepage
 } from '../components';
 import { Navbar, NavItem, Nav, NavDropdown, MenuItem } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -39,7 +40,7 @@ class Main extends Component {
 				});
 			})
 			.catch((error) => {
-				window.location.href = '/#/login';
+				window.location.href = '/#/';
 			});
 	}
 
@@ -148,10 +149,10 @@ class Main extends Component {
 		return (
 			<Router>
 				<div>
-					<Navbar>
+					{/* <Navbar>
 						<Navbar.Header>
 							<Navbar.Brand>
-								<Link to="/">My Funnel</Link>
+								<Link to="/">Follow Up</Link>
 							</Navbar.Brand>
 						</Navbar.Header>
 						<Nav>
@@ -165,8 +166,8 @@ class Main extends Component {
 								<Link to="/register">Register</Link>
 							</NavItem>
 						</Nav>
-					</Navbar>
-					<Route exact path="/" Component={Main} />
+					</Navbar> */}
+					<Route exact path="/" render={() => <Homepage />} />
 					<Route
 						path="/login"
 						render={() => <Login loggedIn={this.state.loggedIn} handleAuth={this.handleAuth} />}

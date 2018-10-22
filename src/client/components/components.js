@@ -37,6 +37,7 @@ import MetricsPage from './metrics/MetricsPage';
 import SalesNumbers from './metrics/SalesNumbers';
 import Profile from './profile/Profile';
 import Upload from './file/Upload';
+import Homepage from './homepage/Homepage';
 
 export {
 	Contact,
@@ -77,5 +78,6 @@ export {
 	SimpleContactList,
 	SimpleDealList,
 	SalesNumbers,
-	CompanySalesInfo
+	CompanySalesInfo,
+	Homepage
 };

@@ -8,3 +8,13 @@ td {
 .grey {
 	color: #777;
 }
+
+div.philly {
+	background-image: url('./assets/images/philly.png');
+	background-color: #cccccc;
+	height: 1000px;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: cover;
+	position: relative;
+}
