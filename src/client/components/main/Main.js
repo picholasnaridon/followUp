@@ -149,24 +149,6 @@ class Main extends Component {
 		return (
 			<Router>
 				<div>
-					{/* <Navbar>
-						<Navbar.Header>
-							<Navbar.Brand>
-								<Link to="/">Follow Up</Link>
-							</Navbar.Brand>
-						</Navbar.Header>
-						<Nav>
-							<NavItem eventKey={1} href="#">
-								<Link to="/">Home</Link>
-							</NavItem>
-							<NavItem>
-								<Link to="/login">Login</Link>
-							</NavItem>
-							<NavItem>
-								<Link to="/register">Register</Link>
-							</NavItem>
-						</Nav>
-					</Navbar> */}
 					<Route exact path="/" render={() => <Homepage />} />
 					<Route
 						path="/login"

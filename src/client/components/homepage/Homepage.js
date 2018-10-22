@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Parallax } from 'react-parallax';
-import { Button, Label, Grid, Row, Col } from 'react-bootstrap';
+import { Button, Label, Grid, Row, Col, Navbar, Nav, NavItem } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import profile from '../../assets/images/profile.png';
 import deals from '../../assets/images/deals.png';
@@ -23,6 +23,23 @@ class Homepage extends Component {
 	render() {
 		return (
 			<div style={styles}>
+				<Parallax>
+					<Navbar>
+						<Navbar.Header>
+							<Navbar.Brand>
+								<Link to="/">Follow Up</Link>
+							</Navbar.Brand>
+						</Navbar.Header>
+						<Nav className="pull-right" pullRight>
+							<NavItem>
+								<Link to="/login">Login</Link>
+							</NavItem>
+							<NavItem>
+								<Link to="/register">Register</Link>
+							</NavItem>
+						</Nav>
+					</Navbar>
+				</Parallax>
 				<Parallax bgImage={philly} strength={500} style={{ opacity: '1' }}>
 					<div style={{ height: 600 }}>
 						<div style={insideStyles}>
