@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
-import { Panel } from 'react-bootstrap';
+import { Panel, Navbar, NavItem, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import './Login.css';
 
@@ -41,7 +41,22 @@ class Login extends Component {
 	render() {
 		const { username, password, message } = this.state;
 		return (
-			<div class="container">
+			<div>
+				<Navbar>
+					<Navbar.Header>
+						<Navbar.Brand>
+							<Link to="/">Follow Up</Link>
+						</Navbar.Brand>
+					</Navbar.Header>
+					<Nav className="pull-right" pullRight>
+						<NavItem>
+							<Link to="/login">Login</Link>
+						</NavItem>
+						<NavItem>
+							<Link to="/register">Register</Link>
+						</NavItem>
+					</Nav>
+				</Navbar>
 				<form class="form-signin" onSubmit={this.onSubmit}>
 					{message !== '' && (
 						<div class="alert alert-warning alert-dismissible" role="alert">
