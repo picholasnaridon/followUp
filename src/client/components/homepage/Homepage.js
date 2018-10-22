@@ -41,11 +41,11 @@ class Homepage extends Component {
 					</Navbar>
 				</Parallax>
 				<Parallax bgImage={philly} strength={500} style={{ opacity: '1' }}>
-					<div style={{ height: 600 }}>
+					<div style={{ height: 850 }}>
 						<div style={insideStyles}>
 							<h1
 								style={{
-									fontSize: '70px',
+									fontSize: '100px',
 									color: 'white',
 									fontFamily: "'Open Sans', 'Helvetica Neue', Helvetica, sans-serif'"
 								}}
@@ -59,7 +59,7 @@ class Homepage extends Component {
 										margin: '5px'
 									}}
 									bsStyle="success"
-									bsSize="Large"
+									bsSize="large"
 								>
 									Login
 								</Button>
@@ -69,7 +69,7 @@ class Homepage extends Component {
 									style={{
 										margin: '5px'
 									}}
-									bsSize="Large"
+									bsSize="large"
 								>
 									Register
 								</Button>
