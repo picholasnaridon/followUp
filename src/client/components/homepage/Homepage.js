@@ -65,11 +65,13 @@ class Homepage extends Component {
 					<Grid>
 						<Row>
 							<Col md={9}>
-								<FontAwesomeIcon icon={faUsers} size="5x" color="#777" />
-								<h2 style={{ color: '#777' }}>All your contacts in one place</h2>
-								<p style={{ color: '#777' }}>
-									Information rich pages for all your important contacts and deals!
-								</p>
+								<div style={{ margin: '2%' }}>
+									<FontAwesomeIcon icon={faUsers} size="5x" color="#777" />
+									<h2 style={{ color: '#777' }}>All your contacts in one place</h2>
+									<p style={{ color: '#777' }}>
+										Information rich pages for all your important contacts and deals!
+									</p>
+								</div>
 							</Col>
 							<Col md={3}>
 								<img
@@ -87,23 +89,26 @@ class Homepage extends Component {
 				<Parallax style={{ backgroundColor: '#ffff', padding: '5%', color: 'white' }}>
 					<Grid>
 						<Row>
-							<Col md={3}>
+							<Col md={3} mdPush={0}>
 								<img
 									style={{
 										width: '300px',
 										height: '175px',
-										boxShadow: '10px 10px 5px #777'
+										boxShadow: '10px 10px 5px #777',
+										marginBottom: '20px'
 									}}
 									src={deals}
 								/>
 							</Col>
-							<Col md={9}>
-								<FontAwesomeIcon icon={faSortAmountUp} style={{ color: '#777' }} size="5x" />
-								<h2 style={{ color: '#777' }}>Powerful Filters and Sorting</h2>
-								<p style={{ color: '#777' }}>
-									View your deals, contacts and companies like never before! Filter and sort based on
-									anything you want!
-								</p>
+							<Col md={9} mdPull={0}>
+								<div style={{ margin: '2%' }}>
+									<FontAwesomeIcon icon={faSortAmountUp} style={{ color: '#777' }} size="5x" />
+									<h2 style={{ color: '#777' }}>Powerful Filters and Sorting</h2>
+									<p style={{ color: '#777' }}>
+										View your deals, contacts and companies like never before! Filter and sort based
+										on anything you want!
+									</p>
+								</div>
 							</Col>
 						</Row>
 					</Grid>
@@ -112,12 +117,14 @@ class Homepage extends Component {
 					<Grid>
 						<Row>
 							<Col md={9}>
-								<FontAwesomeIcon icon={faChartLine} size="5x" style={{ color: '#777' }} />
-								<h2 style={{ color: '#777' }}>In Depth Analytics</h2>
-								<p style={{ color: '#777' }}>
-									Close ratio, revenue, source metrics and more, all your reporting needs at your
-									fingertips!
-								</p>
+								<div style={{ margin: '2%' }}>
+									<FontAwesomeIcon icon={faChartLine} size="5x" style={{ color: '#777' }} />
+									<h2 style={{ color: '#777' }}>In Depth Analytics</h2>
+									<p style={{ color: '#777' }}>
+										Close ratio, revenue, source metrics and more, all your reporting needs at your
+										fingertips!
+									</p>
+								</div>
 							</Col>
 							<Col md={3}>
 								<img
