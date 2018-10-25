@@ -107,7 +107,7 @@ class EditCompany extends Component {
 							type="text"
 							defaultValue={this.props.company.country}
 							inputRef={(input) => (this.inputCountry = input)}
-							placeholder="Zip"
+							placeholder="Country"
 						/>
 					</FormGroup>
 					<FormGroup>

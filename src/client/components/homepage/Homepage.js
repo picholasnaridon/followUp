@@ -77,6 +77,7 @@ class Homepage extends Component {
 						</div>
 					</div>
 				</Parallax>
+
 				<hr />
 				<Parallax style={{ backgroundColor: '#f7f7f7', padding: '5%' }}>
 					<Grid>
