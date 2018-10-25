@@ -16,6 +16,7 @@ class Map extends Component {
 	}
 	componentDidMount = () => {
 		var that = this;
+		var dealsByState = {};
 		var stateMap = {};
 		axios(`/api/contacts`, {
 			params: {
@@ -23,20 +24,27 @@ class Map extends Component {
 			}
 		}).then((response) => {
 			response.data.forEach((contact) => {
-				var green = contact.Deals.length * 20;
-				var blue = contact.Deals.length * 50;
-				stateMap[contact.state] = {
+				if (_.has(dealsByState, contact.state)) {
+					dealsByState[contact.state].push(contact.Deals);
+				} else {
+					dealsByState[contact.state] = [ contact.Deals ];
+				}
+			});
+			_.forOwn(dealsByState, function(value, key) {
+				var green = value.length * 20;
+				var blue = value.length * 40;
+				stateMap[key] = {
 					fill: `rgb(0,${green},${blue})`,
-					clickHandler: (event) => that.setDeals(contact.Deals)
+					clickHandler: (event) => that.setDeals(value)
 				};
 			});
-			this.setState({ stateMap: stateMap });
+			that.setState({ stateMap: stateMap });
 		});
 	};
 	setDeals = (deals) => {
 		var dealList = [];
 		deals.forEach((ele) => {
-			dealList.push(ele);
+			dealList.push(ele[0]);
 		});
 		var uniqDealList = _.uniqBy(dealList, 'id');
 		this.setState(

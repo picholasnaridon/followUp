@@ -16,8 +16,6 @@ var getToken = function(headers) {
 };
 
 module.exports = {
-	// SHOW DEALS
-
 	create: function(req, res) {
 		models.Deal
 			.create({
@@ -34,6 +32,7 @@ module.exports = {
 				res.json(deal);
 			});
 	},
+
 	dealsByStage: function(req, res) {
 		models.Deal
 			.findAll({
@@ -45,6 +44,7 @@ module.exports = {
 				res.json(deal);
 			});
 	},
+
 	addContact: function(req, res) {
 		models.Deal
 			.findOne({
@@ -103,6 +103,7 @@ module.exports = {
 				});
 			});
 	},
+
 	getOne: function(req, res) {
 		models.Deal
 			.findOne({
@@ -115,6 +116,7 @@ module.exports = {
 				res.json(results);
 			});
 	},
+
 	getAll: function(req, res) {
 		models.Deal
 			.findAll({
@@ -127,6 +129,7 @@ module.exports = {
 				res.json(results);
 			});
 	},
+
 	changeStage: function(req, res) {
 		models.Deal
 			.update(
@@ -141,6 +144,7 @@ module.exports = {
 				res.json(results);
 			});
 	},
+
 	getClosed: function(req, res) {
 		models.Deal
 			.findAll({
@@ -152,6 +156,7 @@ module.exports = {
 				res.json(results);
 			});
 	},
+
 	getActive: function(req, res) {
 		models.Deal
 			.findAll({
@@ -165,6 +170,7 @@ module.exports = {
 				res.json(results);
 			});
 	},
+
 	edit: function(req, res) {
 		models.Deal
 			.update(
@@ -182,5 +188,9 @@ module.exports = {
 			.then(function(results) {
 				res.json(results);
 			});
+	},
+
+	daysToClose(){
+		
 	}
 };

@@ -29,7 +29,7 @@ class MetricsPage extends Component {
 						<SourceGraph userId={this.props.userId} />
 					</Col>
 					<Col md={6}>
-						<SalesNumbers />
+						<SalesNumbers userId={this.props.userId} />
 					</Col>
 				</Row>
 			</Grid>

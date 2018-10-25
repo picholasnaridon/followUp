@@ -4,11 +4,41 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChartLine } from '@fortawesome/free-solid-svg-icons';
 
 class SalesNumbers extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			deals: [],
+			updates: []
+		};
+	}
+	componentDidMount() {
+		fetch(`/api/users/${this.props.userId}/deals`, {
+			method: 'GET'
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((json) => {
+				this.setState({ deals: json.Deals });
+			});
+
+		fetch(`/api/updates/getAll/#{this.props.userId}`, {
+			method: 'GET'
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((json) => {
+				this.setState({ updates: json.Deals });
+			});
+	}
+
+	calcDaysToClose() {}
+
 	render() {
 		return (
 			<div style={{ textAlign: 'right', paddingRight: '20%' }}>
 				<FontAwesomeIcon icon={faChartLine} size="4x" color="#777" />
-
 				<div>
 					<h3>
 						Won (Total): <DollarFormat value={500} color={true} />
