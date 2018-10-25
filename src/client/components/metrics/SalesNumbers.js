@@ -41,16 +41,16 @@ class SalesNumbers extends Component {
 				<FontAwesomeIcon icon={faChartLine} size="4x" color="#777" />
 				<div>
 					<h3>
-						Won (Total): <DollarFormat value={500} color={true} />
+						Won (Total): <DollarFormat value={1250} color={true} />
 					</h3>
 					<h3>
 						Lost (Total): <DollarFormat value={-500} color={true} />
 					</h3>
 					<h3>
-						Won (MTD): <DollarFormat value={500} color={true} />
+						Won (MTD): <DollarFormat value={400} color={true} />
 					</h3>
 					<h3>
-						Won (YTD): <DollarFormat value={500} color={true} />
+						Won (YTD): <DollarFormat value={1250} color={true} />
 					</h3>
 					<h3>Average Days to Close: 7</h3>
 				</div>

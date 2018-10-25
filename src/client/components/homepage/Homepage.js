@@ -6,7 +6,7 @@ import profile from '../../assets/images/profile.png';
 import deals from '../../assets/images/deals.png';
 import metrics from '../../assets/images/metrics.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChartLine, faUsers, faSortAmountUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+import { faChartLine, faUsers, faSortAmountUp } from '@fortawesome/free-solid-svg-icons';
 import philly from '../../assets/images/philly.png';
 
 const styles = {
@@ -77,12 +77,7 @@ class Homepage extends Component {
 						</div>
 					</div>
 				</Parallax>
-				<FontAwesomeIcon
-					icon={faArrowDown}
-					style={{
-						animation: 'bounce 2s infinite'
-					}}
-				/>
+
 				<hr />
 				<Parallax style={{ backgroundColor: '#f7f7f7', padding: '5%' }}>
 					<Grid>
