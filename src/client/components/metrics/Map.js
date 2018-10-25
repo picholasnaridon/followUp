@@ -30,6 +30,7 @@ class Map extends Component {
 					dealsByState[contact.state] = [ contact.Deals ];
 				}
 			});
+			console.log('dealsbystate', dealsByState);
 			_.forOwn(dealsByState, function(value, key) {
 				var green = value.length * 20;
 				var blue = value.length * 40;
@@ -44,8 +45,11 @@ class Map extends Component {
 	setDeals = (deals) => {
 		var dealList = [];
 		deals.forEach((ele) => {
-			dealList.push(ele[0]);
+			ele.forEach((deal) => {
+				dealList.push(deal);
+			});
 		});
+		console.log(dealList);
 		var uniqDealList = _.uniqBy(dealList, 'id');
 		this.setState(
 			{
