@@ -4,7 +4,7 @@ use crm_dev;
 
 INSERT INTO crm_dev.Users(firstName, lastName, email, password)
 VALUES("Nick", "Paridon", "paridonn1@gmail.com", "test123"),
-      ("Marisa", "Bruno","marisa@bruno.com","test123");
+      ("Alex", "Paridon","alex@doctor.com","test123");
           
 INSERT INTO crm_dev.Companies(name)
 VALUES("Piano.io"), 
